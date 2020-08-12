@@ -4,10 +4,9 @@ import React from 'react';
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table } from 'antd';
-
 const columns = [
     {
-        title: 'Biển số',
+        title: 'Mã thống kê',
         dataIndex: 'bien_so',
     },
     {
@@ -15,7 +14,7 @@ const columns = [
         dataIndex: 'loai_xe',
     },
     {
-        title: 'Kích thước',
+        title: 'Trọng lượng',
         dataIndex: 'kich_thuoc',
     },
     {
