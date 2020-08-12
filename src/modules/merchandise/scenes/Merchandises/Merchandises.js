@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
-import { Table, Button } from 'antd';
+import { Table } from 'antd';
 
 const columns = [
     {
