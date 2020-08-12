@@ -7,20 +7,24 @@ import { Table, Button } from 'antd';
 
 const columns = [
     {
-        title: 'Biển số',
-        dataIndex: 'bien_so',
+        title: 'Mã thống kê',
+        dataIndex: 'ma_thong_ke',
+    },
+    {
+        title: 'Tên thống kê',
+        dataIndex: 'ten_thong_ke',
     },
     {
         title: 'Loại xe',
         dataIndex: 'loai_xe',
     },
     {
-        title: 'Kích thước',
-        dataIndex: 'kich_thuoc',
+        title: 'Trọng tải',
+        dataIndex: 'trong_tai',
     },
     {
-        title: 'Thùng xe',
-        dataIndex: 'thung_xe',
+        title: 'Kích thước',
+        dataIndex: 'kich_thuoc',
     },
     {
         title: 'Action',
@@ -33,13 +37,16 @@ const columns = [
 ];
 
 const data = [];
+const carCategories = ["THACO", "ISUZU", "JACK"]
 for (let i = 0; i < 46; i++) {
+    let typeCar = carCategories[Math.floor(Math.random() * carCategories.length)];
     data.push({
         key: i,
-        bien_so: `29M1-5555` + i,
-        loai_xe: 'THACO',
-        kich_thuoc: `15 khối`,
-        thung_xe: '1,5 tấn'
+        ma_thong_ke: `29M1-5555` + i,
+        ten_thong_ke: typeCar,
+        loai_xe: typeCar,
+        trong_tai: parseFloat(1 + Math.random() * (5 - 1)).toFixed(2) + ' tấn',
+        kich_thuoc: Math.floor(Math.random() * 3 + 1.5) + ' khối'
     });
 }
 

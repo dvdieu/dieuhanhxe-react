@@ -12,6 +12,8 @@ for (let i = 0; i < 30; i++) {
         key: i,
         title: `Cửa hàng : VINMART : 36 Hoàng Cầu Đống Đa - Hà Nội` + i,
         description: 'Kiện hàng số - 01 - 02 - 03',
+
+
     });
 }
 
@@ -24,14 +26,15 @@ const Schedule = () => {
                 {
                     data.map(item => {
                         return (
-                            <Step
+                            < Step
                                 title={item.title}
-                                description={item.description} />
+                                description={item.description}
+                                subTitle={< button >Xem chi tiết</button >} ></Step>
                         )
                     })
                 }
-            </Steps>
-        </div>
+            </Steps >
+        </div >
     )
 }
 
