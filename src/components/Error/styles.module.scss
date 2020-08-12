@@ -1,0 +1,43 @@
+@import '../../assets/scss/variable-scss.scss';
+
+.error-page {
+    padding-bottom: 20px;
+    margin-top    : -34px;
+
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+
+    //image
+    &-image {
+        // background-image   : url("../../assets/image/error/not-found.svg");
+        background-repeat  : no-repeat;
+        background-size    : contain;
+        background-position: center center;
+
+        // height: 517px;
+        height   : 28.5vw;
+
+        // width : 410px;
+        width    : 63.4vh;
+    }
+
+    &-title {
+        margin: 3.8vh 0px 2vh 0px;
+
+        font-size  : 30px;
+        font-weight: 600;
+        line-height: 0.93;
+        color      : $primary-color-text;
+    }
+
+    &-content {
+        margin-bottom: 2.9vh;
+        text-align   : center;
+
+        font-size  : 17px;
+        line-height: 1.53;
+        color      : #00a198;
+    }
+}
