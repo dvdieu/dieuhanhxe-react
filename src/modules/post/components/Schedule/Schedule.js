@@ -27,6 +27,7 @@ const Schedule = () => {
                     data.map(item => {
                         return (
                             < Step
+                                key={item.key}
                                 title={item.title}
                                 description={item.description}
                                 subTitle={< button >Xem chi tiết</button >} ></Step>
