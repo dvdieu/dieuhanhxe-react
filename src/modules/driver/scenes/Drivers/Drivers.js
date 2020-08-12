@@ -4,7 +4,6 @@ import React from 'react';
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Row, Input, Typography } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
 //components
 import DriverCard from '../../components/DriverCard';
 

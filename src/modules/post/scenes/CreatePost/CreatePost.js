@@ -12,21 +12,37 @@ import Trucks from '../../components/Trucks';
 import Confirm from '../../components/Confirm';
 //styles
 import styles from './styles.module.scss';
+//lib
+import Immutable from "seamless-immutable";
+//redux
+import { useSelector, useDispatch } from "react-redux";
+//action
+import PostActions from '../../reducer/actions';
 
 const { Step } = Steps;
 const CreatePost = () => {
-    const [step, setStep] = useState(0);
+    const post_reducer = useSelector(state => state.post_reducer);
+    const post = Immutable.asMutable(post_reducer, { deep: true });
+    const { step } = post;
+    //hook
+    const dispatch = useDispatch();
 
     const onStepBack = () => {
-        setStep(step - 1);
+        dispatch(PostActions.setStep({
+            step: step - 1
+        }));
     }
 
     const onStepNext = () => {
-        setStep(step + 1);
+        dispatch(PostActions.setStep({
+            step: step + 1
+        }));
     }
 
     const onSubmit = () => {
-
+        dispatch(PostActions.setStep({
+            step: 0
+        }));
     }
 
     /* #region  đơn hàng */
@@ -78,7 +94,7 @@ const CreatePost = () => {
             <Portal id="root_footer">
                 <div style={{ padding: '12px 0', display: 'flex', justifyContent: 'flex-end' }}>
                     {
-                        step === 1 &&
+                        step > 0 &&
                         <Button size='large' onClick={onStepBack} icon={<ArrowLeftOutlined />}>{"Trở lại"}</Button>
                     }
                     {

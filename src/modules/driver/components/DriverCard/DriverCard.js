@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 const DriverCard = () => {
     return (
-        <Col xs={8} style={{ padding: 8 }}>
+        <Col xs={24} md={12} lg={12} xl={8} style={{ padding: 8 }}>
             <div style={{ borderRadius: 6, border: '1px solid #EDEDED', backgroundColor: '#fff', padding: 16 }}>
                 <Row>
                     <Text style={{ fontStyle: 'italic', fontWeight: 500, fontSize: 16 }} >{"TÀI XẾ KINH NGHIỆM"}</Text>
