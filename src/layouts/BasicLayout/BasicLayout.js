@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Avatar, Typography } from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
     UserOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
+    DingdingOutlined
 } from '@ant-design/icons';
 
 //lib
@@ -19,6 +20,7 @@ import styles from "./styles.module.scss";
 
 const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
+const { Text } = Typography;
 
 const BasicLayout = (props) => {
     const { children } = props;
@@ -37,7 +39,23 @@ const BasicLayout = (props) => {
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Sider trigger={null} collapsible collapsed={collapsed} onCollapse={onCollapse} style={{ backgroundColor: '#2A3F54' }}>
-                <div className="logo" />
+                <div onClick={() => onPushRoute('/')} style={{ padding: collapsed ? '16px 24px' : '16px', display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                    <DingdingOutlined style={{ fontSize: 30, color: '#fff', marginRight: 8 }} />
+                    {
+                        !collapsed &&
+                        <Text style={{ color: '#fff', fontSize: 22, }} >{'Alexa'}</Text>
+                    }
+                </div>
+                {
+                    !collapsed &&
+                    <div style={{ padding: '16px 16px 16px 24px', display: 'flex' }}>
+                        <Avatar size={64} src={require('../../assets/images/avatar.jpg')} />
+                        <div style={{ marginLeft: 8, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
+                            <Text style={{ color: '#fff' }} >{'Welcome'}</Text>
+                            <Text style={{ color: '#fff' }} >{'HUY'}</Text>
+                        </div>
+                    </div>
+                }
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline"
                     className={classNames({
                         [styles["navleft_menu"]]: true,

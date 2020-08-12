@@ -2,23 +2,44 @@ import React from 'react';
 
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
-
 //antd
-import { Row, Col } from 'antd';
+import { Row, Input, Typography } from 'antd';
+import { AudioOutlined } from '@ant-design/icons';
+//components
+import DriverCard from '../../components/DriverCard';
+
+const { Search } = Input;
+const { Title } = Typography;
+
+const data = [];
+for (let i = 0; i < 5; i++) {
+    data.push({
+        key: i,
+    });
+}
 
 const Drivers = () => {
     return (
-        <Row gutter={8}>
-            <Col xs={24} sm={24} md={12} lg={8} xl={8} style={{ backgroundColor: 'green' }}>
-                {"col"}
-            </Col>
-            <Col xs={24} sm={24} md={12} lg={8} xl={8} style={{ backgroundColor: 'red' }}>
-                {"col"}
-            </Col>
-            <Col xs={24} sm={24} md={12} lg={8} xl={8} style={{ backgroundColor: 'green' }}>
-                {"col"}
-            </Col>
-        </Row>
+        <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
+                <Title level={2}>Tài xế</Title>
+                    <Search
+                    size="large"
+                    style={{ width: 400 }}
+                    placeholder="Tìm kiếm"
+                    onSearch={value => console.log(value)}
+                    enterButton />
+            </div>
+            <Row gutter={[16, 16]}>
+                {
+                    data.map(item => {
+                        return (
+                            <DriverCard key={item.key} />
+                        )
+                    })
+                }
+            </Row>
+        </>
     )
 }
 

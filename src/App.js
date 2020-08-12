@@ -16,9 +16,11 @@ import Merchandises from './modules/merchandise/scenes/Merchandises';
 import CreatePost from './modules/post/scenes/CreatePost';
 import PostDetail from './modules/post/scenes/PostDetail';
 import Posts from './modules/post/scenes/Posts';
+import Dashboard from './modules/dashboard/scenes/Dashboard';
 import ErrorPage from './components/Error';
 //styles
 import './assets/scss/overide-ant-design.scss';
+import './assets/scss/common.scss';
 import styled from "styled-components";
 
 const Main = styled.main`
@@ -46,7 +48,7 @@ const MyRouter = () => {
 						<RoutePublic
 							path="/"
 							exact
-							component={Drivers}
+							component={Dashboard}
 						/>
 						<RoutePublic
 							path="/taixe"
