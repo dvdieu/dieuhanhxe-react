@@ -12,10 +12,12 @@ import {
 import classNames from "classnames";
 import { useHistory } from "react-router-dom";
 
+//components
+import Footer from '../../components/Footer';
 //styles
 import styles from "./styles.module.scss";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const BasicLayout = (props) => {
@@ -56,8 +58,8 @@ const BasicLayout = (props) => {
                     <SubMenu key="sub1" icon={<UserOutlined />} title="Phân tuyến"
                         className={styles.navleft_menu_sub}
                     >
-                        <Menu.Item key="5" onClick={() => onPushRoute('/danhsachtuyen')}>{"Danh sách tuyến xe"}</Menu.Item>
-                        <Menu.Item key="6" onClick={() => onPushRoute('/taotuyen')}>{"Tạo định tuyến"}</Menu.Item>
+                        <Menu.Item key="5" onClick={() => onPushRoute('/phantuyen')}>{"Danh sách tuyến xe"}</Menu.Item>
+                        <Menu.Item key="6" onClick={() => onPushRoute('/phantuyen/create')}>{"Tạo định tuyến"}</Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>
@@ -73,11 +75,12 @@ const BasicLayout = (props) => {
                         <Breadcrumb.Item>User</Breadcrumb.Item>
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
                     </Breadcrumb> */}
-                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+                    <div className="site-layout-background" style={{ padding: '24px 24px 56px 24px', minHeight: 360 }}>
                         {children}
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>©2020 Created by FLICK</Footer>
+                {/* <Footer style={{ textAlign: 'center' }}>©2020 Created by FLICK</Footer> */}
+                <Footer collapse={collapsed} />
             </Layout>
         </Layout>
     );

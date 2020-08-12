@@ -13,6 +13,9 @@ import history from "./utils/history";
 import Drivers from './modules/driver/scenes/Drivers';
 import Fleets from './modules/fleet/scenes/Fleets';
 import Merchandises from './modules/merchandise/scenes/Merchandises';
+import CreatePost from './modules/post/scenes/CreatePost';
+import PostDetail from './modules/post/scenes/PostDetail';
+import Posts from './modules/post/scenes/Posts';
 import ErrorPage from './components/Error';
 //styles
 import './assets/scss/overide-ant-design.scss';
@@ -40,7 +43,7 @@ const MyRouter = () => {
 				/>
 				<Main>
 					<Switch>
-					<RoutePublic
+						<RoutePublic
 							path="/"
 							exact
 							component={Drivers}
@@ -59,6 +62,21 @@ const MyRouter = () => {
 							path="/hanghoa"
 							exact
 							component={Merchandises}
+						/>
+						<RoutePublic
+							path="/phantuyen/create"
+							exact
+							component={CreatePost}
+						/>
+						<RoutePublic
+							path="/phantuyen/chitiet"
+							exact
+							component={PostDetail}
+						/>
+						<RoutePublic
+							path="/phantuyen"
+							exact
+							component={Posts}
 						/>
 						<RoutePublic
 							path="*"

@@ -1,0 +1,21 @@
+.footer {
+    position: fixed;
+    z-index: 99;
+    right: 0;
+    bottom: 0;
+
+    padding: 0px 35px 0px 30px;
+
+    width: calc(100% - 200px);
+
+    background-color: #ffffff;
+    transition: width 0.2s ease 0s;
+
+    &_collapse {
+        width: calc(100% - 80px);
+    }
+
+    @media (max-width: 500px) {
+        width: 100%;
+    }
+}

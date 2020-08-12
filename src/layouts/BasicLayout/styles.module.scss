@@ -6,130 +6,6 @@ $nav_padding-left-logo: 28px;
 $nav_color-icon       : #afbacc;
 $nav_color-icon-hover : $primary-color;
 
-/* #region basic layout */
-.lay_basic_Layout {
-    height    : 100%;
-    background: #fff;
-
-    &>aside {
-        flex      : initial !important;
-        max-width : initial !important;
-        min-width : initial !important;
-        width     : initial !important;
-        background: initial !important;
-    }
-}
-
-.lay_basic_main {
-    background-color: #fafafd;
-    margin-left     : 269px;
-    // overflow     : hidden;
-
-    // transition: margin 0.3s, width 0.2s;
-    transition: none;
-
-    position  : relative;
-    // padding: 27px 30px 0px 30px;
-
-    &--collapse {
-        margin-left: 94px;
-    }
-
-    &--filter {
-        margin-left: 374px;
-    }
-
-    @media (max-width: $width-mobile) {
-        & {
-            margin-left: 0px;
-        }
-    }
-}
-
-.lay_basic_sidebar {
-    @media (max-width: $width-mobile) {
-        & {
-            display: none;
-        }
-    }
-}
-
-.nav_container {
-    //                             width: collapse ? 94 : 269,
-    height  : 100vh;
-    position: fixed;
-    overflow: hidden auto;
-
-    &[collapse="true"] {
-        width: 94px;
-    }
-
-    &[collapse="false"] {
-        width: 269px;
-    }
-}
-
-.custom-alert {
-    visibility: hidden;
-    opacity   : 0;
-    transition: visibility 0s, opacity 0.2s linear, left 0.3s;
-
-    z-index        : 999;
-    padding-left   : 48px;
-    padding-top    : 24px;
-    padding-bottom : 24px;
-    display        : flex;
-    align-items    : center;
-    justify-content: center;
-    height         : 80px;
-
-    border          : solid 1px #e7e8f2;
-    background-color: #ffffff;
-
-    position: fixed;
-    left    : 269px;
-    top     : 0;
-    width   : calc(100% - 269px);
-
-    &--show {
-        visibility: visible;
-        opacity   : 1;
-    }
-
-    &--collapse {
-        left : 94px;
-        width: calc(100% - 94px);
-    }
-
-    //icon
-    &>i {
-        line-height: initial;
-        top        : initial;
-        font-size  : 26px;
-        color      : #00cb5e !important;
-
-        position: initial;
-        left    : initial;
-
-        margin-top  : 6px;
-        margin-right: 15px;
-    }
-
-    //text content
-    &>span {
-        font-size     : 17px;
-        font-weight   : 500;
-        font-stretch  : normal;
-        font-style    : normal;
-        line-height   : 1.53;
-        letter-spacing: normal;
-        color         : $primary-color-text;
-    }
-}
-
-/* #endregion */
-
-
 .navleft_menu {
 
     box-shadow: 1px 0 0 0 #e7e8f2 !important;
@@ -201,7 +77,7 @@ $nav_color-icon-hover : $primary-color;
 
     @media (max-width: $width-mobile),
     (max-height: $height-mobile) {
-        width: 276px;
+        // width: 276px;
     }
 }
 
