@@ -71,7 +71,7 @@ const Dashboard = () => {
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
-                                    avatar={<Avatar src={require('../../../../assets/images/avatar.jpg')} />}
+                                    avatar={<Avatar src={require('../../../../assets/images/avatar.png')} />}
                                     title={<a href="https://google.com">{item.title}</a>}
                                     description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                 />
@@ -91,7 +91,7 @@ const Dashboard = () => {
                             renderItem={item => (
                                 <List.Item>
                                     <List.Item.Meta
-                                        avatar={<Avatar src={require('../../../../assets/images/avatar.jpg')} />}
+                                        avatar={<Avatar src={require('../../../../assets/images/avatar.png')} />}
                                         title={<a href="https://google.com">{item.title}</a>}
                                         description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                     />
@@ -110,7 +110,7 @@ const Dashboard = () => {
                             renderItem={item => (
                                 <List.Item>
                                     <List.Item.Meta
-                                        avatar={<Avatar src={require('../../../../assets/images/avatar.jpg')} />}
+                                        avatar={<Avatar src={require('../../../../assets/images/avatar.png')} />}
                                         title={<a href="https://google.com">{item.title}</a>}
                                         description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                     />
@@ -129,7 +129,7 @@ const Dashboard = () => {
                             renderItem={item => (
                                 <List.Item>
                                     <List.Item.Meta
-                                        avatar={<Avatar src={require('../../../../assets/images/avatar.jpg')} />}
+                                        avatar={<Avatar src={require('../../../../assets/images/avatar.png')} />}
                                         title={<a href="https://google.com">{item.title}</a>}
                                         description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                     />

@@ -43,16 +43,14 @@ const BasicLayout = (props) => {
                     <DingdingOutlined style={{ fontSize: 30, color: '#fff', marginRight: 8 }} />
                     {
                         !collapsed &&
-                        <Text style={{ color: '#fff', fontSize: 22, }} >{'Alexa'}</Text>
+                        <Text style={{ color: '#fff', fontSize: 22, }} >{'Flick'}</Text>
                     }
                 </div>
                 {
                     !collapsed &&
-                    <div style={{ padding: '16px 16px 16px 24px', display: 'flex' }}>
-                        <Avatar size={64} src={require('../../assets/images/avatar.jpg')} />
-                        <div style={{ marginLeft: 8, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-                            <Text style={{ color: '#fff' }} >{'Welcome'}</Text>
-                            <Text style={{ color: '#fff' }} >{'HUY'}</Text>
+                    <div style={{ padding: 'bnâ', display: 'flex' }}>
+                        <Avatar size={64} src={require('../../assets/images/avatar.png')} />
+                        <div style={{ marginLeft: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         </div>
                     </div>
                 }

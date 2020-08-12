@@ -28,7 +28,7 @@ const DriverCard = () => {
                         <Text type='secondary'>{"0964222806"}</Text>
                     </Col>
                     <Col xs={8} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Avatar size={128} src={require('../../../../assets/images/avatar.jpg')} />
+                        <Avatar size={128} src={require('../../../../assets/images/avatar.png')} />
                     </Col>
                 </Row>
                 <Row style={{ marginTop: 12 }}>
