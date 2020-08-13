@@ -1,9 +1,8 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
-import { Table } from 'antd';
+import { Table, Skeleton } from 'antd';
 const columns = [
     {
         title: 'Mã thống kê',
@@ -43,8 +42,17 @@ for (let i = 0; i < 2; i++) {
 }
 
 const Trucks = ({ rowSelection }) => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, [])
     return (
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+        <Skeleton loading={loading} active avatar>
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+        </Skeleton>
     )
 }
 

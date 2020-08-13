@@ -68,19 +68,15 @@ const BasicLayout = (props) => {
                     <Menu.Item key="3" icon={<DesktopOutlined />} onClick={() => onPushRoute('/hanghoa')}>
                         {"Hàng hóa"}
                     </Menu.Item>
-                    <Menu.Item key="4" icon={<DesktopOutlined />} onClick={() => onPushRoute('/diemden')}>
-                        {"Điểm đến"}
-                    </Menu.Item>
                     <SubMenu key="sub1" icon={<UserOutlined />} title="Phân tuyến"
                         className={styles.navleft_menu_sub}
                     >
-                        <Menu.Item key="5" onClick={() => onPushRoute('/phantuyen')}>{"Danh sách tuyến xe"}</Menu.Item>
-                        <Menu.Item key="6" onClick={() => onPushRoute('/phantuyen/create')}>{"Tạo định tuyến"}</Menu.Item>
+                        <Menu.Item key="4" onClick={() => onPushRoute('/phantuyen/create')}>{"Tạo định tuyến"}</Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: '0 8px', backgroundColor: '#EDEDED' }}>
+                <Header className="site-layout-background" style={{ padding: '0 8px', backgroundColor: '#fff' }}>
                     {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                         className: 'trigger',
                         onClick: onCollapse,

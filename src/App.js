@@ -71,16 +71,6 @@ const MyRouter = () => {
 							component={CreatePost}
 						/>
 						<RoutePublic
-							path="/phantuyen/chitiet"
-							exact
-							component={PostDetail}
-						/>
-						<RoutePublic
-							path="/phantuyen"
-							exact
-							component={Posts}
-						/>
-						<RoutePublic
 							path="*"
 							exact
 							component={ErrorPage}

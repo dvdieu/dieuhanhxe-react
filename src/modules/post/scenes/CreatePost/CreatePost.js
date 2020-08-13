@@ -76,9 +76,9 @@ const CreatePost = () => {
             <Row>
                 <Col xs={24} style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
                     <Steps size="small" current={step} className={styles.steps}>
-                        <Step title="Chọn đơn hàng" />
-                        <Step title="Chọn xe" />
-                        <Step title="Xác nhận" />
+                        <Step title="Thiết lập điểm đến" />
+                        <Step title="Tối ưu đường đi" />
+                        <Step title="Giao cho đội xe" />
                     </Steps>
                 </Col>
             </Row>
@@ -86,10 +86,10 @@ const CreatePost = () => {
                 step === 0 && <Orders rowSelection={rowOrderSelection} />
             }
             {
-                step === 1 && <Trucks rowSelection={rowTruckSelection} />
+                step === 1 && <Confirm rowSelection={rowTruckSelection} />
             }
             {
-                step === 2 && <Confirm rowSelection={rowTruckSelection} />
+                step === 2 && <Trucks rowSelection={rowTruckSelection} />
             }
             <Portal id="root_footer">
                 <div style={{ padding: '12px 0', display: 'flex', justifyContent: 'flex-end' }}>

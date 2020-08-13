@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
-import { Table, Typography, Avatar, Progress, Tag, Button } from 'antd';
+import { Table, Typography, Avatar, Progress, Tag, Button, Skeleton } from 'antd';
 import { UserOutlined, ProfileOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 //lib
 import { useHistory } from 'react-router-dom';
@@ -17,13 +17,21 @@ for (let i = 0; i < 2; i++) {
         ma_chuyen: `FLICK-123` + i,
         ngay_tao: '20:02 20/02/2020',
         ten_dia_diem: 'VINMART+66 ĐẶNG TIẾN ĐÔNG',
-        tinh_trang: `Chưa phân tuyến`,
+        so_diem_di_qua: 55,
+        muc_do_toi_uu: 100,
         tong_trong_luong: '150KG',
         tong_kich_thuoc: '3 Khối',
     });
 }
 
 const Confirm = ({ rowSelection }) => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, [])
     const history = useHistory();
 
     const columns = [
@@ -39,36 +47,57 @@ const Confirm = ({ rowSelection }) => {
             ),
         },
         {
-            title: "Đội xe",
+            title: "Loại xe phù hợp",
             dataIndex: "doi_xe",
             width: 170,
             render: (text, record) => (
                 <>
-                    <Avatar size="large" icon={<UserOutlined />} style={{ marginRight: 8 }} />
-                    <Avatar size="large" icon={<UserOutlined />} />
+                    <Text>THACO</Text>
+                    <Text>2.5 Tấn</Text>
                 </>
             ),
         },
         {
-            title: "Tiến độ",
-            dataIndex: "tien_do",
+            title: "Số điểm đi qua",
+            dataIndex: "so_diem_di_qua",
             width: 170,
             render: (text, record) => (
                 <>
-                    <Progress percent={100} size="small" showInfo={false} />
+                    <Tag color="orange">{record.so_diem_di_qua}</Tag>
                 </>
             ),
         },
         {
-            title: "Trạng thái",
-            dataIndex: "trang_thai",
+            title: "Tổng trọng lượng",
+            dataIndex: "tong_trong_luong",
             width: 170,
             render: (text, record) => (
                 <>
-                    <Tag color="orange">{"Đang di chuyển"}</Tag>
+                    <Tag color="orange">{"1.4 tấn"}</Tag>
                 </>
             ),
         },
+        {
+            title: "Tổng kích thước",
+            dataIndex: "tong_kich_thuoc",
+            width: 170,
+            render: (text, record) => (
+                <>
+                    <Tag color="orange">{"15 Khối"}</Tag>
+                </>
+            ),
+        },
+        {
+            title: "Mức độ tối ưu",
+            dataIndex: "muc_do_toi_uu",
+            width: 170,
+            render: (text, record) => (
+                <>
+                    <Progress percent={record.muc_do_toi_uu} size="small" showInfo={false} />
+                </>
+            ),
+        },
+
         {
             title: '',
             dataIndex: 'operation',
@@ -95,7 +124,9 @@ const Confirm = ({ rowSelection }) => {
     return (
         <div>
             <Title level={4} type="secondary">{"Lịch trình di chuyển"}</Title>
-            <Table rowSelection={null} columns={columns} dataSource={data} />
+            <Skeleton loading={loading} active avatar>
+                <Table rowSelection={null} columns={columns} dataSource={data} />
+            </Skeleton>
         </div>
     )
 }
