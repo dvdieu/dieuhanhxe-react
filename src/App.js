@@ -15,7 +15,8 @@ import Fleets from './modules/fleet/scenes/Fleets';
 import Merchandises from './modules/merchandise/scenes/Merchandises';
 import CreatePost from './modules/post/scenes/CreatePost';
 import PostDetail from './modules/post/scenes/PostDetail';
-import Posts from './modules/post/scenes/Posts';
+import Products from './modules/post/scenes/Products';
+// import Posts from './modules/post/scenes/Posts';
 import Dashboard from './modules/dashboard/scenes/Dashboard';
 import ErrorPage from './components/Error';
 //styles
@@ -51,6 +52,11 @@ const MyRouter = () => {
 							component={Dashboard}
 						/>
 						<RoutePublic
+							path="/dashboard"
+							exact
+							component={Dashboard}
+						/>
+						<RoutePublic
 							path="/taixe"
 							exact
 							component={Drivers}
@@ -74,6 +80,11 @@ const MyRouter = () => {
 							path="/phantuyen/chitiet"
 							exact
 							component={PostDetail}
+						/>
+						<RoutePublic
+							path="/phantuyen/chitiet/hanghoa"
+							exact
+							component={Products}
 						/>
 						<RoutePublic
 							path="*"

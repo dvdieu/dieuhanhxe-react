@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Steps } from 'antd';
+import { Steps, Button } from 'antd';
 //styles
 import styles from './styles.module.scss';
 
@@ -18,6 +18,10 @@ for (let i = 0; i < 30; i++) {
 }
 
 const Schedule = () => {
+    const onOpenNewTab = () => {
+        window.open('http://localhost:3000/phantuyen/chitiet/hanghoa', "_blank")
+    }
+
     return (
         <div className={styles.schedule}>
             <Steps
@@ -30,7 +34,7 @@ const Schedule = () => {
                                 key={item.key}
                                 title={item.title}
                                 description={item.description}
-                                subTitle={< button >Xem chi tiết</button >} ></Step>
+                                subTitle={<Button onClick={onOpenNewTab}>Xem chi tiết</Button >} ></Step>
                         )
                     })
                 }

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
-import { Table, Typography, Avatar, Progress, Tag, Button, Skeleton } from 'antd';
-import { UserOutlined, ProfileOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Typography, Progress, Tag, Button, Skeleton } from 'antd';
+import { ProfileOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 //lib
 import { useHistory } from 'react-router-dom';
 
@@ -125,7 +125,7 @@ const Confirm = ({ rowSelection }) => {
         <div>
             <Title level={4} type="secondary">{"Lịch trình di chuyển"}</Title>
             <Skeleton loading={loading} active avatar>
-                <Table rowSelection={null} columns={columns} dataSource={data} />
+                <Table rowSelection={null} columns={columns} dataSource={data} scroll={{ x: 1300 }}/>
             </Skeleton>
         </div>
     )

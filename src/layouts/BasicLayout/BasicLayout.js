@@ -59,6 +59,9 @@ const BasicLayout = (props) => {
                         [styles["navleft_menu"]]: true,
                         [styles["navleft_menu--collapse"]]: collapsed,
                     })}>
+                    <Menu.Item key="0" icon={<PieChartOutlined />} onClick={() => onPushRoute('/dashboard')}>
+                        {"Dashboard"}
+                    </Menu.Item>
                     <Menu.Item key="1" icon={<PieChartOutlined />} onClick={() => onPushRoute('/taixe')}>
                         {"Tài xế"}
                     </Menu.Item>

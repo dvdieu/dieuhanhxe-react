@@ -4,8 +4,8 @@
  */
 
 const config = {
-    name: 'Flick sms',
-    description: 'Flick sms',
+    name: 'Flick',
+    description: 'Flick',
 };
 
 export default config;

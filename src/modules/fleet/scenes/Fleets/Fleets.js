@@ -30,6 +30,8 @@ const columns = [
         title: 'Action',
         dataIndex: 'operation',
         key: 'operation',
+        fixed: 'right',
+        width: 100,
         render: () => (
             <a href='/'>Chi tiết</a>
         ),
@@ -63,7 +65,7 @@ const Fleets = () => {
     };
 
     return (
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+        <Table rowSelection={rowSelection} columns={columns} dataSource={data} scroll={{ x: 1300 }}/>
     )
 }
 
