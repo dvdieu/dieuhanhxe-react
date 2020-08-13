@@ -6,7 +6,7 @@ import { WechatOutlined, InfoCircleOutlined, HomeOutlined, PhoneOutlined } from 
 
 const { Text } = Typography;
 
-const DriverCard = () => {
+const DriverCard = ({ driver }) => {
     return (
         <Col xs={24} md={12} lg={12} xl={8} style={{ padding: 8 }}>
             <div style={{ borderRadius: 6, border: '1px solid #EDEDED', backgroundColor: '#fff', padding: 16 }}>
@@ -15,20 +15,20 @@ const DriverCard = () => {
                 </Row>
                 <Row>
                     <Col xs={16}>
-                        <Text style={{ fontWeight: 400, fontSize: 18 }} >{"NGUYỄN VĂN SƠN"}</Text>
+                        <Text style={{ fontWeight: 400, fontSize: 18 }} >{driver.ten_tai_xe}</Text>
                         <br />
-                        <Text type='secondary'>{"Chuyên chạy các loại xe trong tải > 2 tấn"}</Text>
+                        <Text type='secondary'>{"Chuyên chạy các loại xe trong tải > " + driver.trong_tai}</Text>
                         <br />
                         <HomeOutlined />
                         <Text>{" Address: "}</Text>
-                        <Text type='secondary'>{"Hàng buồm"}</Text>
+                        <Text type='secondary'>{driver.dia_chi}</Text>
                         <br />
                         <PhoneOutlined />
                         <Text>{" Phone: "}</Text>
-                        <Text type='secondary'>{"0964222806"}</Text>
+                        <Text type='secondary'>{driver.so_dien_thoai}</Text>
                     </Col>
                     <Col xs={8} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Avatar size={128} src={require('../../../../assets/images/avatar.png')} />
+                        <Avatar size={128} src={require(`../../../../assets/images/drivers/${driver.hinh_anh}`)} />
                     </Col>
                 </Row>
                 <Row style={{ marginTop: 12 }}>

@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 const { Text, Title } = Typography;
 
-const data = [];
+let data = [];
 for (let i = 0; i < 2; i++) {
     data.push({
         key: i,
@@ -27,11 +27,16 @@ for (let i = 0; i < 2; i++) {
 const Confirm = ({ rowSelection }) => {
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    }, [])
+    useEffect(
+        () => {
+            let timer = setTimeout(() => {
+                setLoading(false);
+            }, 2000)
+            return () => {
+                clearTimeout(timer)
+            }
+        }, [])
+
     const history = useHistory();
 
     const columns = [
@@ -73,7 +78,7 @@ const Confirm = ({ rowSelection }) => {
             width: 170,
             render: (text, record) => (
                 <>
-                    <Tag color="orange">{"1.4 tấn"}</Tag>
+                    <Tag color="orange">{record.tong_trong_luong}</Tag>
                 </>
             ),
         },
@@ -125,7 +130,7 @@ const Confirm = ({ rowSelection }) => {
         <div>
             <Title level={4} type="secondary">{"Lịch trình di chuyển"}</Title>
             <Skeleton loading={loading} active avatar>
-                <Table rowSelection={null} columns={columns} dataSource={data} scroll={{ x: 1300 }}/>
+                <Table rowSelection={null} columns={columns} dataSource={data} scroll={{ x: 1300 }} />
             </Skeleton>
         </div>
     )

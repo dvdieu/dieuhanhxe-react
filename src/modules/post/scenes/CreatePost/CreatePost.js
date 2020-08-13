@@ -20,6 +20,33 @@ import { useSelector, useDispatch } from "react-redux";
 import PostActions from '../../reducer/actions';
 
 const { Step } = Steps;
+
+/* #region  generator data orders */
+const order_data = [];
+
+const _DIADIEM = [
+    '10 ĐƯỜNG TRẦN XUÂN SOẠN PHƯỜNG PHẠM ĐÌNH HỒ QUẬN HAI BÀ TRƯNG TP HÀ NỘI',
+    'KTX ĐH kinh tế quốc dân, phường đồng tâm, quận hai bà trưng, thành phố hà nội',
+    'Số 26 Tổ 9 Phố Cầu Bây, Phường Sài Đồng, Quận Long Biên, Tp Hà Nội',
+    'Đức Lan 91 Thanh Nhàn phường Quỳnh Mai quận Hai Bà Trưng thành phố Hà Nội',
+    '223 phố vọng, phường phương liệt, quận thanh xuân, thành phố hà nội',
+]
+
+const _TONGTRONGLUONG = [800, 600, 400, 200, 500];
+const _TONGKICHTHUONG = [4, 7, 6, 1, 2];
+
+for (let i = 0; i < 5; i++) {
+    order_data.push({
+        key: i,
+        ma_order: `121000040` + i,
+        ten_dia_diem: _DIADIEM[i],
+        tinh_trang: `Chưa phân tuyến`,
+        tong_trong_luong: _TONGTRONGLUONG[i],
+        tong_kich_thuoc: _TONGKICHTHUONG[i],
+    });
+}
+/* #endregion */
+
 const CreatePost = () => {
     const post_reducer = useSelector(state => state.post_reducer);
     const post = Immutable.asMutable(post_reducer, { deep: true });
@@ -46,9 +73,19 @@ const CreatePost = () => {
     }
 
     /* #region  đơn hàng */
-    const [selectedOrderRowKeys, setSelectedOrderRowKeys] = useState([])
+    const [selectedOrderRowKeys, setSelectedOrderRowKeys] = useState([]);
+    const [tong_trong_luong, setTongTrongLuong] = useState(0);
+    const [tong_kich_thuoc, setTongKichThuoc] = useState(0);
 
     const onSelectOrderChange = selectedRowKeys => {
+        let trong_luong = 0;
+        let kich_thuoc = 0;
+        selectedRowKeys.forEach(element => {
+            trong_luong += order_data[element].tong_trong_luong;
+            kich_thuoc += order_data[element].tong_kich_thuoc;
+        });
+        setTongTrongLuong(trong_luong);
+        setTongKichThuoc(kich_thuoc);
         setSelectedOrderRowKeys(selectedRowKeys);
     };
 
@@ -83,10 +120,10 @@ const CreatePost = () => {
                 </Col>
             </Row>
             {
-                step === 0 && <Orders rowSelection={rowOrderSelection} />
+                step === 0 && <Orders rowSelection={rowOrderSelection} data={order_data} />
             }
             {
-                step === 1 && <Confirm rowSelection={rowTruckSelection} />
+                step === 1 && <Confirm rowSelection={rowTruckSelection} tong_kich_thuoc={tong_kich_thuoc} tong_trong_luong={tong_trong_luong} />
             }
             {
                 step === 2 && <Trucks rowSelection={rowTruckSelection} />

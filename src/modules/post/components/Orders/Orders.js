@@ -3,7 +3,9 @@ import React from 'react';
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
-import { Table } from 'antd';
+import { Table, Typography, Tag } from 'antd';
+
+const { Text } = Typography;
 
 const columns = [
     {
@@ -13,18 +15,32 @@ const columns = [
     {
         title: 'Tên địa điểm',
         dataIndex: 'ten_dia_diem',
+        width: 320,
     },
     {
         title: 'Tình trạng',
         dataIndex: 'tinh_trang',
+        render: text => (
+        <Tag color='blue'>{text}</Tag>
+        )
     },
     {
         title: 'Tổng trọng lượng',
         dataIndex: 'tong_trong_luong',
+        render: (text, record) => (
+            <>
+                <Text>{record.tong_trong_luong + ' KG'}</Text>
+            </>
+        ),
     },
     {
         title: 'Tổng kích thước',
         dataIndex: 'tong_kich_thuoc',
+        render: (text, record) => (
+            <>
+                <Text>{record.tong_kich_thuoc + ' khối'}</Text>
+            </>
+        ),
     },
     {
         title: 'Action',
@@ -36,19 +52,9 @@ const columns = [
     },
 ];
 
-const data = [];
-for (let i = 0; i < 25; i++) {
-    data.push({
-        key: i,
-        ma_order: `121000040` + i,
-        ten_dia_diem: 'VINMART+66 ĐẶNG TIẾN ĐÔNG',
-        tinh_trang: `Chưa phân tuyến`,
-        tong_trong_luong: '150KG',
-        tong_kich_thuoc: '3 Khối',
-    });
-}
 
-const Orders = ({ rowSelection }) => {
+
+const Orders = ({ rowSelection, data }) => {
     return (
         <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
     )
