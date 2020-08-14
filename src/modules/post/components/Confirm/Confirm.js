@@ -10,23 +10,37 @@ import { useHistory } from 'react-router-dom';
 
 const { Text, Title } = Typography;
 
-let data = [];
-for (let i = 0; i < 2; i++) {
-    data.push({
-        key: i,
-        ma_chuyen: `FLICK-123` + i,
+const data = [
+    {
+        key: 0,
+        ma_chuyen: 'FLICK-000',
         ngay_tao: '20:02 20/02/2020',
-        ten_dia_diem: 'VINMART+66 ĐẶNG TIẾN ĐÔNG',
-        so_diem_di_qua: 55,
+        ten_dia_diem: '10 Trần Xuân Soạn, phường Phạm Đình Hổ, quận Hai Bà Trưng, Hà Nội',
+        so_diem_di_qua: 3,
         muc_do_toi_uu: 100,
-        tong_trong_luong: '150KG',
+        tong_trong_luong: '1.8 Tấn',
+        tong_kich_thuoc: '17 Khối',
+        ten_xe: 'THACO ',
+        trong_tai: '2 Tấn',
+        tieu_thu: '8 lít nhiên liệu/100km'
+    },
+    {
+        key: 1,
+        ma_chuyen: 'FLICK-111',
+        ngay_tao: '20:02 08/04/2020',
+        ten_dia_diem: 'Đức Lan 91 Thanh Nhàn, phường Quỳnh Mai, quận Hai Bà Trưng, Hà Nội',
+        so_diem_di_qua: 2,
+        muc_do_toi_uu: 100,
+        tong_trong_luong: '0.7 Tấn',
         tong_kich_thuoc: '3 Khối',
-    });
-}
+        ten_xe: 'ISUZU ',
+        trong_tai: '1 Tấn',
+        tieu_thu: '6 lít nhiên liệu/100km'
+    }
+]
 
 const Confirm = ({ rowSelection }) => {
     const [loading, setLoading] = useState(true);
-
     useEffect(
         () => {
             let timer = setTimeout(() => {
@@ -47,7 +61,8 @@ const Confirm = ({ rowSelection }) => {
             render: (text, record) => (
                 <>
                     <Text>{record.ma_chuyen}</Text>
-                    <Text>{record.ngay_tao}</Text>
+                    <br />
+                    <Text type="secondary">{record.ngay_tao}</Text>
                 </>
             ),
         },
@@ -57,8 +72,10 @@ const Confirm = ({ rowSelection }) => {
             width: 170,
             render: (text, record) => (
                 <>
-                    <Text>THACO</Text>
-                    <Text>2.5 Tấn</Text>
+                    <Text>{record.ten_xe}</Text>
+                    <Text>{record.trong_tai}</Text>
+                    <br />
+                    <Text type="secondary">{record.tieu_thu}</Text>
                 </>
             ),
         },
@@ -88,7 +105,7 @@ const Confirm = ({ rowSelection }) => {
             width: 170,
             render: (text, record) => (
                 <>
-                    <Tag color="orange">{"15 Khối"}</Tag>
+                    <Tag color="orange">{record.tong_kich_thuoc}</Tag>
                 </>
             ),
         },
@@ -107,10 +124,10 @@ const Confirm = ({ rowSelection }) => {
             title: '',
             dataIndex: 'operation',
             key: 'operation',
-            render: () => (
+            render: (text, record) => (
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Button type="primary" icon={<ProfileOutlined />} style={{ marginRight: 8 }}
-                        onClick={() => { history.push('/phantuyen/chitiet') }}
+                        onClick={() => { history.push(`/phantuyen/chitiet/${record.key}`) }}
                     >
                         {"Xem bảng phân tuyến"}
                     </Button>

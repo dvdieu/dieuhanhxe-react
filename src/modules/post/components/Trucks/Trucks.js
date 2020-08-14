@@ -44,11 +44,16 @@ for (let i = 0; i < 2; i++) {
 const Trucks = ({ rowSelection }) => {
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    }, [])
+    useEffect(
+        () => {
+            let timer = setTimeout(() => {
+                setLoading(false);
+            }, 2000)
+            return () => {
+                clearTimeout(timer)
+            }
+        }, [])
+
     return (
         <Skeleton loading={loading} active avatar>
             <Table rowSelection={rowSelection} columns={columns} dataSource={data} />

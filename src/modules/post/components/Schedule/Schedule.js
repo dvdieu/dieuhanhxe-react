@@ -6,29 +6,21 @@ import styles from './styles.module.scss';
 
 const { Step } = Steps;
 
-const data = [];
-for (let i = 0; i < 30; i++) {
-    data.push({
-        key: i,
-        title: `Cửa hàng : VINMART : 36 Hoàng Cầu Đống Đa - Hà Nội` + i,
-        description: 'Kiện hàng số - 01 - 02 - 03',
 
-
-    });
-}
-
-const Schedule = () => {
+const Schedule = ({ data, id }) => {
     const onOpenNewTab = () => {
-        window.open('http://localhost:3000/phantuyen/chitiet/hanghoa', "_blank")
+        window.open('http://localhost:3000/phantuyen/chitiethanghoa', "_blank")
     }
+
+    const dulieu = data[id]?.steps || [];
 
     return (
         <div className={styles.schedule}>
             <Steps
                 progressDot
-                current={data.length} direction="vertical">
+                current={dulieu.length} direction="vertical">
                 {
-                    data.map(item => {
+                    dulieu.map(item => {
                         return (
                             < Step
                                 key={item.key}

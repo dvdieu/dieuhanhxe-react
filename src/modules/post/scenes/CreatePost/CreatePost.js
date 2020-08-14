@@ -29,7 +29,7 @@ const _DIADIEM = [
     'KTX ĐH kinh tế quốc dân, phường đồng tâm, quận hai bà trưng, thành phố hà nội',
     'Số 26 Tổ 9 Phố Cầu Bây, Phường Sài Đồng, Quận Long Biên, Tp Hà Nội',
     'Đức Lan 91 Thanh Nhàn phường Quỳnh Mai quận Hai Bà Trưng thành phố Hà Nội',
-    '223 phố vọng, phường phương liệt, quận thanh xuân, thành phố hà nội',
+    '152 phố vọng, phường phương liệt, quận thanh xuân, thành phố hà nội',
 ]
 
 const _TONGTRONGLUONG = [800, 600, 400, 200, 500];
