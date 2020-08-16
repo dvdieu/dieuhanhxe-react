@@ -1,4 +1,7 @@
 .schedule {
-    height: calc(100vh - 130px);
-    overflow  : auto;
+    height          : calc(100% - 130px);
+    overflow        : auto;
+    background-color: #fff;
+    border-radius   : 6px;
+    padding         : 16px;
 }

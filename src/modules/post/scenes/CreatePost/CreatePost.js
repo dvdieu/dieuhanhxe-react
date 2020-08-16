@@ -38,6 +38,7 @@ const _TONGKICHTHUONG = [4, 7, 6, 1, 2];
 for (let i = 0; i < 5; i++) {
     order_data.push({
         key: i,
+        id: i,
         ma_order: `121000040` + i,
         ten_dia_diem: _DIADIEM[i],
         tinh_trang: `Chưa phân tuyến`,

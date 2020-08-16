@@ -82,7 +82,7 @@ const MyRouter = () => {
 							component={PostDetail}
 						/>
 						<RoutePublic
-							path="/phantuyen/chitiethanghoa"
+							path="/phantuyen/chitiethanghoa/:id"
 							exact
 							component={Products}
 						/>

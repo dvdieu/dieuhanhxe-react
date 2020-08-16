@@ -35,6 +35,7 @@ const MapComponent = ({ id, data }) => {
 
     useEffect(() => {
         let waypoints = [];
+        /* eslint-disable-next-line */
         location.map(item => {
             waypoints = [
                 ...waypoints,
@@ -45,6 +46,7 @@ const MapComponent = ({ id, data }) => {
             ]
         })
 
+        /* eslint-disable react-hooks/exhaustive-deps */
         DirectionsService.route(
             {
                 origin: new google.maps.LatLng(origin.lat, origin.lng),

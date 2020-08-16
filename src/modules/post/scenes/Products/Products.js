@@ -2,9 +2,10 @@ import React from 'react';
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table, Avatar, Typography } from 'antd';
+//lib
+import { useRouteMatch } from 'react-router-dom';
 
 const { Text } = Typography;
-
 
 const columns = [
     {
@@ -33,6 +34,14 @@ const columns = [
         dataIndex: 'loai_hang_hoa',
     },
     {
+        title: 'Khối lượng',
+        dataIndex: 'khoi_luong',
+    },
+    {
+        title: 'Kích thước',
+        dataIndex: 'kich_thuoc',
+    },
+    {
         title: 'Số lượng',
         dataIndex: 'so_luong',
         width: 100,
@@ -49,26 +58,105 @@ const columns = [
     },
 ];
 
-const _CHINHANH = ["BANHTHAIMD", "ADCMINHDUONG", "BANHGAOMD"];
-const _HINHANH = ['1.jpg', '2.jpg', '3.jpg', '4.jpeg', '5.jpg'];
-const _IDVTHH = ["F14BO003", "F14CA007", "100226"];
-const _TENVTHH = ["Nước mắm cốt nhĩ 40N 300ml x 24", "Tương ớt 5,2kg x 4", "Bộ Rổ Nhựa 2168", "Nước trái cây thạch Collagen150gx36"];
-const _LOAIVATTUHH = ['ADC Foods', 'Nhóm thức uống dinh dưỡng', 'Bánh Gạo', 'MÌ ĂN LIỀN', 'Nước Thạch', 'NHÃN BRAND']
-const data = [];
-for (let i = 0; i < 46; i++) {
-    data.push({
-        key: i,
-        hinh_anh: _HINHANH[Math.floor(Math.random() * _HINHANH.length)],
-        ten_hang_hoa: _TENVTHH[Math.floor(Math.random() * _CHINHANH.length)],
-        ma_hang_hoa: _IDVTHH[Math.floor(Math.random() * _CHINHANH.length)] + i,
-        loai_hang_hoa: _LOAIVATTUHH[Math.floor(Math.random() * _CHINHANH.length)],
-        so_luong: Math.floor(Math.random()),
-    });
+const data_table_template = {
+    0: [
+        {
+            key: 0,
+            hinh_anh: '1.jpg',
+            ten_hang_hoa: 'Nước cam ép TEPPY',
+            ma_hang_hoa: 'CE0001',
+            loai_hang_hoa: 'Nước ép',
+            khoi_luong: '400 KG',
+            kich_thuoc: '2 Khối',
+            so_luong: '10 thùng',
+        },
+        {
+            key: 1,
+            hinh_anh: '2.jpg',
+            ten_hang_hoa: 'Sữa cô gái Hà Lan',
+            ma_hang_hoa: 'CG0002',
+            loai_hang_hoa: 'Sữa tươi',
+            khoi_luong: '200 KG',
+            kich_thuoc: '2 Khối',
+            so_luong: '5 thùng',
+        }
+    ],
+    1: [
+        {
+            key: 3,
+            hinh_anh: '3.jpg',
+            ten_hang_hoa: 'Sữa TH true milk',
+            ma_hang_hoa: 'TH0003',
+            loai_hang_hoa: 'Sữa tươi',
+            khoi_luong: '400 KG',
+            kich_thuoc: '4 Khối',
+            so_luong: '4 thùng',
+        },
+        {
+            key: 4,
+            hinh_anh: '4.jpeg',
+            ten_hang_hoa: 'Bột ngọt VEDAN',
+            ma_hang_hoa: 'VD0004',
+            loai_hang_hoa: 'Bột ngọt',
+            khoi_luong: '200 KG',
+            kich_thuoc: '3 Khối',
+            so_luong: '3 thùng',
+        }
+    ],
+    2: [
+        {
+            key: 5,
+            hinh_anh: '5.jpg',
+            ten_hang_hoa: 'Trà sữa dâu BENLY',
+            ma_hang_hoa: 'TH0005',
+            loai_hang_hoa: 'Trà sữa',
+            khoi_luong: '400 KG',
+            kich_thuoc: '6 Khối',
+            so_luong: '6 thùng',
+        }
+    ],
+    3: [
+        {
+            key: 6,
+            hinh_anh: '5.jpg',
+            ten_hang_hoa: 'Trà sữa dâu BENLY',
+            ma_hang_hoa: 'TH0005',
+            loai_hang_hoa: 'Trà sữa',
+            khoi_luong: '200 KG',
+            kich_thuoc: '2 Khối',
+            so_luong: '2 thùng',
+        }
+    ],
+    4: [
+        {
+            key: 7,
+            hinh_anh: '1.jpg',
+            ten_hang_hoa: 'Nước cam ép TEPPY',
+            ma_hang_hoa: 'CE0001',
+            loai_hang_hoa: 'Nước ép',
+            khoi_luong: '400 KG',
+            kich_thuoc: '1 Khối',
+            so_luong: '4 thùng',
+        },
+        {
+            key: 8,
+            hinh_anh: '4.jpeg',
+            ten_hang_hoa: 'Bột ngọt VEDAN',
+            ma_hang_hoa: 'VD0004',
+            loai_hang_hoa: 'Bột ngọt',
+            khoi_luong: '100 KG',
+            kich_thuoc: '1 Khối',
+            so_luong: '1 thùng',
+        }
+    ],
 }
 
 const Product = () => {
+    const match = useRouteMatch();
+    const id = match?.params?.id;
+
     return (
-        <Table rowSelection={null} columns={columns} dataSource={data} />
+        <Table rowSelection={null} columns={columns} dataSource={data_table_template[id]} />
     )
 }
 

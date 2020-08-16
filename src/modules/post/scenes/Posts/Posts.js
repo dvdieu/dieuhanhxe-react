@@ -6,12 +6,12 @@ import BasicLayout from '../../../../layouts/BasicLayout';
 import Confirm from '../../components/Confirm';
 
 
-const CreatePost = () => {
+const Posts = () => {
     return (
         <Confirm />
     )
 }
 
-CreatePost.Layout = BasicLayout;
+Posts.Layout = BasicLayout;
 
-export default CreatePost;
+export default Posts;
