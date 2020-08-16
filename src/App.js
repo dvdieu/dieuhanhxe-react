@@ -23,6 +23,7 @@ import ErrorPage from './components/Error';
 import './assets/scss/overide-ant-design.scss';
 import './assets/scss/common.scss';
 import styled from "styled-components";
+import Confirm from './modules/post/components/Confirm';
 
 const Main = styled.main`
      {
@@ -70,6 +71,11 @@ const MyRouter = () => {
 							path="/hanghoa"
 							exact
 							component={Merchandises}
+						/>
+						<RoutePublic
+							path="/phantuyen/list"
+							exact
+							component={Confirm}
 						/>
 						<RoutePublic
 							path="/phantuyen/create"
