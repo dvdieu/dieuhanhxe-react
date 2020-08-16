@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { HelmetProvider } from 'react-helmet-async';
+import DropZone from './components/DropZone';
 
 import { store, persistor } from './redux-setup';
 
@@ -13,7 +14,9 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={<div />} persistor={persistor}>
       <HelmetProvider>
-        <App />
+        <DropZone>
+          <App />
+        </DropZone>
       </HelmetProvider>
     </PersistGate>
   </Provider>
