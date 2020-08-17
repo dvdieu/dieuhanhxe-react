@@ -14,6 +14,7 @@ import Confirm from '../../components/Confirm';
 import styles from './styles.module.scss';
 //lib
 import Immutable from "seamless-immutable";
+import { useHistory } from 'react-router-dom';
 //redux
 import { useSelector, useDispatch } from "react-redux";
 //action
@@ -54,6 +55,7 @@ const CreatePost = () => {
     const { step } = post;
     //hook
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const onStepBack = () => {
         dispatch(PostActions.setStep({
@@ -71,6 +73,8 @@ const CreatePost = () => {
         dispatch(PostActions.setStep({
             step: 0
         }));
+        dispatch(PostActions.showList({}));
+        history.push('/phantuyen/danhsach');
     }
 
     /* #region  đơn hàng */

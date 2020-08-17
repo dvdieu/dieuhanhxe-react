@@ -74,7 +74,8 @@ const BasicLayout = (props) => {
                     <SubMenu key="sub1" icon={<UserOutlined />} title="Phân tuyến"
                         className={styles.navleft_menu_sub}
                     >
-                        <Menu.Item key="4" onClick={() => onPushRoute('/phantuyen/create')}>{"Tạo định tuyến"}</Menu.Item>
+                        <Menu.Item key="4" onClick={() => onPushRoute('/phantuyen/danhsach')}>{"Danh sách tuyến"}</Menu.Item>
+                        <Menu.Item key="5" onClick={() => onPushRoute('/phantuyen/create')}>{"Tạo định tuyến"}</Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>

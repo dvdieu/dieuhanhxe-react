@@ -6,3 +6,9 @@ export const setStep = (state, { params }) => {
         ...params
     });
 };
+
+export const showList = (state, { params }) => {
+    return Immutable.merge(state, {
+        show_list: true
+    })
+}

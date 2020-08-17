@@ -4,11 +4,29 @@ import React from 'react';
 import BasicLayout from '../../../../layouts/BasicLayout';
 //components
 import Confirm from '../../components/Confirm';
+//lib
+import Immutable from 'seamless-immutable';
+//redux
+import { useSelector } from "react-redux";
+import { Table, Typography } from 'antd';
 
+const { Title } = Typography;
 
 const Posts = () => {
+    const post_reducer = useSelector(state => state.post_reducer);
+    const post = Immutable.asMutable(post_reducer, { deep: true });
+    const { show_list } = post;
+
     return (
-        <Confirm />
+        <>
+            {
+                show_list ? <Confirm /> :
+                    <>
+                        <Title level={4} type="secondary">{"Lịch trình di chuyển"}</Title>
+                        <Table data={null} />
+                    </>
+            }
+        </>
     )
 }
 
