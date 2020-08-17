@@ -30,16 +30,33 @@ const columns = [
     },
 ];
 
-const data = [];
-for (let i = 0; i < 2; i++) {
-    data.push({
-        key: i,
-        bien_so: `29M1-555` + i,
+// const data = [];
+// for (let i = 0; i < 2; i++) {
+//     data.push({
+//         key: i,
+//         bien_so: `29M1-555` + i,
+//         loai_xe: 'THACO',
+//         kich_thuoc: `15 Khối`,
+//         thung_xe: '1,5 Tấn',
+//     });
+// }
+
+const data = [
+    {
+        key: 0,
+        bien_so: `29M1-55550`,
+        loai_xe: 'ISUZU',
+        kich_thuoc: `20 Khối`,
+        thung_xe: '2 Tấn',
+    },
+    {
+        key: 0,
+        bien_so: `29M1-55551`,
         loai_xe: 'THACO',
-        kich_thuoc: `15 Khối`,
-        thung_xe: '1,5 Tấn',
-    });
-}
+        kich_thuoc: `10 Khối`,
+        thung_xe: '1 Tấn',
+    }
+]
 
 const Trucks = ({ rowSelection }) => {
     const [loading, setLoading] = useState(true);
