@@ -9,17 +9,17 @@ import { HelmetProvider } from 'react-helmet-async';
 import { store, persistor } from './redux-setup';
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <PersistGate loading={<div />} persistor={persistor}>
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    </PersistGate>
-  </Provider>
-  // </React.StrictMode>
-  ,
-  document.getElementById('root')
+	// <React.StrictMode>
+	<Provider store={store}>
+		<PersistGate loading={<div />} persistor={persistor}>
+			<HelmetProvider>
+				<App />
+			</HelmetProvider>
+		</PersistGate>
+	</Provider>
+	// </React.StrictMode>
+	,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

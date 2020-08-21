@@ -1,71 +1,39 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
 //layouts
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table } from 'antd';
-
-const columns = [
-    {
-        title: 'Mã thống kê',
-        dataIndex: 'ma_thong_ke',
-    },
-    {
-        title: 'Tên thống kê',
-        dataIndex: 'ten_thong_ke',
-    },
-    {
-        title: 'Loại xe',
-        dataIndex: 'loai_xe',
-    },
-    {
-        title: 'Trọng tải',
-        dataIndex: 'trong_tai',
-    },
-    {
-        title: 'Kích thước',
-        dataIndex: 'kich_thuoc',
-    },
-    {
-        title: 'Action',
-        dataIndex: 'operation',
-        key: 'operation',
-        fixed: 'right',
-        width: 100,
-        render: () => (
-            <a href='/'>Chi tiết</a>
-        ),
-    },
-];
-
-const data = [];
-const carCategories = ["THACO", "ISUZU", "JACK"]
-for (let i = 0; i < 46; i++) {
-    let typeCar = carCategories[Math.floor(Math.random() * carCategories.length)];
-    data.push({
-        key: i,
-        ma_thong_ke: `29M1-5555` + i,
-        ten_thong_ke: typeCar,
-        loai_xe: typeCar,
-        trong_tai: parseFloat(1 + Math.random() * (5 - 1)).toFixed(2) + ' tấn',
-        kich_thuoc: Math.floor(Math.random() * 3 + 1.5) + ' khối'
-    });
-}
+//table
+import useTable from './useTable';
+import useSearch from './useSearch';
+//hook
+import fleetState from './fleetState';
 
 const Fleets = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([])
+    //state
+    const { reducer_state, initial_state } = fleetState();
+    const [state, dispatchState] = useReducer(reducer_state, initial_state);
+    const { data_source, pagination } = state;
 
-    const onSelectChange = selectedRowKeys => {
-        setSelectedRowKeys(selectedRowKeys);
-    };
-
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
+    const { columns, handleTableChange } = useTable({ pagination });
+    const { fetch_fleets } = useSearch({ dispatchState });
+    //pagination
+    const { total_items, page_number, page_size } = pagination;
 
     return (
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} scroll={{ x: 1300 }}/>
+        <>
+            <Table
+                rowSelection={null}
+                rowKey="id"
+                columns={columns}
+                dataSource={data_source}
+                scroll={{ x: 1300 }}
+                pagination={{ current: page_number, pageSize: page_size, total: total_items }}
+                loading={fetch_fleets}
+                onChange={handleTableChange}
+            />
+        </>
     )
 }
 

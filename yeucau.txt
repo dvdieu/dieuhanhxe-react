@@ -1,0 +1,94 @@
+1. Danh sách đội xe: Tải trọng (Khoảng từ -> đến), Kích thước (kích thước hàng <= thùng xe)
+doixe: {
+    tai_trong: 1,
+    kich_thuong: 5,
+    kho: id_kho_1,
+    loai_xe: lanh/bt
+}
+2. Danh sách hàng hóa: trọng lượng, kích thước
+
+hang_hoa: {
+    trong_luong: 1,
+    kich_thuoc: 1
+}
+
+don_vi_tinh: {
+
+}
+
+3. Đơn hàng:
+ - Điểm đến (điểm giao hàng)
+ - Thời gian 
+ - H cấm, đường cấm
+ - Đặc thù giao tại điểm: Bê vác, luân chuyển, ... --> Thời gian vận chuyển
+ - Số lượng hàng hóa cần giao
+ - ..
+
+ don_hang: {
+     diem_den: {
+        geo: {
+            lat: '',
+            lng: ''
+        },
+        name: ''
+     },
+     thoi_gian_giao: milisecond,
+     do_uu_tien: 1,2,3,
+     thoi_gian_khau_hao: [
+         {
+             type: bevac/luanchuyen,
+             value: 1
+         }
+     ],
+    sumary: {
+        so_luong_hang_hoa: 1,
+        tong_kich_thuoc: 1,
+        tong_trong_luong: 1
+    }
+ }
+
+4. Kho: 4 kho chính + Kho liên quan
+
+kho: {
+    name: '',
+    geo: {
+        lat: '',
+        lng: ''
+    }
+}
+
+5. Về Số lượng đơn hàng + Số lượng điểm cần giao:
+- Nhóm 1 Vinmart+: 20-22 điểm/ 1 ngày (25-28: điểm gần kho)
+- NHóm Vinmart lớn (4) + Siêu thị: Total 8
+- Nhóm Vinmart lớn + Vinmart+ + Siêu thị lẻ: 14 điểm 
+- NHóm kho DC (tổng kho): H đặt giao hàng hóa, ... 
+- Kinh nghiệm để định tuyến 
+
+
+
+6. Về việc sắp xếp vào thùng xe: 
+- Đội xe là các em đã có kích thước tổng: 2 loại 0,5 tấn + 3,5 khối (4); 1,25 tấn + 6.5-7m3 (33)
+- Xe lạnh: 5 khối (6)
+- Ds xe sẽ được phân bổ tại các kho, nghiệp vụ điều phối (Phân bổ lại) xe 
+
+
+
+7. Độ ưu tiên của đơn hàng:
+- ĐH khai trương 
+- DH POST (đơn hàng KM, trưng bày)
+- ĐH Quá hạn
+
+8. Tính toán thời gian của mỗi chuyến hàng:
+- Số lượng điểm đến + Quãng đường: Thời gian di chuyển
+- Thời gian giao hàng bốc xếp
+- Đặc thù hàng, đặc thù của kho, ...
+**********************************************************
+Các khó khăn hiện tại:
+1. Nhận hàng tại kho đưa lên xe: Ghi nhận thời gian bốc xếp --> Dịch chuyển kế hoạch giao.
+2. Giao tại siêu thị: Ghi chú và điều chuyển (nếu cần)
+
+*********************************
+Mong muốn chị Linh:
+- Tham số hóa lại toàn bộ các luật trên thành cấu hình trong phần mềm
+- Lấy dữ liệu thực tế 
+- Chạy lại thuật toán / chương trình theo dữ liệu thực
