@@ -1,6 +1,7 @@
 import { persistStore } from 'redux-persist';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger'
 
 //redux, saga
@@ -16,15 +17,24 @@ const logger = createLogger({
 
 const sagaMiddleware = createSagaMiddleware();
 
-let store = createStore(
+const store = createStore(
     root_reducer,
-    compose(
-        applyMiddleware(
-            sagaMiddleware,
-            logger
-        ),
-    ),
-);
+    composeWithDevTools(
+        compose(
+            applyMiddleware(
+                sagaMiddleware,
+                logger
+            )),
+    ));
+
+// const store = createStore(
+//     root_reducer,
+//     compose(
+//         applyMiddleware(
+//             sagaMiddleware,
+//         ),
+//     ),
+// );
 
 // Middleware: Redux Persist Persister
 let persistor = persistStore(store);

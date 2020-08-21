@@ -1,9 +1,14 @@
-import { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 
+import { Typography } from 'antd';
 //actions
 import FleetActions from '../../reducer/actions';
 //redux
 import { useDispatch } from "react-redux";
+//lib
+import i18n from '../../../../libs/i18n';
+
+const { Text } = Typography;
 
 const useTable = () => {
     const dispatch = useDispatch();
@@ -22,6 +27,9 @@ const useTable = () => {
                 {
                     title: 'Loại xe',
                     dataIndex: 'type',
+                    render: (text) => (
+                        <Text>{i18n.t(text)}</Text>
+                    )
                 },
                 {
                     title: 'Trọng tải',
