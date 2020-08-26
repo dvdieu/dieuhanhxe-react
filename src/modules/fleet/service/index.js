@@ -4,9 +4,9 @@ import CoreService from '../../../services/CoreService';
 export const getFleets = async (params) => {
     const { page } = params;
     try {
-        let url = 'https://run.mocky.io/v3/ef545047-4752-448b-82ac-90f4a3af4451'
+        let url = 'https://run.mocky.io/v3/0c89ead4-3972-47aa-84f6-3eb1bb4d2ad8'
         if (page === 2) {
-            url = 'https://run.mocky.io/v3/2b0e4221-c08e-4eb4-82f9-0b0b94425934'
+            url = 'https://run.mocky.io/v3/150f5a81-3c34-446d-b62d-125f4af15e69'
         }
         const result = await CoreService.get(url);
         return result.data;

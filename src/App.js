@@ -12,6 +12,7 @@ import history from "./utils/history";
 //page
 import Drivers from './modules/driver/scenes/Drivers';
 import Fleets from './modules/fleet/scenes/Fleets';
+import Fleet from './modules/fleet/scenes/Fleet';
 import Merchandises from './modules/merchandise/scenes/Merchandises';
 import CreatePost from './modules/post/scenes/CreatePost';
 import PostDetail from './modules/post/scenes/PostDetail';
@@ -66,6 +67,11 @@ const MyRouter = () => {
 							path="/doixe"
 							exact
 							component={Fleets}
+						/>
+						<RoutePublic
+							path="/fleet/:id"
+							exact
+							component={Fleet}
 						/>
 						<RoutePublic
 							path="/hanghoa"
