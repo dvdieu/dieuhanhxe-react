@@ -9,12 +9,12 @@ import {
 } from "react-google-maps";
 
 //antd
-import { Typography } from 'antd';
-import { FieldTimeOutlined, BgColorsOutlined, NodeIndexOutlined } from '@ant-design/icons';
+// import { Typography } from 'antd';
+// import { FieldTimeOutlined, BgColorsOutlined, NodeIndexOutlined } from '@ant-design/icons';
 //components
-import Portal from "../Portal";
+// import Portal from "../Portal";
 
-const { Text } = Typography;
+// const { Text } = Typography;
 
 // const DirectionMarker = ({ location, }) => {
 //     return location.map((item, key) => {
@@ -26,8 +26,8 @@ const { Text } = Typography;
 
 const MapComponent = ({ id, data }) => {
     const [directions, setDirections] = useState();
-    const [quang_duong, setQuangDuong] = useState(0);
-    const [thoi_gian, setThoiGian] = useState(0);
+    // const [quang_duong, setQuangDuong] = useState(0);
+    // const [thoi_gian, setThoiGian] = useState(0);
     const { google } = window;
     const DirectionsService = new google.maps.DirectionsService();
 
@@ -65,16 +65,16 @@ const MapComponent = ({ id, data }) => {
             (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
                     setDirections(result);
-                    const { legs } = result?.routes[0];
-                    console.log("MapComponent -> legs", legs)
-                    let tong_quang_duong = 0, tong_thoi_gian = 0;
-                    legs.forEach(leg => {
-                        const { distance, duration } = leg;
-                        tong_quang_duong += distance.value;
-                        tong_thoi_gian += duration.value;
-                    });
-                    setQuangDuong(Math.round((tong_quang_duong / 1000) * 10) / 10);
-                    setThoiGian(Math.floor(tong_thoi_gian / 60));
+                    // const { legs } = result?.routes[0];
+                    // console.log("MapComponent -> legs", legs)
+                    // let tong_quang_duong = 0, tong_thoi_gian = 0;
+                    // legs.forEach(leg => {
+                    //     const { distance, duration } = leg;
+                    //     tong_quang_duong += distance.value;
+                    //     tong_thoi_gian += duration.value;
+                    // });
+                    // setQuangDuong(Math.round((tong_quang_duong / 1000) * 10) / 10);
+                    // setThoiGian(Math.floor(tong_thoi_gian / 60));
                 } else {
                     console.error(`error fetching directions ${result}`);
                 }
@@ -84,7 +84,7 @@ const MapComponent = ({ id, data }) => {
 
     return (
         <>
-            <Portal id='google_detail'>
+            {/* <Portal id='google_detail'>
                 <div style={{ backgroundColor: '#fff', padding: 16, borderRadius: 6, marginBottom: 12 }}>
                     <NodeIndexOutlined />
                     <Text type="secondary">{" Tổng quảng đường: "}</Text>
@@ -98,7 +98,7 @@ const MapComponent = ({ id, data }) => {
                     <Text type="secondary">{" Mức tiêu thụ nhiên liệu dự tính: "}</Text>
                     <Text strong type="secondary">{`${id === '0' ? 1.28 : 0.2} lít dầu`}</Text>
                 </div>
-            </Portal>
+            </Portal> */}
             <GoogleMap key='AIzaSyAcQjrfAudzl6Ton7GA7D-gVqOINMFE7ns' defaultZoom={8} defaultCenter={{ lat: center.lat, lng: center.lng }}>
                 {directions && <DirectionsRenderer directions={directions} markerOptions={null} suppressMarkers={true} />}
                 {/* <DirectionMarker location={location} /> */}
@@ -112,7 +112,7 @@ export default compose(
         googleMapURL:
             "https://maps.googleapis.com/maps/api/js?key=AIzaSyAcQjrfAudzl6Ton7GA7D-gVqOINMFE7ns&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `95%` }} />,
-        containerElement: <div style={{ height: `500px` }} />,
+        containerElement: <div style={{ height: `400px` }} />,
         mapElement: <div style={{ height: `100%` }} />
     }),
     withScriptjs,

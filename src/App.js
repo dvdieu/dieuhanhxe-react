@@ -20,6 +20,7 @@ import Products from './modules/post/scenes/Products';
 import Posts from './modules/post/scenes/Posts';
 import Warehouses from './modules/warehouse/scenes/Warehouses';
 import SetupWarehouse from './modules/router/scenes/SetupWarehouse';
+import HintRouter from './modules/router/scenes/HintRouter';
 import Dashboard from './modules/dashboard/scenes/Dashboard';
 import ErrorPage from './components/Error';
 //styles
@@ -64,6 +65,11 @@ const MyRouter = () => {
 							path="/warehouse/setup/:id"
 							exact
 							component={SetupWarehouse}
+						/>
+						<RoutePublic
+							path="/warehouse/hint/:id"
+							exact
+							component={HintRouter}
 						/>
 						<RoutePublic
 							path="/dashboard"

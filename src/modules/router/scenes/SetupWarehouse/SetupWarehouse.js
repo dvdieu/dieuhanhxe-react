@@ -1,4 +1,4 @@
-import React, { memo, useState, useMemo } from 'react';
+import React, { memo, useReducer } from 'react';
 //layout
 import BasicLayout from '../../../../layouts/BasicLayout';
 //atnd
@@ -9,89 +9,53 @@ import styles from './styles.module.scss';
 //lib
 import classnames from 'classnames';
 import moment from 'moment';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 //config
 import { DATE_FORMAT } from '../../../../config/format';
+//variables
+import { TRUCK_SIZE } from '../../../../variables/truck';
+//hook
+import warehouseState from './warehouseState';
+import useTable from './useTable';
+import useSearch from './useSearch';
+import usePriotity from './usePriotity';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
 const { RangePicker } = DatePicker;
 
-const truck_size = {
-    LARGE: 'large',
-    SMALL: 'small'
-}
-
-const data = [
-    {
-        id: 'HD001',
-        address: '04 Thụy Khê',
-        priority: '40',
-        status: 'Khẩn cấp'
-    },
-    {
-        id: 'HD002',
-        address: 'Vinmart + 182 Lê Đại Hành',
-        priority: '38',
-        status: 'Giao trong ngày'
-    },
-    {
-        id: 'HD003',
-        address: '36 Hoàng Cầu',
-        priority: 'Bình thường',
-        status: 'Đã giao'
-    },
-    {
-        id: 'HD004',
-        address: '01 Cổ Nhuế',
-        priority: 'Bình thường',
-        status: 'Chưa sắp lịch'
-    },
-]
-
 const SetupWarehouse = () => {
-    const [priority_warehouse, setPriorityWarehouse] = useState(false);
-    const [priority_truck, setPriorityTruck] = useState(truck_size.LARGE)
+    //hook
+    const history = useHistory();
+    const match = useRouteMatch();
+    const { initial_state, reducer_state } = warehouseState();
+    const [state, dispatchState] = useReducer(reducer_state, initial_state);
+    const {
+        //table
+        data_source,
+        pagination,
+        selected_row_keys,
+        //priority
+        priority_warehouse,
+        priority_truck
+    } = state;
+    const { total_items, page_number, page_size } = pagination;
 
-    const onChangePriorityWarehouse = event => {
-        setPriorityWarehouse(event.target.checked);
-    }
-
-    const onChangePriorityTruck = event => {
-        setPriorityTruck(event.target.value);
-    }
+    const { columns, onRow, rowSelection } = useTable({ dispatchState, selected_row_keys });
+    const { onChangePriorityWarehouse, onChangePriorityTruck, } = usePriotity({ dispatchState })
+    useSearch();
 
     const onChangeDate = (dates, dateStrings) => {
         console.log('From: ', dates[0], ', to: ', dates[1]);
         console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
     }
 
-    const columns = useMemo(() => (
-        [
-            {
-                title: 'Mã đơn hàng',
-                dataIndex: 'id',
-            },
-            {
-                title: 'Địa chỉ',
-                dataIndex: 'address',
-            },
-            {
-                title: 'Độ ưu tiên',
-                dataIndex: 'priority',
-            },
-            {
-                title: 'Trạng thái',
-                dataIndex: 'status',
-            },
-            {
-                title: '',
-                key: 'action',
-                render: (text, record) => (
-                    <span>chi tiet</span>
-                )
-            },
-        ]
-    ), [])
+    const goToHintRouter = () => {
+        const id = match?.params?.id;
+        if (id) {
+            history.push(`/warehouse/hint/${id}`);
+        }
+    }
 
     return (
         <div>
@@ -101,15 +65,18 @@ const SetupWarehouse = () => {
                 <div className={classnames(styles.setup_content, 'flex-column')}>
                     <Checkbox checked={priority_warehouse} onChange={onChangePriorityWarehouse}>{"Ưu tiên dùng xe tại kho"}</Checkbox>
                     <Radio.Group onChange={onChangePriorityTruck} value={priority_truck}>
-                        <Radio className={styles.radio} value={truck_size.LARGE}>
+                        <Radio className={styles.radio} value={TRUCK_SIZE.LARGE}>
                             {"Ưu tiên xe có trọng tải lớn trước"}
                         </Radio>
-                        <Radio className={styles.radio} value={truck_size.SMALL}>
+                        <Radio className={styles.radio} value={TRUCK_SIZE.SMALL}>
                             {"Ưu tiên xe có trọng tải nhỏ trước"}
                         </Radio>
                     </Radio.Group>
                     <div className={classnames('flex-row', 'justify-end')}>
-                        <Button type='primary' icon={<PlusCircleOutlined />}>{"Tạo định tuyến"}</Button>
+                        <Button
+                            type='primary'
+                            icon={<PlusCircleOutlined />}
+                            onClick={goToHintRouter}>{"Tạo định tuyến"}</Button>
                     </div>
                 </div>
             </div>
@@ -130,7 +97,13 @@ const SetupWarehouse = () => {
                     />
                 </Col>
                 <Col span={24}>
-                    <Table columns={columns} dataSource={data} rowKey="id"/>
+                    <Table
+                        rowKey="id"
+                        columns={columns}
+                        dataSource={data_source}
+                        pagination={{ current: page_number, pageSize: page_size, total: total_items }}
+                        onRow={onRow}
+                        rowSelection={rowSelection} />
                 </Col>
             </Row>
         </div >
