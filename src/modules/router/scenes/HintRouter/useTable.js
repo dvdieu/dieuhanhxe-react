@@ -44,7 +44,7 @@ const useTable = ({ handleOpenTruckDrawer }) => {
                 <Button type='link' onClick={handleOpenTruckDrawer}>{"Đổi xe khác"}</Button>
             ),
         },
-    ]), []);
+    ]), [handleOpenTruckDrawer]);
 
     const expected_columns = useMemo(() => (
         [
