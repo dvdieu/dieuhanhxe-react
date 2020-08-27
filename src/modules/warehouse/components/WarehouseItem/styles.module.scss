@@ -1,0 +1,14 @@
+@import "../../../../assets/scss/variable-scss.scss";
+
+.warehouse-icon {
+    font-size: 60px;
+
+}
+
+.selected {
+    color: $selected-color
+}
+
+.unselected {
+    color: $unselected-color
+}

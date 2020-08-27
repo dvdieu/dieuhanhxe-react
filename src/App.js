@@ -18,6 +18,8 @@ import CreatePost from './modules/post/scenes/CreatePost';
 import PostDetail from './modules/post/scenes/PostDetail';
 import Products from './modules/post/scenes/Products';
 import Posts from './modules/post/scenes/Posts';
+import Warehouses from './modules/warehouse/scenes/Warehouses';
+import SetupWarehouse from './modules/router/scenes/SetupWarehouse';
 import Dashboard from './modules/dashboard/scenes/Dashboard';
 import ErrorPage from './components/Error';
 //styles
@@ -52,6 +54,16 @@ const MyRouter = () => {
 							path="/"
 							exact
 							component={Dashboard}
+						/>
+						<RoutePublic
+							path="/warehouses"
+							exact
+							component={Warehouses}
+						/>
+						<RoutePublic
+							path="/warehouse/setup/:id"
+							exact
+							component={SetupWarehouse}
 						/>
 						<RoutePublic
 							path="/dashboard"

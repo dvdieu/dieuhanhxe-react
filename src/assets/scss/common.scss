@@ -1,11 +1,56 @@
-
 @import "./variable-scss.scss";
 
 body,
 html {
-    font-family: $font-family;
-    font-size: 14px;
+    font-family   : $font-family;
+    font-size     : 14px;
     // font-weight: 500;
 
     color: $primary-color-text;
+}
+
+.flex-row {
+    display       : flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display       : flex;
+    flex-direction: column;
+}
+
+.justify {
+    &-start {
+        justify-content: flex-start;
+    }
+
+    &-end {
+        justify-content: flex-end;
+    }
+
+    &-center {
+        justify-content: center;
+    }
+
+    &-between{
+        justify-content: space-between;
+    }
+}
+
+.align {
+    &-top {
+        align-items: flex-start;
+    }
+
+    &-bottom {
+        align-items: flex-end;
+    }
+
+    &-middle {
+        align-items: center;
+    }
+}
+
+.pointer {
+    cursor: pointer;
 }

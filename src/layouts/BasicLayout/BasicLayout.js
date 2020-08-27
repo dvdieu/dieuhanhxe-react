@@ -62,6 +62,9 @@ const BasicLayout = (props) => {
                     <Menu.Item key="0" icon={<PieChartOutlined />} onClick={() => onPushRoute('/dashboard')}>
                         {"Dashboard"}
                     </Menu.Item>
+                    <Menu.Item key="warehouse" icon={<PieChartOutlined />} onClick={() => onPushRoute('/warehouses')}>
+                        {"Kho"}
+                    </Menu.Item>
                     <Menu.Item key="1" icon={<PieChartOutlined />} onClick={() => onPushRoute('/taixe')}>
                         {"Tài xế"}
                     </Menu.Item>

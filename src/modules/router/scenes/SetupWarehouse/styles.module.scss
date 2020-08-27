@@ -1,0 +1,16 @@
+.setup {
+    border       : 1px solid green;
+    border-radius: 6px;
+    width        : 100%;
+    padding      : 8px 16px;
+
+    &_content {
+        padding: 8px;
+    }
+}
+
+.radio {
+    display    : block;
+    height     : 30px;
+    line-height: 30px;
+}
