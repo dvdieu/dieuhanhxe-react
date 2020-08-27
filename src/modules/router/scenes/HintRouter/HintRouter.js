@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useRef } from 'react';
+import React, { memo, useState, useEffect, useRef, useReducer } from 'react';
 //layout
 import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
@@ -9,9 +9,13 @@ import styles from './styles.module.scss';
 import classnames from 'classnames';
 //hook
 import useTable from './useTable';
+import hintState from './hintState';
+import useCommon from './useCommon';
 //components
 import Step from '../../components/Step';
 import GoogleMap from '../../../../components/GoogleMap';
+//drawer
+import TruckDrawer from '../TruckDrawer';
 
 const { Title, Text } = Typography;
 const { Search } = Input
@@ -152,7 +156,11 @@ const HintRouter = () => {
     const [route, setRoute] = useState(1);
 
     //hook
-    const { truck_columns, expected_columns, address_columns, order_columns } = useTable();
+    const { init_state, reducer_state } = hintState();
+    const [state, dispatchState] = useReducer(reducer_state, init_state);
+    const { truck_visible } = state;
+    const { handleCloseTruckDrawer, handleOpenTruckDrawer } = useCommon({ dispatchState });
+    const { truck_columns, expected_columns, address_columns, order_columns } = useTable({ handleOpenTruckDrawer });
 
     const handleChangeRouteItem = item => {
         setRoute(item.id);
@@ -252,8 +260,8 @@ const HintRouter = () => {
                     </Row>
                     {/* end Danh sách đơn hàng */}
                 </Col>
-
             </Row>
+            <TruckDrawer visible={truck_visible} onClose={handleCloseTruckDrawer} />
         </div>
     )
 }

@@ -7,7 +7,7 @@ import i18n from '../../../../libs/i18n';
 
 const { Text } = Typography;
 
-const useTable = () => {
+const useTable = ({ handleOpenTruckDrawer }) => {
     const truck_columns = useMemo(() => ([
         {
             title: 'Loại xe',
@@ -41,7 +41,7 @@ const useTable = () => {
             className: "antd-custom-action-table",
             width: 50,
             render: (text, item) => (
-                <Button type='link'>{"Đổi xe khác"}</Button>
+                <Button type='link' onClick={handleOpenTruckDrawer}>{"Đổi xe khác"}</Button>
             ),
         },
     ]), []);
