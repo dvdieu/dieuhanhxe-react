@@ -6,6 +6,10 @@ import classnames from 'classnames';
 //hook
 import useTable from './useTable';
 import truckState from './truckState';
+import useSearch from './useSearch';
+import useCreateTruck from './useCreateTruck';
+//components
+import CreateTruckDrawer from '../../../../components/CreateTruckDrawer';
 
 const { Search } = Input;
 
@@ -13,10 +17,19 @@ const TruckDrawer = ({ visible, onClose }) => {
     //hook
     const { initial_state, reducer_state } = truckState();
     const [state, dispatchState] = useReducer(reducer_state, initial_state);
-    const { data_source, pagination, selected_rows } = state;
-    const { columns, rowSelection, handleTableChange } = useTable({ selected_rows, dispatchState });
+    const {
+        data_source,
+        pagination,
+        selected_rows,
+        //
+        create_truck_visible
+    } = state;
+    const { fetch_fleets, handleSearchFleet } = useSearch({ dispatchState });
+    const { columns, rowSelection, handleTableChange } = useTable({ selected_rows, dispatchState, handleSearchFleet });
 
     const { total_items, page_number, page_size } = pagination;
+
+    const { handleCloseTruckDrawer, handleOpenTruckDrawer, handleCreateTruck } = useCreateTruck({ dispatchState });
 
     return (
         <Drawer
@@ -46,7 +59,7 @@ const TruckDrawer = ({ visible, onClose }) => {
                         <Search />
                     </Col>
                     <Col span={12} className={classnames('flex-row', 'justify-end')}>
-                        <Button type='primary'>{"Tạo xe"}</Button>
+                        <Button type='primary' onClick={handleOpenTruckDrawer}>{"Tạo xe"}</Button>
                     </Col>
                     <Col span={24}>
                         <Table
@@ -56,10 +69,16 @@ const TruckDrawer = ({ visible, onClose }) => {
                             rowKey='license_plates'
                             rowSelection={rowSelection}
                             onChange={handleTableChange}
+                            scroll={{ y: 400 }}
+                            loading={fetch_fleets}
                         />
                     </Col>
                 </Row>
             </div>
+            <CreateTruckDrawer
+                visible={create_truck_visible}
+                onClose={handleCloseTruckDrawer}
+                onSubmit={handleCreateTruck} />
         </Drawer>
     )
 }

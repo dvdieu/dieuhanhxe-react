@@ -28,3 +28,39 @@ export const getFleetsFailure = (state, { error }) => {
     });
 };
 /* #endregion */
+
+/* #region  create fleet */
+export const createFleetRequest = (state, { params }) => {
+    const state_merge = {
+        create_fleet: true,
+        fetch_fleets: true,
+        error: {},
+    };
+
+    return Immutable.merge(
+        state,
+        { ...state_merge }
+    );
+};
+
+export const createFleetSuccess = (state, { payload, params }) => {
+    let fleets = Immutable.asMutable(state.fleets, { deep: true });
+    fleets.pop();
+    let pagination = Immutable.asMutable(state.pagination, { deep: true });
+    pagination.total_items += 1;
+    return Immutable.merge(state, {
+        create_fleet: false,
+        fetch_fleets: false,
+        fleets: [payload, ...fleets],
+        pagination
+    });
+};
+
+export const createFleetFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        create_fleet: false,
+        fetch_fleets: false,
+        error: {},
+    });
+};
+/* #endregion */

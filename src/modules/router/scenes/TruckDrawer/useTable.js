@@ -7,7 +7,7 @@ import actions from './actions';
 
 const { Text } = Typography;
 
-const useTable = ({ selected_rows, dispatchState }) => {
+const useTable = ({ selected_rows, dispatchState, handleSearchFleet }) => {
     const columns = useMemo(() => ([
         {
             title: 'Biển số',
@@ -59,8 +59,8 @@ const useTable = ({ selected_rows, dispatchState }) => {
     }), [selected_rows, onSelectChange])
 
     const handleTableChange = useCallback((pagination, filters, sorter) => {
-        console.log("handleTableChange -> pagination, filters, sorter", pagination, filters, sorter)
-    }, [])
+        handleSearchFleet({ pagination, filters, sorter })
+    }, [handleSearchFleet])
 
     return {
         columns,

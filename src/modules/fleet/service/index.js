@@ -15,3 +15,15 @@ export const getFleets = async (params) => {
     }
 }
 /* #endregion get fleets */
+
+/* #region  create fleet */
+export const createFleet = async (params) => {
+    try {
+        let url = 'https://run.mocky.io/v3/74d7eee6-d9e5-4509-8656-033a42305035'
+        const result = await CoreService.post(url, params);
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+}
+/* #endregion get fleets */

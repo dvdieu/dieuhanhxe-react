@@ -7,6 +7,12 @@ const { Types, Creators } = createActions({
     getFleetsFailure: ['error'],
     /* #endregion */
 
+    /* #region  create fleet */
+    createFleetRequest: ['params'],
+    createFleetSuccess: ['payload'],
+    createFleetFailure: ['error'],
+    /* #endregion */
+
 });
 
 export const FleetTypes = Types;
