@@ -3,6 +3,7 @@ import React, { useReducer } from 'react';
 import { Drawer, Button, Input, Row, Col, Table } from 'antd';
 //lib
 import classnames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 //hook
 import useTable from './useTable';
 import truckState from './truckState';
@@ -47,7 +48,7 @@ const TruckDrawer = ({ visible, onClose }) => {
                     <Button onClick={onClose} style={{ marginRight: 8 }}>
                         {"Đóng"}
                     </Button>
-                    <Button onClick={onClose} type="primary">
+                    <Button onClick={onClose} disabled={isEmpty(selected_rows)} type="primary">
                         {"Xác nhận"}
                     </Button>
                 </div>

@@ -118,49 +118,20 @@ const google_data = [
     }
 ]
 
-const order_data = [
-    {
-        id: 1,
-        address: '10 Trần Xuân Soạn, phường Phạm Đình Hổ, quận Hai Bà Trưng, Hà Nội',
-        quantity: 15,
-        weight: 1.25,
-        size: 15,
-        warning: ''
-    },
-    {
-        id: 2,
-        address: 'KTX ĐH kinh tế quốc dân, phường Đồng Tâm, quận Hai Bà Trưng, Hà Nội',
-        quantity: 10,
-        weight: 1,
-        size: 10,
-        warning: ''
-    },
-    {
-        id: 3,
-        address: 'Số 26 Tổ 9 Phố Cầu Bây, Phường Sài Đồng, Quận Long Biên, Hà Nội',
-        quantity: 5,
-        weight: 0.5,
-        size: 5,
-        warning: ''
-    },
-    {
-        id: 4,
-        address: 'Đức Lan 91 Thanh Nhàn, phường Quỳnh Mai, quận Hai Bà Trưng, Hà Nội',
-        quantity: 10,
-        weight: 1.5,
-        size: 15,
-        warning: 'Quá trọng tải'
-    }
-]
-
 const HintRouter = () => {
     const [route, setRoute] = useState(1);
 
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible } = state;
-    const { handleCloseTruckDrawer, handleOpenTruckDrawer } = useCommon({ dispatchState });
+    const { truck_visible, order_visible, orders } = state;
+    const {
+        handleCloseTruckDrawer,
+        handleOpenTruckDrawer,
+        handleCloseOrderDrawer,
+        handleOpenOrderDrawer,
+        handleAddOrder,
+    } = useCommon({ dispatchState });
     const { truck_columns, expected_columns, address_columns, order_columns } = useTable({ handleOpenTruckDrawer });
 
     const handleChangeRouteItem = item => {
@@ -253,17 +224,17 @@ const HintRouter = () => {
                             <Search />
                         </Col>
                         <Col offset={8} span={8} className={classnames('flex-row', 'justify-end')}>
-                            <Button type='primary'>{"Thêm đơn hàng khác vào tuyến"}</Button>
+                            <Button type='primary' onClick={handleOpenOrderDrawer}>{"Thêm đơn hàng khác vào tuyến"}</Button>
                         </Col>
                         <Col span={24}>
-                            <Table columns={order_columns} dataSource={order_data} pagination={false} rowKey="id" scroll={{ y: 400 }} />
+                            <Table columns={order_columns} dataSource={orders} pagination={false} rowKey="id" scroll={{ y: 400 }} />
                         </Col>
                     </Row>
                     {/* end Danh sách đơn hàng */}
                 </Col>
             </Row>
             <TruckDrawer visible={truck_visible} onClose={handleCloseTruckDrawer} />
-            <OrderDrawer visible={true} onClose={() => { }} />
+            <OrderDrawer visible={order_visible} onClose={handleCloseOrderDrawer} onSubmit={handleAddOrder}/>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import { PAGE, SIZE } from '../../../../config/table';
 const init_state_table = {
     data_source: [
         {
-            id: 1,
+            id: 6,
             address: '20 Kim Mã',
             quantity: '20',
             weight: '20',
@@ -13,7 +13,7 @@ const init_state_table = {
             route: 'Tuyến 001'
         },
         {
-            id: 2,
+            id: 7,
             address: '30 Kim Mã',
             quantity: '30',
             weight: '30',
@@ -39,17 +39,18 @@ const reducer_state = ((state, action) => {
         case actions.SET_DATA_SOURCE:
             return {
                 ...state,
-                data_source: action.payload
+                data_source: action.data_source
             }
         case actions.SET_PAGINATION:
             return {
                 ...state,
-                pagination: action.payload
+                pagination: action.pagination
             }
         case actions.SET_SELECTED_ROWS:
             return {
                 ...state,
-                selected_rows: action.payload
+                selected_row_keys: action.selected_row_keys,
+                selected_rows: action.selected_rows
             }
         default:
             return state;

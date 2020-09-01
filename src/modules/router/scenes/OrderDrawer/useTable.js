@@ -94,7 +94,8 @@ const useTable = ({ selected_rows, dispatchState }) => {
     const onSelectChange = useCallback((selected_row_keys, selected_rows) => {
         dispatchState({
             type: actions.SET_SELECTED_ROWS,
-            payload: selected_rows
+            selected_row_keys,
+            selected_rows,
         })
     }, [dispatchState])
 

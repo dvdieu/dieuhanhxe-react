@@ -8,14 +8,19 @@ import isEmpty from 'lodash/isEmpty';
 import useTable from './useTable';
 import orderState from './orderState';
 
+
 const { Search } = Input;
 
-const OrderDrawer = ({ visible, onClose }) => {
+const OrderDrawer = ({ visible, onClose, onSubmit }) => {
     //hook
     const { init_state, reducer_state } = orderState;
     const [state, dispatchState] = useReducer(reducer_state, init_state);
     const { data_source, selected_rows } = state;
     const { columns, onRow, rowSelection } = useTable({ selected_rows, dispatchState });
+
+    const handleSubmit = () => {
+        onSubmit(selected_rows);
+    }
 
     return (
         <Drawer
@@ -24,6 +29,7 @@ const OrderDrawer = ({ visible, onClose }) => {
             onClose={onClose}
             visible={visible}
             bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose={true}
             footer={
                 <div
                     style={{
@@ -33,7 +39,7 @@ const OrderDrawer = ({ visible, onClose }) => {
                     <Button onClick={onClose} style={{ marginRight: 8 }}>
                         {"Đóng"}
                     </Button>
-                    <Button onClick={onClose} type="primary" disabled={isEmpty(selected_rows)}>
+                    <Button onClick={handleSubmit} type="primary" disabled={isEmpty(selected_rows)}>
                         {"Xác nhận"}
                     </Button>
                 </div>

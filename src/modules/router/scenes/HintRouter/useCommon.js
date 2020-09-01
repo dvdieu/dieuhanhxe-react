@@ -16,9 +16,34 @@ const useCommon = ({ dispatchState }) => {
         })
     }, [dispatchState])
 
+    const handleCloseOrderDrawer = useCallback(() => {
+        dispatchState({
+            type: actions.SET_ORDER_VISIBLE,
+            order_visible: false
+        })
+    }, [dispatchState])
+
+    const handleOpenOrderDrawer = useCallback(() => {
+        dispatchState({
+            type: actions.SET_ORDER_VISIBLE,
+            order_visible: true
+        })
+    }, [dispatchState])
+
+    const handleAddOrder = useCallback((orders) => {
+        dispatchState({
+            type: actions.SET_ORDERS,
+            orders
+        });
+        handleCloseOrderDrawer();
+    }, [dispatchState, handleCloseOrderDrawer])
+
     return {
         handleCloseTruckDrawer,
-        handleOpenTruckDrawer
+        handleOpenTruckDrawer,
+        handleCloseOrderDrawer,
+        handleOpenOrderDrawer,
+        handleAddOrder
     }
 }
 
