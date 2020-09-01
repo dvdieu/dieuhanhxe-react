@@ -1,7 +1,8 @@
 import actions from './actions';
 
 const initial_state_drawer = {
-    truck_visible: false
+    truck_visible: false,
+    order_visible: false
 }
 
 const hintState = () => {

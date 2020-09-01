@@ -16,6 +16,7 @@ import Step from '../../components/Step';
 import GoogleMap from '../../../../components/GoogleMap';
 //drawer
 import TruckDrawer from '../TruckDrawer';
+import OrderDrawer from '../OrderDrawer';
 
 const { Title, Text } = Typography;
 const { Search } = Input
@@ -262,6 +263,7 @@ const HintRouter = () => {
                 </Col>
             </Row>
             <TruckDrawer visible={truck_visible} onClose={handleCloseTruckDrawer} />
+            <OrderDrawer visible={true} onClose={() => { }} />
         </div>
     )
 }
