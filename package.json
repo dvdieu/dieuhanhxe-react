@@ -34,6 +34,7 @@
     "react": "^16.13.1",
     "react-app-rewire-css-modules": "^1.0.0",
     "react-app-rewired": "^2.1.5",
+    "react-big-calendar": "^0.27.0",
     "react-dom": "^16.13.1",
     "react-google-maps": "^9.4.5",
     "react-helmet-async": "^1.0.4",

@@ -1,0 +1,36 @@
+@import '../../../../assets/scss/variable-scss.scss';
+
+.driver-container {
+    border       : 1px solid $border-color;
+    padding      : 0px;
+    background   : #fff;
+    border-radius: 6px;
+    max-height   : 600px;
+    overflow     : auto
+}
+
+.driver-item {
+    // border : 1px solid $border-color;
+    padding: 8px;
+    cursor : pointer;
+
+    &-selected {
+        background: $selected-color;
+        color     : #fff;
+    }
+
+    &-unselected {
+        color: #000;
+    }
+
+    &-text {
+        &-selected {
+            color: #fff;
+        }
+
+        &-unselected {
+            color: #000;
+        }
+    }
+
+}

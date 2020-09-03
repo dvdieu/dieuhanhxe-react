@@ -8,6 +8,8 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import { store, persistor } from './redux-setup';
 
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
 ReactDOM.render(
 	// <React.StrictMode>
 	<Provider store={store}>

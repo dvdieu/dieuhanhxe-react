@@ -1,15 +1,15 @@
 .footer {
     position: fixed;
-    z-index: 99;
-    right: 0;
-    bottom: 0;
+    z-index : 99;
+    right   : 0;
+    bottom  : 0;
 
     padding: 0px 35px 0px 30px;
 
-    width: calc(100% - 200px);
+    width: 100%;
 
     background-color: #ffffff;
-    transition: width 0.2s ease 0s;
+    transition      : width 0.2s ease 0s;
 
     &_collapse {
         width: calc(100% - 80px);
