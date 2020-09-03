@@ -1,8 +1,4 @@
 import React from 'react';
-
-//layout
-import BasicLayout from '../../layouts/BasicLayout';
-
 //components
 import { Button } from 'antd';
 
@@ -24,8 +20,5 @@ const ErrorPage = (props) => {
         </div>
     )
 }
-
-ErrorPage.Layout = BasicLayout;
-ErrorPage.Title = false;
 
 export default ErrorPage;

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table, Skeleton } from 'antd';
 const columns = [
@@ -77,7 +75,5 @@ const Trucks = ({ rowSelection }) => {
         </Skeleton>
     )
 }
-
-Trucks.Layout = BasicLayout;
 
 export default Trucks;

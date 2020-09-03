@@ -1,6 +1,4 @@
 import React, { memo, useReducer } from 'react';
-//layout
-import BasicLayout from '../../../../layouts/BasicLayout';
 //atnd
 import { Typography, Checkbox, Radio, Button, Table, Input, Row, Col, DatePicker } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
@@ -109,7 +107,5 @@ const SetupWarehouse = () => {
         </div >
     )
 }
-
-SetupWarehouse.Layout = BasicLayout;
 
 export default memo(SetupWarehouse);

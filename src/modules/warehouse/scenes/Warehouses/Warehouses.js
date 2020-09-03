@@ -1,6 +1,4 @@
 import React, { memo, useState, useCallback } from 'react';
-//layout
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Row, Col, Button, Typography } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
@@ -70,7 +68,5 @@ const Warehouses = () => {
         </div>
     )
 }
-
-Warehouses.Layout = BasicLayout;
 
 export default memo(Warehouses);

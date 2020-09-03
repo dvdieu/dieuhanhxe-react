@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table, Avatar } from 'antd';
 
@@ -111,7 +108,5 @@ const Merchandises = () => {
         <Table rowSelection={rowSelection} columns={columns} dataSource={data} scroll={{ x: 1300 }} />
     )
 }
-
-Merchandises.Layout = BasicLayout;
 
 export default Merchandises;

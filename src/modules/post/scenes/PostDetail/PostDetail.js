@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //components
 import Schedule from '../../components/Schedule';
 import GoogleMap from '../../../../components/GoogleMap';
@@ -252,7 +249,5 @@ const PostDetail = () => {
         </>
     )
 }
-
-PostDetail.Layout = BasicLayout;
 
 export default PostDetail;

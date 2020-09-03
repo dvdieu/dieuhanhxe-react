@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import BasicLayout from '../../../../layouts/BasicLayout';
 import { Row, Col, Typography, Button, Avatar } from 'antd';
 import { CalendarOutlined, EditOutlined, DeleteOutlined, HomeOutlined, UserOutlined, CarOutlined } from '@ant-design/icons';
 //lib
@@ -115,7 +114,5 @@ const Fleet = memo(() => {
         </div>
     )
 })
-
-Fleet.Layout = BasicLayout;
 
 export default Fleet;

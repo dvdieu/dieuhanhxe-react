@@ -1,19 +1,12 @@
 import React from 'react';
-
-//lib
-import { Helmet, HelmetProvider } from "react-helmet-async";
 //router
-import { Router, Switch } from "react-router-dom";
-import RoutePublic from './components/RoutePublic';
-//config
-import config from "./config/info";
-//utils
-import history from "./utils/history";
+import { BrowserRouter, Switch } from 'react-router-dom';
+import PublicRoute from './components/PublicRoute';
+import PrivateRoute from './components/PrivateRoute';
 //page
 import Drivers from './modules/driver/scenes/Drivers';
 import Fleets from './modules/fleet/scenes/Fleets';
 import Fleet from './modules/fleet/scenes/Fleet';
-import Merchandises from './modules/merchandise/scenes/Merchandises';
 import CreatePost from './modules/post/scenes/CreatePost';
 import PostDetail from './modules/post/scenes/PostDetail';
 import Products from './modules/post/scenes/Products';
@@ -22,109 +15,35 @@ import Warehouses from './modules/warehouse/scenes/Warehouses';
 import SetupWarehouse from './modules/router/scenes/SetupWarehouse';
 import HintRouter from './modules/router/scenes/HintRouter';
 import Dashboard from './modules/dashboard/scenes/Dashboard';
+//auth
+import SignIn from './modules/auth/scenes/SignIn';
+import SignUp from './modules/auth/scenes/SignUp';
 import ErrorPage from './components/Error';
 //styles
 import './assets/scss/overide-ant-design.scss';
 import './assets/scss/common.scss';
-import styled from "styled-components";
-// import Confirm from './modules/post/components/Confirm';
-
-const Main = styled.main`
-     {
-        height: 100%;
-    }
-`;
 
 const MyRouter = () => {
 	return (
-		<HelmetProvider>
-			<Router
-				history={history}
-			>
-				<Helmet
-					defer={false}
-					htmlAttributes={{ lang: "pt-br" }}
-					encodeSpecialCharacters={true}
-					defaultTitle={config.name}
-					titleTemplate={`%s | ${config.name}`}
-					titleAttributes={{ itemprop: "name", lang: "pt-br" }}
-				/>
-				<Main>
-					<Switch>
-						<RoutePublic
-							path="/"
-							exact
-							component={Dashboard}
-						/>
-						<RoutePublic
-							path="/warehouses"
-							exact
-							component={Warehouses}
-						/>
-						<RoutePublic
-							path="/warehouse/setup/:id"
-							exact
-							component={SetupWarehouse}
-						/>
-						<RoutePublic
-							path="/warehouse/hint/:id"
-							exact
-							component={HintRouter}
-						/>
-						<RoutePublic
-							path="/dashboard"
-							exact
-							component={Dashboard}
-						/>
-						<RoutePublic
-							path="/taixe"
-							exact
-							component={Drivers}
-						/>
-						<RoutePublic
-							path="/doixe"
-							exact
-							component={Fleets}
-						/>
-						<RoutePublic
-							path="/fleet/:id"
-							exact
-							component={Fleet}
-						/>
-						<RoutePublic
-							path="/hanghoa"
-							exact
-							component={Merchandises}
-						/>
-						<RoutePublic
-							path="/phantuyen/danhsach"
-							exact
-							component={Posts}
-						/>
-						<RoutePublic
-							path="/phantuyen/create"
-							exact
-							component={CreatePost}
-						/>
-						<RoutePublic
-							path="/phantuyen/chitiet/:id"
-							exact
-							component={PostDetail}
-						/>
-						<RoutePublic
-							path="/phantuyen/chitiethanghoa/:id"
-							exact
-							component={Products}
-						/>
-						<RoutePublic
-							path="*"
-							exact
-							component={ErrorPage}
-						/>
-					</Switch>
-				</Main>
-			</Router>
-		</HelmetProvider>
+		<BrowserRouter>
+			<Switch>
+				<PublicRoute restricted={true} component={SignIn} path="/sign-in" exact />
+				<PublicRoute restricted={true} component={SignUp} path="/sign-up" exact />
+				<PrivateRoute component={Dashboard} path="/" exact />
+				<PrivateRoute component={Dashboard} path="/dashboard" exact />
+				<PrivateRoute component={Warehouses} path="/warehouses" exact />
+				<PrivateRoute component={SetupWarehouse} path="/warehouse/setup/:id" exact />
+				<PrivateRoute component={HintRouter} path="/warehouse/hint/:id" exact />
+				<PrivateRoute component={Drivers} path="/taixe" exact />
+				<PrivateRoute component={Fleets} path="/doixe" exact />
+				<PrivateRoute component={Fleet} path="/fleet/:id" exact />
+				<PrivateRoute component={Posts} path="/phantuyen/danhsach" exact />
+				<PrivateRoute component={CreatePost} path="/phantuyen/create" exact />
+				<PrivateRoute component={PostDetail} path="/phantuyen/chitiet/:id" exact />
+				<PrivateRoute component={Products} path="/phantuyen/chitiethanghoa/:id" exact />
+				<PrivateRoute component={ErrorPage} path="*" exact />
+			</Switch>
+		</BrowserRouter>
 	)
 }
 

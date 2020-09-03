@@ -1,6 +1,4 @@
 import React, { memo, useState, useEffect, useRef, useReducer } from 'react';
-//layout
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Row, Col, Typography, Button, Table, Input } from 'antd';
 //styles
@@ -241,7 +239,5 @@ const HintRouter = () => {
         </div>
     )
 }
-
-HintRouter.Layout = BasicLayout;
 
 export default memo(HintRouter);

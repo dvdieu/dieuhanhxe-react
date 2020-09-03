@@ -1,7 +1,4 @@
 import React from 'react';
-
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //components
 import Confirm from '../../components/Confirm';
 //lib
@@ -29,7 +26,5 @@ const Posts = () => {
         </>
     )
 }
-
-Posts.Layout = BasicLayout;
 
 export default Posts;

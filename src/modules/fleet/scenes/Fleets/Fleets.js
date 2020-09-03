@@ -1,7 +1,4 @@
 import React, { useReducer } from 'react';
-
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table } from 'antd';
 //table
@@ -37,7 +34,5 @@ const Fleets = () => {
         </>
     )
 }
-
-Fleets.Layout = BasicLayout;
 
 export default Fleets;

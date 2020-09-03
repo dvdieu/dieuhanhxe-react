@@ -1,7 +1,5 @@
 import React from 'react';
 
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table, Typography, Tag, Button } from 'antd';
 //lib
@@ -61,7 +59,4 @@ const Orders = ({ rowSelection, data }) => {
         <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
     )
 }
-
-Orders.Layout = BasicLayout;
-
 export default Orders;

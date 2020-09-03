@@ -1,5 +1,4 @@
 import React from 'react';
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table, Avatar, Typography } from 'antd';
 //lib
@@ -159,7 +158,5 @@ const Product = () => {
         <Table rowSelection={null} columns={columns} dataSource={data_table_template[id]} />
     )
 }
-
-Product.Layout = BasicLayout;
 
 export default Product;

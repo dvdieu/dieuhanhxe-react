@@ -2,8 +2,7 @@ import React from 'react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
+
 DashBoard.propTypes = {
 
 };
@@ -38,5 +37,5 @@ function DashBoard(props) {
         </LineChart>
     );
 }
-DashBoard.Layout = BasicLayout;
+
 export default DashBoard;

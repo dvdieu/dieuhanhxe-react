@@ -1,7 +1,5 @@
 import React from 'react';
 
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Row, Input, Typography } from 'antd';
 //components
@@ -51,7 +49,5 @@ const Drivers = () => {
         </>
     )
 }
-
-Drivers.Layout = BasicLayout;
 
 export default Drivers;

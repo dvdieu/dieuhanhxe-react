@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Steps, Row, Col, Button } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined, CheckCircleOutlined } from '@ant-design/icons';
@@ -158,7 +155,5 @@ const CreatePost = () => {
         </div>
     )
 }
-
-CreatePost.Layout = BasicLayout;
 
 export default CreatePost;

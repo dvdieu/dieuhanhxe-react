@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-//layouts
-import BasicLayout from '../../../../layouts/BasicLayout';
 //antd
 import { Table, Typography, Progress, Tag, Button, Skeleton } from 'antd';
 import { ProfileOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -152,7 +149,5 @@ const Confirm = ({ rowSelection }) => {
         </div>
     )
 }
-
-Confirm.Layout = BasicLayout;
 
 export default Confirm;

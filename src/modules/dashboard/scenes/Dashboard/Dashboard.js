@@ -1,5 +1,4 @@
 import React from 'react';
-import BasicLayout from '../../../../layouts/BasicLayout';
 import { Row, Col, Typography, DatePicker, List, Avatar } from 'antd';
 //components
 import Card from '../../components/Card';
@@ -142,7 +141,5 @@ const Dashboard = () => {
         </>
     )
 }
-
-Dashboard.Layout = BasicLayout;
 
 export default Dashboard;
