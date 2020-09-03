@@ -1,0 +1,42 @@
+@import "../../assets/scss/variable-scss.scss";
+
+.autocomplete-dropdown-container {
+    box-sizing                   : border-box;
+    margin                       : 0;
+    padding                      : 0;
+    color                        : rgba(0, 0, 0, .85);
+    font-size                    : 14px;
+    font-variant                 : tabular-nums;
+    line-height                  : 1.5715;
+    list-style                   : none;
+    -webkit-font-feature-settings: "tnum";
+    font-feature-settings        : "tnum";
+    position                     : absolute;
+    z-index                      : 1050;
+    display                      : block;
+    width                        : calc(100% - 91px);
+    box-shadow                   : 0 3px 6px -4px rgba(0, 0, 0, .12), 0 6px 16px 0 rgba(0, 0, 0, .08), 0 9px 28px 8px rgba(0, 0, 0, .05);
+}
+
+.loading {
+    display        : flex;
+    flex-direction : row;
+    justify-content: center;
+    padding        : 12px;
+    background-color: #fff;
+}
+
+.suggestion-item {
+    padding: 8px;
+    cursor : pointer;
+}
+
+.active {
+    background-color: $selected-color;
+    color           : #fff;
+}
+
+.inactive {
+    background-color: #fff;
+    color           : #000;
+}

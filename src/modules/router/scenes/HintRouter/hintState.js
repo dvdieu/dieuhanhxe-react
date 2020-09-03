@@ -37,12 +37,28 @@ const initial_state_drawer = {
             size: 15,
             warning: 'Quá trọng tải'
         }
+    ],
+
+}
+
+const init_state_location = {
+    address: '',
+    dodge_address: [
+        {
+            STT: 1,
+            address: '25 Trần Xuân Soạn'
+        },
+        {
+            STT: 2,
+            address: '30 Đinh Tiên Hoàng'
+        }
     ]
 }
 
 const hintState = () => {
     const init_state = {
-        ...initial_state_drawer
+        ...initial_state_drawer,
+        ...init_state_location
     }
 
     const reducer_state = ((state, action) => {
@@ -63,6 +79,18 @@ const hintState = () => {
                 return {
                     ...state,
                     orders
+                }
+            case actions.ADD_DODGE_ADDRESS:
+                let dodge_address = cloneDeep(state.dodge_address);
+                dodge_address = [...dodge_address, action.address];
+                return {
+                    ...state,
+                    dodge_address
+                }
+            case actions.SET_ADDRESS:
+                return {
+                    ...state,
+                    address: action.address
                 }
             default:
                 return state;

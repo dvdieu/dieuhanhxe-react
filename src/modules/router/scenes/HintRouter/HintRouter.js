@@ -14,6 +14,7 @@ import useCommon from './useCommon';
 //components
 import Step from '../../components/Step';
 import GoogleMap from '../../../../components/GoogleMap';
+import LocationSearchInput from '../../../../components/LocationSearchInput';
 //drawer
 import TruckDrawer from '../TruckDrawer';
 import OrderDrawer from '../OrderDrawer';
@@ -48,17 +49,6 @@ const expected_data = [
         expected: 'Tổng thời gian di chuyển',
         value: '38',
         unit: 'phút',
-    }
-]
-
-const address_data = [
-    {
-        STT: 1,
-        address: '25 Trần Xuân Soạn'
-    },
-    {
-        STT: 2,
-        address: '30 Đinh Tiên Hoàng'
     }
 ]
 
@@ -124,14 +114,17 @@ const HintRouter = () => {
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible, order_visible, orders } = state;
+    const { truck_visible, order_visible, orders, dodge_address, address } = state;
     const {
         handleCloseTruckDrawer,
         handleOpenTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
         handleAddOrder,
+        handleAddDodgeAddress,
+        handleChangeAddress,
     } = useCommon({ dispatchState });
+
     const { truck_columns, expected_columns, address_columns, order_columns } = useTable({ handleOpenTruckDrawer });
 
     const handleChangeRouteItem = item => {
@@ -196,10 +189,20 @@ const HintRouter = () => {
                                 <Table columns={expected_columns} dataSource={expected_data} pagination={false} rowKey="expected" />
                                 <br />
                                 <div className='flex-row' style={{ marginBottom: 12 }}>
-                                    <Input placeholder='Nhập tuyến đường cần tránh' />
-                                    <Button type='default'>{"Thêm"}</Button>
+                                    {/* <Input placeholder='Nhập tuyến đường cần tránh' /> */}
+                                    <LocationSearchInput
+                                        placeholder='Nhập tuyến đường cần tránh'
+                                        address={address}
+                                        onChange={handleChangeAddress}
+                                        onSelect={handleChangeAddress}/>
+                                    <Button
+                                        type='primary'
+                                        onClick={() => handleAddDodgeAddress({
+                                            address,
+                                            STT: dodge_address.length + 1
+                                        })}>{"Thêm"}</Button>
                                 </div>
-                                <Table columns={address_columns} dataSource={address_data} pagination={false} rowKey="STT" />
+                                <Table columns={address_columns} dataSource={dodge_address} pagination={false} rowKey="STT" />
 
                             </div>
                         </Col>
@@ -234,7 +237,7 @@ const HintRouter = () => {
                 </Col>
             </Row>
             <TruckDrawer visible={truck_visible} onClose={handleCloseTruckDrawer} />
-            <OrderDrawer visible={order_visible} onClose={handleCloseOrderDrawer} onSubmit={handleAddOrder}/>
+            <OrderDrawer visible={order_visible} onClose={handleCloseOrderDrawer} onSubmit={handleAddOrder} />
         </div>
     )
 }

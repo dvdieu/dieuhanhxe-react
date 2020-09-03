@@ -38,12 +38,32 @@ const useCommon = ({ dispatchState }) => {
         handleCloseOrderDrawer();
     }, [dispatchState, handleCloseOrderDrawer])
 
+    const handleAddDodgeAddress = useCallback(address => {
+        dispatchState({
+            type: actions.ADD_DODGE_ADDRESS,
+            address
+        })
+        dispatchState({
+            type: actions.SET_ADDRESS,
+            address: ''
+        })
+    }, [dispatchState])
+
+    const handleChangeAddress = useCallback(address => {
+        dispatchState({
+            type: actions.SET_ADDRESS,
+            address
+        })
+    }, [dispatchState])
+
     return {
         handleCloseTruckDrawer,
         handleOpenTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
-        handleAddOrder
+        handleAddOrder,
+        handleAddDodgeAddress,
+        handleChangeAddress
     }
 }
 
