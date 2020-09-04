@@ -4,6 +4,9 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import PublicRoute from './components/PublicRoute';
 import PrivateRoute from './components/PrivateRoute';
 //page
+import Dashboard from './modules/dashboard/scenes/Dashboard';
+import Routes from './modules/router/scenes/Routes';
+import CreateRouter from './modules/router/scenes/CreateRouter';
 import Drivers from './modules/driver/scenes/Drivers';
 import Fleets from './modules/fleet/scenes/Fleets';
 import Fleet from './modules/fleet/scenes/Fleet';
@@ -14,7 +17,6 @@ import Posts from './modules/post/scenes/Posts';
 import Warehouses from './modules/warehouse/scenes/Warehouses';
 import SetupWarehouse from './modules/router/scenes/SetupWarehouse';
 import HintRouter from './modules/router/scenes/HintRouter';
-import Dashboard from './modules/dashboard/scenes/Dashboard';
 import Schedule from './modules/driver/scenes/Schedule'
 //auth
 import SignIn from './modules/auth/scenes/SignIn';
@@ -32,6 +34,8 @@ const MyRouter = () => {
 				<PublicRoute restricted={true} component={SignUp} path="/sign-up" exact />
 				<PrivateRoute component={Dashboard} path="/" exact />
 				<PrivateRoute component={Dashboard} path="/dashboard" exact />
+				<PrivateRoute component={Routes} path="/routes" exact />
+				<PrivateRoute component={CreateRouter} path="/route/create" exact />
 				<PrivateRoute component={Warehouses} path="/warehouses" exact />
 				<PrivateRoute component={SetupWarehouse} path="/warehouse/setup/:id" exact />
 				<PrivateRoute component={HintRouter} path="/warehouse/hint/:id" exact />

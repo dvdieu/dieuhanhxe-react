@@ -29,7 +29,7 @@ const warehouses = [
     },
 ]
 
-const Warehouses = () => {
+const Warehouses = ({onClickNext}) => {
     const [selected, setSelected] = useState(0);
     //
     const history = useHistory();
@@ -38,7 +38,8 @@ const Warehouses = () => {
     }, [])
 
     const onClickCreateRoute = () => {
-        history.push(`/warehouse/setup/${selected}`);
+        // history.push(`/warehouse/setup/${selected}`);
+        onClickNext();
     }
 
     return (

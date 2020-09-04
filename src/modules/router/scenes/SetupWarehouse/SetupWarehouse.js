@@ -22,7 +22,7 @@ const { Title, Text } = Typography;
 const { Search } = Input;
 const { RangePicker } = DatePicker;
 
-const SetupWarehouse = () => {
+const SetupWarehouse = ({ onClickNext }) => {
     //hook
     const history = useHistory();
     const match = useRouteMatch();
@@ -49,10 +49,11 @@ const SetupWarehouse = () => {
     }
 
     const goToHintRouter = () => {
-        const id = match?.params?.id;
-        if (id) {
-            history.push(`/warehouse/hint/${id}`);
-        }
+        onClickNext()
+        // const id = match?.params?.id;
+        // if (id) {
+        //     history.push(`/warehouse/hint/${id}`);
+        // }
     }
 
     return (
