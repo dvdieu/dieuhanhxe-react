@@ -17,7 +17,7 @@ import useHandleWarehouses from './useHandleWarehouses';
 import useHandleSetupWarehouse from './useHandleSetupWarehouse';
 
 const CreateRouter = () => {
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(0);
     //hook
     const [state, dispatchState] = useReducer(reducer_state, initial_state);
     const {
@@ -106,6 +106,13 @@ const CreateRouter = () => {
                     {
                         step === 2 &&
                         <Button type="primary" onClick={onSubmit} size='large' style={{ marginLeft: 12 }}>
+                            {"Xác nhận lịch trình"}
+                            <CheckCircleOutlined />
+                        </Button>
+                    }
+                     {
+                        step === 3 &&
+                        <Button type="primary" onClick={onStepBack} size='large' style={{ marginLeft: 12 }}>
                             {"Xác nhận lịch trình"}
                             <CheckCircleOutlined />
                         </Button>

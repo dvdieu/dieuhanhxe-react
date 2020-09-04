@@ -96,6 +96,70 @@ const Schedule = () => {
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
     const [events, setEvents] = useState(events_data);
+    const [dragged_event, setDraggedEvent] = useState(null);
+    const displayDragItemInCell = true;
+
+    const handleDragStart = event => {
+        setDraggedEvent(event)
+    }
+
+    const dragFromOutsideItem = () => {
+        return dragged_event
+    }
+
+    const onDropFromOutside = ({ start, end, allDay }) => {
+        const event = {
+            id: dragged_event.id,
+            title: dragged_event.title,
+            start,
+            end,
+            allDay: allDay,
+        }
+
+        setDraggedEvent(null)
+
+        this.moveEvent({ event, start, end })
+    }
+
+    const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
+        let allDay = event.allDay
+
+        if (!event.allDay && droppedOnAllDaySlot) {
+            allDay = true
+        } else if (event.allDay && !droppedOnAllDaySlot) {
+            allDay = false
+        }
+
+        const nextEvents = events.map(existingEvent => {
+            return existingEvent.id === event.id
+                ? { ...existingEvent, start, end }
+                : existingEvent
+        })
+
+        setEvents(nextEvents)
+    }
+
+    const resizeEvent = ({ event, start, end }) => {
+        const nextEvents = events.map(existingEvent => {
+            return existingEvent.id === event.id
+                ? { ...existingEvent, start, end }
+                : existingEvent
+        })
+        setEvents(nextEvents)
+    }
+
+    const newEvent = (event) => {
+        let idList = events.map(a => a.id)
+        let newId = Math.max(...idList) + 1
+        let hour = {
+            id: newId,
+            title: 'New Event',
+            allDay: event.slots.length === 1,
+            start: event.start,
+            end: event.end,
+        }
+        setEvents(events.concat([hour]))
+    }
 
     const handleOk = () => {
         setVisible(false)
@@ -112,13 +176,6 @@ const Schedule = () => {
     const onClickItem = item => {
         setItemSelected(item);
         setVisible(true);
-    }
-
-    const handleSelect = ({ start, end }) => {
-        const title = window.prompt('New Event name')
-        if (title) {
-            setEvents([...events, { start, end, title }])
-        }
     }
 
     return (
@@ -151,12 +208,13 @@ const Schedule = () => {
                     </Affix>
                 </Col>
                 <Col xs={20}>
-                    <Calendar
+                    <DragAndDropCalendar
+                        resizable
                         selectable
                         localizer={localizer}
                         defaultDate={new Date()}
                         defaultView='week'
-                        views={['week', 'month', 'agenda']}
+                        views={['day','week', 'month', 'agenda']}
                         events={events}
                         style={{ height: '600px' }}
                         startAccessor='start'
@@ -171,8 +229,15 @@ const Schedule = () => {
                             day: 'Ngày',
                             agenda: 'Nhật ký'
                         }}
+                        onEventResize={resizeEvent}
+                        onSelectSlot={newEvent}
+                        onEventDrop={moveEvent}
+                        dragFromOutsideItem={
+                            displayDragItemInCell ? dragFromOutsideItem : null
+                        }
+                        onDropFromOutside={onDropFromOutside}
+                        handleDragStart={handleDragStart}
                         onSelectEvent={item => onClickItem(item)}
-                        onSelectSlot={handleSelect}
                     />
                 </Col>
             </Row>

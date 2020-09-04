@@ -1,5 +1,7 @@
+@import '../../../../assets/scss/variable-scss.scss';
+
 .setup {
-    border       : 1px solid green;
+    border       : 1px solid $border-color;
     border-radius: 6px;
     width        : 100%;
     padding      : 8px 16px;

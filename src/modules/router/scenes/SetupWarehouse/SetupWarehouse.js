@@ -41,7 +41,7 @@ const SetupWarehouse = ({
     } = state;
     const { total_items, page_number, page_size } = pagination;
 
-    const { columns, onRow, rowSelection } = useTable({  selected_order_keys, onChangeSelectedOrder });
+    const { columns, onRow, rowSelection } = useTable({ selected_order_keys, onChangeSelectedOrder });
     const { fetch_orders } = useSearch({ dispatchState });
 
     const onChangeDate = (dates, dateStrings) => {
@@ -62,11 +62,6 @@ const SetupWarehouse = ({
                             {"Ưu tiên xe có trọng tải nhỏ trước"}
                         </Radio>
                     </Radio.Group>
-                    <div className={classnames('flex-row', 'justify-end')}>
-                        <Button
-                            type='primary'
-                            icon={<PlusCircleOutlined />}>{"Tạo định tuyến"}</Button>
-                    </div>
                 </div>
             </div>
             <Row gutter={[8, 8]} style={{ margin: '12px 0px 24px 0px' }}>
