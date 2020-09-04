@@ -4,11 +4,14 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import classnames from 'classnames';
 //components
-import { Calendar, momentLocalizer } from 'react-big-calendar'
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+
 //antd
 import { Row, Col, Avatar, Typography, Affix, Modal } from 'antd';
 //style
 import styles from './styles.module.scss';
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
 
 const { Text } = Typography;
 
@@ -52,7 +55,7 @@ const drivers = [
     }
 ]
 
-const events = [
+let events_data = [
     {
         id: 1,
         title: 'Tuyến 001',
@@ -86,10 +89,13 @@ const events = [
 
 ]
 
+const DragAndDropCalendar = withDragAndDrop(Calendar)
+
 const Schedule = () => {
     const [selected, setSelected] = useState(1);
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
+    const [events, setEvents] = useState(events_data);
 
     const handleOk = () => {
         setVisible(false)
@@ -106,6 +112,13 @@ const Schedule = () => {
     const onClickItem = item => {
         setItemSelected(item);
         setVisible(true);
+    }
+
+    const handleSelect = ({ start, end }) => {
+        const title = window.prompt('New Event name')
+        if (title) {
+            setEvents([...events, { start, end, title }])
+        }
     }
 
     return (
@@ -139,9 +152,11 @@ const Schedule = () => {
                 </Col>
                 <Col xs={20}>
                     <Calendar
+                        selectable
                         localizer={localizer}
                         defaultDate={new Date()}
-                        defaultView='month'
+                        defaultView='week'
+                        views={['week', 'month', 'agenda']}
                         events={events}
                         style={{ height: '600px' }}
                         startAccessor='start'
@@ -157,6 +172,7 @@ const Schedule = () => {
                             agenda: 'Nhật ký'
                         }}
                         onSelectEvent={item => onClickItem(item)}
+                        onSelectSlot={handleSelect}
                     />
                 </Col>
             </Row>

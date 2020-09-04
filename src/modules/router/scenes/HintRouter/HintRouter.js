@@ -1,6 +1,6 @@
-import React, { memo, useState, useEffect, useRef, useReducer } from 'react';
+import React, { memo, useState, useReducer } from 'react';
 //antd
-import { Row, Col, Typography, Button, Table, Input } from 'antd';
+import { Row, Col, Typography, Button, Table, Input, Affix, Checkbox } from 'antd';
 //styles
 import styles from './styles.module.scss';
 //lib
@@ -12,7 +12,6 @@ import useCommon from './useCommon';
 //components
 import Step from '../../components/Step';
 import GoogleMap from '../../../../components/GoogleMap';
-import LocationSearchInput from '../../../../components/LocationSearchInput';
 //drawer
 import TruckDrawer from '../TruckDrawer';
 import OrderDrawer from '../OrderDrawer';
@@ -106,74 +105,65 @@ const google_data = [
     }
 ]
 
-const HintRouter = () => {
+const HintRouter = ({ selected_order, onConfirmRoute }) => {
     const [route, setRoute] = useState(1);
 
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible, order_visible, orders, dodge_address, address } = state;
+    const { truck_visible, order_visible } = state;
     const {
         handleCloseTruckDrawer,
         handleOpenTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
         handleAddOrder,
-        handleAddDodgeAddress,
-        handleChangeAddress,
     } = useCommon({ dispatchState });
 
-    const { truck_columns, expected_columns, address_columns, order_columns } = useTable({ handleOpenTruckDrawer });
+    const { truck_columns, expected_columns, order_columns } = useTable({ handleOpenTruckDrawer });
 
     const handleChangeRouteItem = item => {
         setRoute(item.id);
     }
 
-    const [is_sticky, setSticky] = useState(false);
-    const ref = useRef(null);
-
-    const handleScroll = () => {
-        if (ref.current) {
-            setSticky(ref.current.getBoundingClientRect().top <= 0);
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', () => handleScroll);
-        };
-    }, []);
-
     return (
         <div className={classnames('flex-row')}>
             <Row gutter={[16, 16]} className={classnames('full-width', styles.route_setup)}>
                 {/* start Bảng định tuyến */}
-                <Col span={4} className={`sticky-wrapper${is_sticky ? ' sticky' : ''}`} ref={ref}>
-                    <div className={classnames(styles.routes, styles.border, 'sticky-inner')}>
-                        <Title className={styles.routes_title} level={4}>{"Bảng định tuyến"}</Title>
-                        <div className={styles.routes_content}>
-                            {
-                                routes &&
-                                routes.map((item, key) => {
-                                    const is_selected = (item.id === route);
-                                    return (
-                                        <div key={key} className={classnames({
-                                            [styles.routes_item]: true,
-                                            'flex-row': true,
-                                            'align-middle': true,
-                                            [styles.routes_item_selected]: is_selected,
-                                            [styles._unselected]: !is_selected
-                                        })}
-                                            onClick={() => { handleChangeRouteItem(item) }}>
-                                            <Text className={classnames({ [styles.routes_item_selected_text]: is_selected })}>{item.name}</Text>
-                                        </div>
-                                    )
-                                })
-                            }
+                <Col span={4}  >
+                    <Affix offsetTop={88}>
+                        <div className={classnames(styles.routes, styles.border)}>
+                            <Title className={styles.routes_title} level={4}>{"Bảng định tuyến"}</Title>
+                            <div className={styles.routes_content}>
+                                {
+                                    routes &&
+                                    routes.map((item, key) => {
+                                        const is_selected = (item.id === route);
+                                        return (
+                                            <div key={key} className={classnames({
+                                                [styles.routes_item]: true,
+                                                'flex-row': true,
+                                                'align-middle': true,
+                                                'justify-between': true,
+                                                [styles.routes_item_selected]: is_selected,
+                                                [styles._unselected]: !is_selected
+                                            })}
+                                                onClick={() => { handleChangeRouteItem(item) }}>
+                                                <Text className={classnames({ [styles.routes_item_selected_text]: is_selected })}>{item.name}</Text>
+                                                {
+                                                    is_selected ?
+                                                        <Button type='success' onClick={onConfirmRoute}>{"Xác nhận"}</Button>
+                                                        :
+                                                        <Button type='link'>{"Sửa"}</Button>
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <Button block type='primary'>{"Tạo thêm tuyến mới"}</Button>
                         </div>
-                        <Button block type='primary'>{"Tạo thêm tuyến mới"}</Button>
-                    </div>
+                    </Affix>
                 </Col>
                 {/* end Bảng định tuyến */}
                 <Col span={20}>
@@ -186,13 +176,18 @@ const HintRouter = () => {
                                 <br />
                                 <Table columns={expected_columns} dataSource={expected_data} pagination={false} rowKey="expected" />
                                 <br />
-                                <div className='flex-row' style={{ marginBottom: 12 }}>
-                                    {/* <Input placeholder='Nhập tuyến đường cần tránh' /> */}
+                                <Checkbox >{"Tránh phà"}</Checkbox>
+                                <br />
+                                <Checkbox >{"Tránh cao tốc"}</Checkbox>
+                                <br />
+                                <Checkbox >{"Tránh trạm thu phí"}</Checkbox>
+                                {/* Tuyến đường cần tránh */}
+                                {/* <div className='flex-row' style={{ marginBottom: 12 }}>
                                     <LocationSearchInput
                                         placeholder='Nhập tuyến đường cần tránh'
                                         address={address}
                                         onChange={handleChangeAddress}
-                                        onSelect={handleChangeAddress}/>
+                                        onSelect={handleChangeAddress} />
                                     <Button
                                         type='primary'
                                         onClick={() => handleAddDodgeAddress({
@@ -200,7 +195,7 @@ const HintRouter = () => {
                                             STT: dodge_address.length + 1
                                         })}>{"Thêm"}</Button>
                                 </div>
-                                <Table columns={address_columns} dataSource={dodge_address} pagination={false} rowKey="STT" />
+                                <Table columns={address_columns} dataSource={dodge_address} pagination={false} rowKey="STT" /> */}
 
                             </div>
                         </Col>
@@ -220,7 +215,7 @@ const HintRouter = () => {
                     </Row>
                     {/*end Thiết lập định tuyến */}
                     {/* start Danh sách đơn hàng */}
-                    <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+                    <Row gutter={[16, 16]} style={{ margin: '12px 0px 24px 0px' }}>
                         <Col span={8}>
                             <Search />
                         </Col>
@@ -228,7 +223,7 @@ const HintRouter = () => {
                             <Button type='primary' onClick={handleOpenOrderDrawer}>{"Thêm đơn hàng khác vào tuyến"}</Button>
                         </Col>
                         <Col span={24}>
-                            <Table columns={order_columns} dataSource={orders} pagination={false} rowKey="id" scroll={{ y: 400 }} />
+                            <Table columns={order_columns} dataSource={selected_order} pagination={false} rowKey="id" scroll={{ y: 400 }} />
                         </Col>
                     </Row>
                     {/* end Danh sách đơn hàng */}

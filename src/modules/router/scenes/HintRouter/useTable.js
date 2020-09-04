@@ -110,11 +110,14 @@ const useTable = ({ handleOpenTruckDrawer }) => {
         {
             title: 'Địa chỉ',
             dataIndex: 'address',
-            width: '30%'
+        },
+        {
+            title: 'Chi nhánh',
+            dataIndex: 'agency',
         },
         {
             title: 'Mã đơn hàng',
-            dataIndex: 'id'
+            dataIndex: 'order_id'
         },
         {
             title: 'Tổng số kiện hàng',

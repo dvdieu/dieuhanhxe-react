@@ -11,7 +11,10 @@ const { Text } = Typography;
 
 const WarehouseItem = ({ warehouse, selected, onChangeWarehouse }) => {
     return (
-        <Col span={6} className={classnames('flex-column', 'align-middle', 'pointer')} onClick={() => onChangeWarehouse(warehouse.id)}>
+        <Col
+            span={6}
+            className={classnames('flex-column', 'align-middle', 'pointer')}
+            onClick={() => onChangeWarehouse(warehouse)}>
             <HomeOutlined className={classnames({
                 [styles['warehouse-icon']]: true,
                 [styles['selected']]: selected,

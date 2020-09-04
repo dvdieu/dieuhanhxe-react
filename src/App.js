@@ -14,10 +14,8 @@ import CreatePost from './modules/post/scenes/CreatePost';
 import PostDetail from './modules/post/scenes/PostDetail';
 import Products from './modules/post/scenes/Products';
 import Posts from './modules/post/scenes/Posts';
-import Warehouses from './modules/warehouse/scenes/Warehouses';
 import SetupWarehouse from './modules/router/scenes/SetupWarehouse';
 import HintRouter from './modules/router/scenes/HintRouter';
-import Schedule from './modules/driver/scenes/Schedule'
 //auth
 import SignIn from './modules/auth/scenes/SignIn';
 import SignUp from './modules/auth/scenes/SignUp';
@@ -36,10 +34,8 @@ const MyRouter = () => {
 				<PrivateRoute component={Dashboard} path="/dashboard" exact />
 				<PrivateRoute component={Routes} path="/routes" exact />
 				<PrivateRoute component={CreateRouter} path="/route/create" exact />
-				<PrivateRoute component={Warehouses} path="/warehouses" exact />
 				<PrivateRoute component={SetupWarehouse} path="/warehouse/setup/:id" exact />
 				<PrivateRoute component={HintRouter} path="/warehouse/hint/:id" exact />
-				<PrivateRoute component={Schedule} path="/schedule" exact />
 
 				<PrivateRoute component={Drivers} path="/taixe" exact />
 				<PrivateRoute component={Fleets} path="/doixe" exact />

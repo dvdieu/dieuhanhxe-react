@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
+//antd
 import { Dropdown, Menu } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
-import actions from './actions';
+//lib
+import isEmpty from 'lodash/isEmpty';
 
-const useTable = ({ dispatchState, selected_row_keys }) => {
-
+const useTable = ({ selected_order_keys, onChangeSelectedOrder }) => {
     const action_menu = useCallback((item) => {
         return (
             <Menu>
@@ -19,15 +20,27 @@ const useTable = ({ dispatchState, selected_row_keys }) => {
         [
             {
                 title: 'Mã đơn hàng',
-                dataIndex: 'id',
+                dataIndex: 'order_id',
             },
             {
                 title: 'Địa chỉ',
                 dataIndex: 'address',
             },
             {
+                title: 'Chi nhánh',
+                dataIndex: 'agency',
+            },
+            {
                 title: 'Độ ưu tiên',
                 dataIndex: 'priority',
+            },
+            {
+                title: 'Trọng lượng',
+                dataIndex: 'weight',
+            },
+            {
+                title: 'Kích thước',
+                dataIndex: 'size',
             },
             {
                 title: 'Trạng thái',
@@ -42,7 +55,7 @@ const useTable = ({ dispatchState, selected_row_keys }) => {
                 width: 50,
                 render: (text, item) => (
                     <div
-                        action-row-key={item.id}
+                        action-row-key={item.order_id}
                         style={{ visibility: 'hidden' }}
                     >
                         <Dropdown overlay={action_menu(item)} trigger={['click']}>
@@ -55,16 +68,16 @@ const useTable = ({ dispatchState, selected_row_keys }) => {
     ), [action_menu]);
 
     const onMouseEnter = useCallback((record) => {
-        const row_item = document.querySelectorAll(`div[action-row-key='${record.id}']`);
-        if (row_item) {
+        const row_item = document.querySelectorAll(`div[action-row-key='${record.order_id}']`);
+        if (!isEmpty(row_item)) {
             row_item[0].style.visibility = 'visible';
         }
     }, [])
 
     const onMouseLeave = useCallback((record) => {
-        const row_item = document.querySelectorAll(`div[action-row-key='${record.id}']`);
-        if (row_item) {
-            row_item[0].style.visibility = 'hidden'
+        const row_item = document.querySelectorAll(`div[action-row-key='${record.order_id}']`);
+        if (!isEmpty(row_item)) {
+            row_item[0].style.visibility = 'hidden';
         }
     }, []);
 
@@ -73,17 +86,14 @@ const useTable = ({ dispatchState, selected_row_keys }) => {
         onMouseLeave: () => { onMouseLeave(record) },
     }), [onMouseEnter, onMouseLeave]);
 
-    const onSelectChange = useCallback((selected_row_keys) => {
-        dispatchState({
-            type: actions.SET_SELECTED_ROW_KEYS,
-            selected_row_keys
-        })
-    }, [dispatchState])
+    const onSelectChange = useCallback((selected_order_keys, selected_order) => {
+        onChangeSelectedOrder(selected_order_keys, selected_order)
+    }, [onChangeSelectedOrder])
 
     const rowSelection = useMemo(() => ({
-        selectedRowKeys: selected_row_keys,
+        selectedRowKeys: selected_order_keys,
         onChange: onSelectChange,
-    }), [selected_row_keys, onSelectChange])
+    }), [selected_order_keys, onSelectChange])
 
     return {
         columns,

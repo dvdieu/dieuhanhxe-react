@@ -5,6 +5,8 @@ import { persistReducer } from "redux-persist";
 
 import { reducer as post } from '../modules/post/reducer';
 import { reducer as fleet } from '../modules/fleet/reducer';
+import { reducer as warehouse } from '../modules/warehouse/reducer';
+import { reducer as order } from '../modules/order/reducer';
 
 const rootPersistConfig = {
   key: "root",
@@ -27,9 +29,25 @@ const fleetPersistConfig = {
   blacklist: ["_persist"],
 }
 
+const warehousePersistConfig = {
+  key: "warehouse",
+  storage,
+  whitelist: [],
+  blacklist: ["_persist"],
+}
+
+const orderPersistConfig = {
+  key: "order",
+  storage,
+  whitelist: [],
+  blacklist: ["_persist"],
+}
+
 const root_reducer = combineReducers({
   post_reducer: persistReducer(postPersistConfig, post),
   fleet_reducer: persistReducer(fleetPersistConfig, fleet),
+  warehouse_reducer: persistReducer(warehousePersistConfig, warehouse),
+  order_reducer: persistReducer(orderPersistConfig, order),
 });
 
 export default persistReducer(rootPersistConfig, root_reducer);
