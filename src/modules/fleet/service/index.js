@@ -1,4 +1,5 @@
 import CoreService from '../../../services/CoreService';
+import { truck_url } from '../../../config/domains';
 
 /* #region  get fleets */
 export const getFleets = async (params) => {
@@ -27,3 +28,20 @@ export const createFleet = async (params) => {
     }
 }
 /* #endregion get fleets */
+
+/* #region  find trucks */
+export const findTrucks = async (params) => {
+    const body = {
+        weight: params.weight,
+        size: params.size,
+        priority_truck: params.priority_truck
+    }
+    try {
+        let url = `${truck_url}/truck/find`
+        const result = await CoreService.post(url, body);
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+}
+/* #endregion find trucks */

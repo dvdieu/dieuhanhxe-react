@@ -4,7 +4,7 @@ import {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    // Marker,
+    Marker,
     DirectionsRenderer
 } from "react-google-maps";
 
@@ -24,23 +24,22 @@ import {
 //     })
 // };
 
-const MapComponent = ({ id, data }) => {
+const MapComponent = ({ waypoints, center, origin, destination }) => {
     const [directions, setDirections] = useState();
     // const [quang_duong, setQuangDuong] = useState(0);
     // const [thoi_gian, setThoiGian] = useState(0);
     const { google } = window;
     const DirectionsService = new google.maps.DirectionsService();
 
-    const { location, center, origin, destination } = data[id] || null;
 
     useEffect(() => {
-        let waypoints = [];
+        let location_waypoints = [];
         /* eslint-disable-next-line */
-        location.map(item => {
-            waypoints = [
-                ...waypoints,
+        waypoints.map(item => {
+            location_waypoints = [
+                ...location_waypoints,
                 {
-                    location: new google.maps.LatLng(item.lat, item.lng),
+                    location: new google.maps.LatLng(item.latitude, item.longitude),
                     stopover: true,
                 }
             ]
@@ -49,8 +48,8 @@ const MapComponent = ({ id, data }) => {
         /* eslint-disable react-hooks/exhaustive-deps */
         DirectionsService.route(
             {
-                origin: new google.maps.LatLng(origin.lat, origin.lng),
-                destination: new google.maps.LatLng(destination.lat, destination.lng),
+                origin: new google.maps.LatLng(origin.latitude, origin.longitude),
+                destination: new google.maps.LatLng(destination.latitude, destination.longitude),
                 travelMode: google.maps.TravelMode.DRIVING,
                 provideRouteAlternatives: false,
                 drivingOptions: {
@@ -59,14 +58,12 @@ const MapComponent = ({ id, data }) => {
                 },
                 unitSystem: google.maps.UnitSystem.IMPERIAL,
                 optimizeWaypoints: false,
-                waypoints,
-
+                waypoints: location_waypoints,
             },
             (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
                     setDirections(result);
                     // const { legs } = result?.routes[0];
-                    // console.log("MapComponent -> legs", legs)
                     // let tong_quang_duong = 0, tong_thoi_gian = 0;
                     // legs.forEach(leg => {
                     //     const { distance, duration } = leg;
@@ -80,7 +77,7 @@ const MapComponent = ({ id, data }) => {
                 }
             }
         );
-    }, [])
+    }, [waypoints])
 
     return (
         <>
@@ -99,9 +96,11 @@ const MapComponent = ({ id, data }) => {
                     <Text strong type="secondary">{`${id === '0' ? 1.28 : 0.2} lít dầu`}</Text>
                 </div>
             </Portal> */}
-            <GoogleMap key='AIzaSyAcQjrfAudzl6Ton7GA7D-gVqOINMFE7ns' defaultZoom={8} defaultCenter={{ lat: center.lat, lng: center.lng }}>
-                {directions && <DirectionsRenderer directions={directions} markerOptions={null} suppressMarkers={true} />}
+            <GoogleMap key='AIzaSyAcQjrfAudzl6Ton7GA7D-gVqOINMFE7ns' defaultZoom={8} defaultCenter={{ lat: center.latitude, lng: center.longitude }}>
+                {directions && <DirectionsRenderer directions={directions} markerOptions={{ suppressMarkers: true }} suppressMarkers={true} />}
                 {/* <DirectionMarker location={location} /> */}
+                {/* market vi tri kho */}
+                <Marker position={new google.maps.LatLng(origin.latitude, origin.longitude)} label={"Kho"} />
             </GoogleMap>
         </>
     )

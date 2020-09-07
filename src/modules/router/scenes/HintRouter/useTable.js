@@ -7,7 +7,7 @@ import i18n from '../../../../libs/i18n';
 
 const { Text } = Typography;
 
-const useTable = ({ handleOpenTruckDrawer }) => {
+const useTable = () => {
     const truck_columns = useMemo(() => ([
         {
             title: 'Loại xe',
@@ -34,17 +34,7 @@ const useTable = ({ handleOpenTruckDrawer }) => {
             title: 'Tải trọng vượt quá',
             dataIndex: 'max_weight',
         },
-        {
-            title: 'Đổi xe khác',
-            dataIndex: 'operation',
-            key: 'operation',
-            className: "antd-custom-action-table",
-            width: 50,
-            render: (text, item) => (
-                <Button type='link' onClick={handleOpenTruckDrawer}>{"Đổi xe khác"}</Button>
-            ),
-        },
-    ]), [handleOpenTruckDrawer]);
+    ]), []);
 
     const expected_columns = useMemo(() => (
         [
@@ -127,7 +117,7 @@ const useTable = ({ handleOpenTruckDrawer }) => {
             title: 'Tổng trọng lượng',
             dataIndex: 'weight',
             render: (text) => (
-                <Text>{text + ' Tấn'}</Text>
+                <Text>{text + ' Kg'}</Text>
             )
         },
         {

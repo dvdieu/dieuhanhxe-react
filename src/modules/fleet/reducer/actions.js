@@ -13,6 +13,13 @@ const { Types, Creators } = createActions({
     createFleetFailure: ['error'],
     /* #endregion */
 
+    /* #region  find truck */
+    findTrucksRequest: ['params'],
+    findTrucksSuccess: ['payload'],
+    findTrucksFailure: ['error'],
+    /* #endregion */
+
+
 });
 
 export const FleetTypes = Types;

@@ -12,12 +12,12 @@ const useSearch = ({ dispatchState }) => {
     const fleet_reducer = useSelector(state => state.fleet_reducer);
     const { fleets, fetch_fleets } = fleet_reducer;
 
-    useEffect(() => {
-        dispatch(fleetActions.getFleetsRequest({
-            page: PAGE,
-            size: SIZE
-        }))
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(fleetActions.getFleetsRequest({
+    //         page: PAGE,
+    //         size: SIZE
+    //     }))
+    // }, [dispatch]);
 
     useEffect(() => {
         dispatchState({

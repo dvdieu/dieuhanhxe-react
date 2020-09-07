@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 //page
 import Warehouses from '../Warehouses';
 import SetupWarehouse from '../SetupWarehouse';
@@ -15,12 +15,16 @@ import { ArrowLeftOutlined, ArrowRightOutlined, CheckCircleOutlined } from '@ant
 import { initial_state, reducer_state } from './routerState';
 import useHandleWarehouses from './useHandleWarehouses';
 import useHandleSetupWarehouse from './useHandleSetupWarehouse';
+import useHandleHintRouter from './useHandleHintRouter';
+import useHandleSchedule from './useHandleSchedule';
+//actions
+import actions from './actions';
 
 const CreateRouter = () => {
-    const [step, setStep] = useState(0);
     //hook
     const [state, dispatchState] = useReducer(reducer_state, initial_state);
     const {
+        step,
         //step 0
         warehouse,
         //step 1
@@ -28,16 +32,36 @@ const CreateRouter = () => {
         priority_truck,
         selected_order,
         selected_order_keys,
+        //schedule
+        trucks,
+        find_trucks,
+        direction_name,
+        new_event,
     } = state;
     const { handleChangeWarehouse } = useHandleWarehouses({ dispatchState });
     const { onChangePriorityTruck, onChangePriorityWarehouse, onChangeSelectedOrder } = useHandleSetupWarehouse({ dispatchState })
+    const { createDirectionTemplate } = useHandleHintRouter({
+        warehouse,
+        priority_warehouse,
+        priority_truck,
+        selected_order,
+        //
+        dispatchState
+    });
+    const { selectTruck, handleChangeNewEvent } = useHandleSchedule({ priority_truck, dispatchState });
 
     const onStepBack = () => {
-        setStep(step - 1);
+        dispatchState({
+            type: actions.SET_STEP,
+            step: step - 1
+        })
     }
 
     const onStepNext = () => {
-        setStep(step + 1);
+        dispatchState({
+            type: actions.SET_STEP,
+            step: step + 1
+        })
     }
 
     const onSubmit = () => {
@@ -66,7 +90,7 @@ const CreateRouter = () => {
                 //thiết lập định tuyến
                 step === 1 &&
                 <SetupWarehouse
-                    warehouse_name={warehouse.name}
+                    warehouse={warehouse}
                     priority_warehouse={priority_warehouse}
                     priority_truck={priority_truck}
                     selected_order_keys={selected_order_keys}
@@ -78,12 +102,21 @@ const CreateRouter = () => {
             {
                 step === 2 &&
                 <HintRouter
+                    origin={{
+                        latitude: warehouse.latitude,
+                        longitude: warehouse.longitude
+                    }}
                     selected_order={selected_order}
-                    onConfirmRoute={() => setStep(3)} />
+                    selectTruck={selectTruck} />
             }
             {
                 step === 3 &&
-                <Schedule onOk={() => setStep(2)} onClickPrevious={() => setStep(2)} />
+                <Schedule
+                    trucks={trucks}
+                    find_trucks={find_trucks}
+                    direction_name={direction_name}
+                    new_event={new_event}
+                    handleChangeNewEvent={handleChangeNewEvent} />
             }
             <Portal id='root_footer'>
                 <div className={classnames('flex-row', 'justify-end')} style={{ padding: '12px 0px' }}>
@@ -92,10 +125,22 @@ const CreateRouter = () => {
                         <Button size='large' onClick={onStepBack} icon={<ArrowLeftOutlined />}>{"Trở lại"}</Button>
                     }
                     {
-                        step <= 1 &&
+                        step === 0 &&
                         <Button
                             type="primary"
                             onClick={onStepNext}
+                            size='large'
+                            style={{ marginLeft: 12 }}
+                            disabled={isDisableNext()}>
+                            {"Tiếp theo"}
+                            <ArrowRightOutlined />
+                        </Button>
+                    }
+                    {
+                        step === 1 &&
+                        <Button
+                            type="primary"
+                            onClick={createDirectionTemplate}
                             size='large'
                             style={{ marginLeft: 12 }}
                             disabled={isDisableNext()}>
@@ -110,7 +155,7 @@ const CreateRouter = () => {
                             <CheckCircleOutlined />
                         </Button>
                     }
-                     {
+                    {
                         step === 3 &&
                         <Button type="primary" onClick={onStepBack} size='large' style={{ marginLeft: 12 }}>
                             {"Xác nhận lịch trình"}

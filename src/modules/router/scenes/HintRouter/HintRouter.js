@@ -1,6 +1,6 @@
-import React, { memo, useState, useReducer } from 'react';
+import React, { memo, useReducer } from 'react';
 //antd
-import { Row, Col, Typography, Button, Table, Input, Affix, Checkbox } from 'antd';
+import { Row, Col, Typography, Button, Table, Affix, Checkbox, Skeleton } from 'antd';
 //styles
 import styles from './styles.module.scss';
 //lib
@@ -17,14 +17,6 @@ import TruckDrawer from '../TruckDrawer';
 import OrderDrawer from '../OrderDrawer';
 
 const { Title, Text } = Typography;
-const { Search } = Input
-
-const routes = [
-    { id: 1, name: 'Tuyến 001' },
-    { id: 2, name: 'Tuyến 002' },
-    { id: 3, name: 'Tuyến 003' },
-    { id: 4, name: 'Tuyến 004' },
-]
 
 const truck_data = [
     {
@@ -49,81 +41,35 @@ const expected_data = [
     }
 ]
 
-const google_data = [
-    {
-        steps: [
-            {
-                id: 0,
-                key: 1,
-                title: '10 Trần Xuân Soạn, phường Phạm Đình Hổ, quận Hai Bà Trưng, Hà Nội',
-                description: 'Kiện hàng số - 01 - 02',
-            },
-            {
-                id: 1,
-                key: 2,
-                title: 'KTX ĐH kinh tế quốc dân, phường Đồng Tâm, quận Hai Bà Trưng, Hà Nội',
-                description: 'Kiện hàng số - 03',
-            },
-            {
-                id: 2,
-                key: 3,
-                title: 'Số 26 Tổ 9 Phố Cầu Bây, Phường Sài Đồng, Quận Long Biên, Hà Nội',
-                description: 'Kiện hàng số - 04 - 05',
-            },
-        ],
-        location: [
-            // { lat: 21.017319, lng: 105.855285 },
-            { lat: 20.99814, lng: 105.846581 },
-            // { lat: 21.036471, lng: 105.919320 },
-        ],
-        center: { lat: 20.998310, lng: 105.846550 },
-        origin: { lat: 21.017319, lng: 105.855285 },
-        destination: { lat: 21.036471, lng: 105.919320 },
-    },
-    {
-        steps: [
-            {
-                id: 3,
-                key: 1,
-                title: 'Đức Lan 91 Thanh Nhàn, phường Quỳnh Mai, quận Hai Bà Trưng, Hà Nội',
-                description: 'Kiện hàng số - 01 - 02',
-            },
-            {
-                id: 4,
-                key: 2,
-                title: '152 Phố Vọng, phường Phương Liệt, quận Thanh Xuân, Hà Nội',
-                description: 'Kiện hàng số - 03',
-            },
-        ],
-        location: [
-            // { lat: 21.003038, lng: 105.858549 },
-            // { lat: 20.996382, lng: 105.842931 },
-        ],
-        center: { lat: 20.996382, lng: 105.842931 },
-        origin: { lat: 21.002854, lng: 105.858518 },
-        destination: { lat: 20.996382, lng: 105.842931 },
-    }
-]
-
-const HintRouter = ({ selected_order, onConfirmRoute }) => {
-    const [route, setRoute] = useState(1);
-
+const HintRouter = ({ origin, selectTruck }) => {
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible, order_visible } = state;
+    const { truck_visible, order_visible,
+        //directs
+        direction_request,
+        direction_templates,
+        current_direction,
+        waypoints,
+        order_address,
+        orders,
+    } = state;
     const {
         handleCloseTruckDrawer,
-        handleOpenTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
         handleAddOrder,
+        handleChangeCurrentDirection,
     } = useCommon({ dispatchState });
 
-    const { truck_columns, expected_columns, order_columns } = useTable({ handleOpenTruckDrawer });
+    const { truck_columns, expected_columns, order_columns } = useTable();
 
-    const handleChangeRouteItem = item => {
-        setRoute(item.id);
+    const handleSelectTruck = () => {
+        selectTruck({
+            weight: current_direction.weight,
+            size: current_direction.size,
+            direction_name: current_direction.name
+        });
     }
 
     return (
@@ -136,9 +82,9 @@ const HintRouter = ({ selected_order, onConfirmRoute }) => {
                             <Title className={styles.routes_title} level={4}>{"Bảng định tuyến"}</Title>
                             <div className={styles.routes_content}>
                                 {
-                                    routes &&
-                                    routes.map((item, key) => {
-                                        const is_selected = (item.id === route);
+                                    direction_templates &&
+                                    direction_templates.map((item, key) => {
+                                        const is_selected = (item?._id === current_direction?._id);
                                         return (
                                             <div key={key} className={classnames({
                                                 [styles.routes_item]: true,
@@ -148,11 +94,11 @@ const HintRouter = ({ selected_order, onConfirmRoute }) => {
                                                 [styles.routes_item_selected]: is_selected,
                                                 [styles._unselected]: !is_selected
                                             })}
-                                                onClick={() => { handleChangeRouteItem(item) }}>
+                                                onClick={() => { handleChangeCurrentDirection(item) }}>
                                                 <Text className={classnames({ [styles.routes_item_selected_text]: is_selected })}>{item.name}</Text>
                                                 {
                                                     is_selected ?
-                                                        <Button type='success' onClick={onConfirmRoute}>{"Xác nhận"}</Button>
+                                                        <Button type='success' onClick={handleSelectTruck}>{"Xác nhận"}</Button>
                                                         :
                                                         <Button type='link'>{"Sửa"}</Button>
                                                 }
@@ -204,10 +150,21 @@ const HintRouter = ({ selected_order, onConfirmRoute }) => {
                         <Col span={12} className={styles.no_border}>
                             <div className={styles.border}>
                                 <Title className={styles.routes_title} level={4}>{"Lộ trình"}</Title>
-                                <GoogleMap id={'1'} data={google_data} />
+                                {
+                                    direction_request ? <Skeleton active /> :
+                                        <GoogleMap
+                                            waypoints={waypoints}
+                                            center={origin}
+                                            origin={origin}
+                                            destination={origin}
+                                        />
+                                }
                                 <br />
                                 <div style={{ maxHeight: 200, overflow: 'auto' }}>
-                                    <Step />
+                                    {
+                                        direction_request ? <Skeleton active /> :
+                                            <Step order_address={order_address} />
+                                    }
                                 </div>
                             </div>
                         </Col>
@@ -216,14 +173,14 @@ const HintRouter = ({ selected_order, onConfirmRoute }) => {
                     {/*end Thiết lập định tuyến */}
                     {/* start Danh sách đơn hàng */}
                     <Row gutter={[16, 16]} style={{ margin: '12px 0px 24px 0px' }}>
-                        <Col span={8}>
-                            <Search />
+                        <Col span={8} className={classnames('flex-row', 'align-bottom')}>
+                            <Text>{`Số đơn hàng trong tuyến: ${orders.length}`}</Text>
                         </Col>
                         <Col offset={8} span={8} className={classnames('flex-row', 'justify-end')}>
                             <Button type='primary' onClick={handleOpenOrderDrawer}>{"Thêm đơn hàng khác vào tuyến"}</Button>
                         </Col>
                         <Col span={24}>
-                            <Table columns={order_columns} dataSource={selected_order} pagination={false} rowKey="id" scroll={{ y: 400 }} />
+                            <Table columns={order_columns} dataSource={orders} pagination={false} rowKey="_id" scroll={{ y: 400 }} />
                         </Col>
                     </Row>
                     {/* end Danh sách đơn hàng */}

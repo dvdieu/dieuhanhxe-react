@@ -14,6 +14,8 @@ const INITIAL_STATE = Immutable({
     fetch_fleets: false,
     create_fleet: false,
     update_fleet: false,
+    find_truck: false,
+    trucks: []
 });
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -28,4 +30,10 @@ export const reducer = createReducer(INITIAL_STATE, {
     [FleetTypes.CREATE_FLEET_SUCCESS]: Handler.createFleetSuccess,
     [FleetTypes.CREATE_FLEET_FAILURE]: Handler.createFleetFailure,
     /* #endregion */
+
+     /* #region  find truck */
+     [FleetTypes.FIND_TRUCKS_REQUEST]: Handler.findTrucksRequest,
+     [FleetTypes.FIND_TRUCKS_SUCCESS]: Handler.findTrucksSuccess,
+     [FleetTypes.FIND_TRUCKS_FAILURE]: Handler.findTrucksFailure,
+     /* #endregion */
 });

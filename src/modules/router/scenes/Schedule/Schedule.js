@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/vi';
 import classnames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 //components
-import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 //antd
-import { Row, Col, Avatar, Typography, Affix, Modal } from 'antd';
+import { Row, Col, Avatar, Typography, Affix, Modal, message } from 'antd';
 //style
 import styles from './styles.module.scss';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
@@ -16,44 +17,6 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
 const { Text } = Typography;
 
 const localizer = momentLocalizer(moment)
-
-const drivers = [
-    {
-        id: 1,
-        license_plates: '73-M1 00001',
-        driver_name: 'Nguyễn Văn A',
-    },
-    {
-        id: 2,
-        license_plates: '73-M1 00002',
-        driver_name: 'Nguyễn Văn B',
-    },
-    {
-        id: 3,
-        license_plates: '73-M1 00003',
-        driver_name: 'Nguyễn Văn C',
-    },
-    {
-        id: 4,
-        license_plates: '73-M1 00004',
-        driver_name: 'Nguyễn Văn D',
-    },
-    {
-        id: 5,
-        license_plates: '73-M1 00005',
-        driver_name: 'Nguyễn Văn E',
-    },
-    {
-        id: 6,
-        license_plates: '73-M1 00006',
-        driver_name: 'Nguyễn Văn F',
-    },
-    {
-        id: 7,
-        license_plates: '73-M1 00007',
-        driver_name: 'Nguyễn Văn G',
-    }
-]
 
 let events_data = [
     {
@@ -91,8 +54,13 @@ let events_data = [
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
-const Schedule = () => {
-    const [selected, setSelected] = useState(1);
+const warning = (text) => {
+    message.warning(text);
+};
+
+const Schedule = ({ trucks, find_trucks, direction_name, new_event, handleChangeNewEvent }) => {
+    console.log("Schedule -> new_event", new_event)
+    const [truck, setTruck] = useState(0);
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
     const [events, setEvents] = useState(events_data);
@@ -136,6 +104,7 @@ const Schedule = () => {
                 : existingEvent
         })
 
+        handleChangeNewEvent({ ...new_event, start, end })
         setEvents(nextEvents)
     }
 
@@ -145,20 +114,31 @@ const Schedule = () => {
                 ? { ...existingEvent, start, end }
                 : existingEvent
         })
+
+        handleChangeNewEvent({ ...new_event, start, end })
         setEvents(nextEvents)
     }
 
     const newEvent = (event) => {
-        let idList = events.map(a => a.id)
-        let newId = Math.max(...idList) + 1
-        let hour = {
-            id: newId,
-            title: 'New Event',
-            allDay: event.slots.length === 1,
-            start: event.start,
-            end: event.end,
+        if (isEmpty(new_event)) {
+            if (!truck) {
+                warning('Vui lòng chọn xe trước');
+            } else {
+                let idList = events.map(a => a.id)
+                let newId = Math.max(...idList) + 1
+                let new_event = {
+                    id: newId,
+                    title: direction_name,
+                    allDay: event.slots.length === 1,
+                    start: event.start,
+                    end: event.end,
+                }
+                handleChangeNewEvent(new_event)
+                setEvents(events.concat([new_event]))
+            }
+        } else {
+            warning('Bạn đã chọn thời gian cho tuyến này');
         }
-        setEvents(events.concat([hour]))
     }
 
     const handleOk = () => {
@@ -170,7 +150,7 @@ const Schedule = () => {
     }
 
     const handleChangeDriver = item => {
-        setSelected(item.id)
+        setTruck(item._id)
     }
 
     const onClickItem = item => {
@@ -185,8 +165,8 @@ const Schedule = () => {
                     <Affix offsetTop={24} onChange={affixed => console.log(affixed)}>
                         <div className={styles['driver-container']}>
                             {
-                                drivers && drivers.map((item, key) => {
-                                    const is_selected = item.id === selected;
+                                trucks && trucks.map((item, key) => {
+                                    const is_selected = item._id === truck;
                                     const text_style = styles[`driver-item-text-${is_selected ? 'selected' : 'unselected'}`];
                                     return (
                                         <div className={classnames(
@@ -214,7 +194,7 @@ const Schedule = () => {
                         localizer={localizer}
                         defaultDate={new Date()}
                         defaultView='week'
-                        views={['day','week', 'month', 'agenda']}
+                        views={['day', 'week', 'month', 'agenda']}
                         events={events}
                         style={{ height: '600px' }}
                         startAccessor='start'
@@ -256,4 +236,4 @@ const Schedule = () => {
     )
 }
 
-export default Schedule;
+export default React.memo(Schedule);

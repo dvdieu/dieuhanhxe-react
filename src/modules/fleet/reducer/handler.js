@@ -64,3 +64,31 @@ export const createFleetFailure = (state, { error }) => {
     });
 };
 /* #endregion */
+
+/* #region find trucks */
+export const findTrucksRequest = (state, { params }) => {
+    const state_merge = {
+        find_trucks: true,
+        error: {},
+    };
+
+    return Immutable.merge(
+        state,
+        { ...state_merge }
+    );
+};
+
+export const findTrucksSuccess = (state, { payload, params }) => {
+    return Immutable.merge(state, {
+        find_trucks: false,
+        trucks: payload.items,
+    });
+};
+
+export const findTrucksFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        find_trucks: false,
+        error: {},
+    });
+};
+/* #endregion */

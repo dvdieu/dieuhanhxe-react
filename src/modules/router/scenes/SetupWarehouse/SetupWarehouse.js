@@ -1,7 +1,6 @@
 import React, { memo, useReducer } from 'react';
 //atnd
-import { Typography, Checkbox, Radio, Button, Table, Input, Row, Col, DatePicker } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { Typography, Checkbox, Radio, Table, Input, Row, Col, DatePicker } from 'antd';
 //styles
 import styles from './styles.module.scss';
 //lib
@@ -22,7 +21,7 @@ const { RangePicker } = DatePicker;
 
 const SetupWarehouse = ({
     //var
-    warehouse_name,
+    warehouse,
     priority_warehouse,
     priority_truck,
     selected_order_keys,
@@ -42,14 +41,14 @@ const SetupWarehouse = ({
     const { total_items, page_number, page_size } = pagination;
 
     const { columns, onRow, rowSelection } = useTable({ selected_order_keys, onChangeSelectedOrder });
-    const { fetch_orders } = useSearch({ dispatchState });
+    const { fetch_orders } = useSearch({ warehouse, dispatchState });
 
     const onChangeDate = (dates, dateStrings) => {
     }
 
     return (
         <div>
-            <Title level={4}>{`Thiết lập định tuyến tại ${warehouse_name}`}</Title>
+            <Title level={4}>{`Thiết lập định tuyến tại ${warehouse.warehouse_name}`}</Title>
             <div className={styles.setup}>
                 <Text strong>{"Thiết lập tham số định tuyến"}</Text>
                 <div className={classnames(styles.setup_content, 'flex-column')}>

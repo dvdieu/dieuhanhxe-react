@@ -7,7 +7,7 @@ import orderActions from '../../../order/reducer/actions';
 //config
 import { PAGE, SIZE } from '../../../../config/table';
 
-const useSearch = ({ dispatchState }) => {
+const useSearch = ({ warehouse, dispatchState }) => {
     const dispatch = useDispatch();
     const order_reducer = useSelector(state => state.order_reducer);
     const { orders, fetch_orders, pagination } = order_reducer;
@@ -29,9 +29,10 @@ const useSearch = ({ dispatchState }) => {
     useEffect(() => {
         dispatch(orderActions.findOrdersRequest({
             page: PAGE,
-            size: SIZE
+            size: SIZE,
+            warehouse_id: warehouse.warehouse_id
         }))
-    }, [dispatch])
+    }, [dispatch, warehouse])
 
     return {
         fetch_orders

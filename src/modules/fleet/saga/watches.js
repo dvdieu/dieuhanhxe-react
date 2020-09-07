@@ -12,6 +12,7 @@ import isEmpty from "lodash/isEmpty";
 
 //antd
 import { message } from 'antd';
+
 /* #region  get fleets */
 export function* getFleets({ params }) {
     try {
@@ -41,6 +42,19 @@ export function* createFleet({ params }) {
         }
     } catch (error) {
         yield put(fleetActions.createFleetFailure(error));
+    }
+}
+/* #endregion */
+
+/* #region  get fleets */
+export function* findTrucks({ params }) {
+    try {
+        let data = yield call(FleetApi.findTrucks, params);
+        if (!isEmpty(data) && data.status_code === 200) {
+            yield put(fleetActions.findTrucksSuccess(data.payload));
+        } else yield put(fleetActions.findTrucksFailure(data));
+    } catch (error) {
+        yield put(fleetActions.findTrucksFailure(error));
     }
 }
 /* #endregion */
