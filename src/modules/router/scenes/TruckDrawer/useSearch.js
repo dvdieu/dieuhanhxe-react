@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 //actions
 import actions from './actions';
 import fleetActions from '../../../fleet/reducer/actions';
-//config
-import { PAGE, SIZE } from '../../../../config/table';
 
 const useSearch = ({ dispatchState }) => {
     const dispatch = useDispatch();

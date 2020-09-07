@@ -45,9 +45,17 @@ const useHandleSchedule = ({ priority_truck, dispatchState }) => {
         })
     }, [dispatchState])
 
+    const handleChangeTruck = useCallback(truck => {
+        dispatchState({
+            type: actions.SET_TRUCK,
+            truck
+        })
+    }, [dispatchState])
+
     return {
         selectTruck,
         handleChangeNewEvent,
+        handleChangeTruck,
     }
 }
 

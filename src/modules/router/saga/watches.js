@@ -22,3 +22,29 @@ export function* createDirectionTemplate({ params }) {
     }
 }
 /* #endregion */
+
+/* #region  create direction  */
+export function* createDirection({ params }) {
+    try {
+        let data = yield call(routeApi.createDirection, params);
+        if (!isEmpty(data) && data.status_code === 200) {
+            yield put(routeActions.createDirectionSuccess(data.payload));
+        } else yield put(routeActions.createDirectionFailure(data));
+    } catch (error) {
+        yield put(routeActions.createDirectionFailure(error));
+    }
+}
+/* #endregion */
+
+/* #region  find directions  */
+export function* findDirections({ params }) {
+    try {
+        let data = yield call(routeApi.findDirections, params);
+        if (!isEmpty(data) && data.status_code === 200) {
+            yield put(routeActions.findDirectionsSuccess(data.payload));
+        } else yield put(routeActions.findDirectionsFailure(data));
+    } catch (error) {
+        yield put(routeActions.findDirectionsFailure(error));
+    }
+}
+/* #endregion */

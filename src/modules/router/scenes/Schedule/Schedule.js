@@ -58,9 +58,7 @@ const warning = (text) => {
     message.warning(text);
 };
 
-const Schedule = ({ trucks, find_trucks, direction_name, new_event, handleChangeNewEvent }) => {
-    console.log("Schedule -> new_event", new_event)
-    const [truck, setTruck] = useState(0);
+const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
     const [events, setEvents] = useState(events_data);
@@ -91,6 +89,7 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, handleChange
 
     const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
         let allDay = event.allDay
+        console.log("moveEvent -> allDay", allDay)
 
         if (!event.allDay && droppedOnAllDaySlot) {
             allDay = true
@@ -149,10 +148,6 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, handleChange
         setVisible(false)
     }
 
-    const handleChangeDriver = item => {
-        setTruck(item._id)
-    }
-
     const onClickItem = item => {
         setItemSelected(item);
         setVisible(true);
@@ -162,11 +157,11 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, handleChange
         <div>
             <Row gutter={[16, 16]}>
                 <Col xs={4}>
-                    <Affix offsetTop={24} onChange={affixed => console.log(affixed)}>
+                    <Affix offsetTop={24}>
                         <div className={styles['driver-container']}>
                             {
                                 trucks && trucks.map((item, key) => {
-                                    const is_selected = item._id === truck;
+                                    const is_selected = item._id === truck._id;
                                     const text_style = styles[`driver-item-text-${is_selected ? 'selected' : 'unselected'}`];
                                     return (
                                         <div className={classnames(
@@ -174,7 +169,7 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, handleChange
                                             styles[`driver-item-${is_selected ? 'selected' : 'unselected'}`],
                                             'flex-row')}
                                             key={key}
-                                            onClick={() => { handleChangeDriver(item) }}>
+                                            onClick={() => { handleChangeTruck(item) }}>
                                             <Avatar size={40} src={require('../../../../assets/images/drivers/taixe3.jpeg')} />
                                             <div className={classnames('flex-column', 'justify-between')} style={{ marginLeft: 8 }}>
                                                 <Text className={text_style}>{item.license_plates}</Text>

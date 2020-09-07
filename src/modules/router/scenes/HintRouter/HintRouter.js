@@ -1,6 +1,7 @@
 import React, { memo, useReducer } from 'react';
 //antd
 import { Row, Col, Typography, Button, Table, Affix, Checkbox, Skeleton } from 'antd';
+import { CheckCircleOutlined } from '@ant-design/icons';
 //styles
 import styles from './styles.module.scss';
 //lib
@@ -41,25 +42,24 @@ const expected_data = [
     }
 ]
 
-const HintRouter = ({ origin, selectTruck }) => {
+const HintRouter = ({ origin,
+    direction_request,
+    direction_templates,
+    current_direction,
+    waypoints,
+    order_address,
+    orders,
+    selectTruck,
+    handleChangeCurrentDirection }) => {
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible, order_visible,
-        //directs
-        direction_request,
-        direction_templates,
-        current_direction,
-        waypoints,
-        order_address,
-        orders,
-    } = state;
+    const { truck_visible, order_visible, } = state;
     const {
         handleCloseTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
         handleAddOrder,
-        handleChangeCurrentDirection,
     } = useCommon({ dispatchState });
 
     const { truck_columns, expected_columns, order_columns } = useTable();
@@ -85,6 +85,7 @@ const HintRouter = ({ origin, selectTruck }) => {
                                     direction_templates &&
                                     direction_templates.map((item, key) => {
                                         const is_selected = (item?._id === current_direction?._id);
+                                        const { confirm } = item;
                                         return (
                                             <div key={key} className={classnames({
                                                 [styles.routes_item]: true,
@@ -97,10 +98,15 @@ const HintRouter = ({ origin, selectTruck }) => {
                                                 onClick={() => { handleChangeCurrentDirection(item) }}>
                                                 <Text className={classnames({ [styles.routes_item_selected_text]: is_selected })}>{item.name}</Text>
                                                 {
-                                                    is_selected ?
-                                                        <Button type='success' onClick={handleSelectTruck}>{"Xác nhận"}</Button>
-                                                        :
-                                                        <Button type='link'>{"Sửa"}</Button>
+                                                    confirm ?
+                                                        <div>
+                                                            <CheckCircleOutlined />
+                                                            <Text style={{ marginLeft: 8 }}>{"Đã xác nhận"}</Text>
+                                                        </div> :
+                                                        is_selected ?
+                                                            <Button type='success' onClick={handleSelectTruck}>{"Xác nhận"}</Button>
+                                                            :
+                                                            <Button type='link'>{"Sửa"}</Button>
                                                 }
                                             </div>
                                         )
@@ -174,7 +180,7 @@ const HintRouter = ({ origin, selectTruck }) => {
                     {/* start Danh sách đơn hàng */}
                     <Row gutter={[16, 16]} style={{ margin: '12px 0px 24px 0px' }}>
                         <Col span={8} className={classnames('flex-row', 'align-bottom')}>
-                            <Text>{`Số đơn hàng trong tuyến: ${orders.length}`}</Text>
+                            <Text>{`Số đơn hàng trong tuyến: ${orders?.length}`}</Text>
                         </Col>
                         <Col offset={8} span={8} className={classnames('flex-row', 'justify-end')}>
                             <Button type='primary' onClick={handleOpenOrderDrawer}>{"Thêm đơn hàng khác vào tuyến"}</Button>

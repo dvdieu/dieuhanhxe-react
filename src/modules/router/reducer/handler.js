@@ -27,3 +27,51 @@ export const createDirectionTemplateFailure = (state, { error }) => {
     });
 };
 /* #endregion */
+
+/* #region  create direction  */
+export const createDirectionRequest = (state, { params }) => {
+    return Immutable.merge(state, {
+        create_direction_request: true,
+        error: {}
+    });
+};
+
+export const createDirectionSuccess = (state, { payload }) => {
+    return Immutable.merge(state, {
+        create_direction_request: false,
+    });
+};
+
+export const createDirectionFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        create_direction_request: false,
+        error,
+    });
+};
+/* #endregion */
+
+/* #region  find direction  */
+export const findDirectionsRequest = (state, { params }) => {
+    return Immutable.merge(state, {
+        find_direction_request: true,
+        directions: [],
+        error: {}
+    });
+};
+
+export const findDirectionsSuccess = (state, { payload }) => {
+    return Immutable.merge(state, {
+        find_direction_request: false,
+        directions: payload.items,
+
+    });
+};
+
+export const findDirectionsFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        find_direction_request: false,
+        directions: [],
+        error,
+    });
+};
+/* #endregion */

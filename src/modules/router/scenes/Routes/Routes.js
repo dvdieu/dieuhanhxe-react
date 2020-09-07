@@ -7,13 +7,15 @@ import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 //hook
 import useTable from './useTable';
+import useCommon from './useCommon';
 import { initial_state, reducer_state } from './routeState';
 
 const { Search } = Input;
 const Routes = () => {
     const { columns, onRow } = useTable();
     const [state, dispatchState] = useReducer(reducer_state, initial_state);
-    const { data_source } = state;
+    const { data_source, direction_request } = state;
+    useCommon({ dispatchState });
 
     const history = useHistory();
 
@@ -35,7 +37,7 @@ const Routes = () => {
             </Row>
             <Row>
                 <Col span={24}>
-                    <Table columns={columns} dataSource={data_source} onRow={onRow} />
+                    <Table columns={columns} dataSource={data_source} onRow={onRow} loading={direction_request} rowKey="_id"/>
                 </Col>
             </Row>
         </div>

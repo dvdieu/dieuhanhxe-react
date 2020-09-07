@@ -7,7 +7,8 @@ const initial_state_table = {
         page: PAGE,
         size: SIZE,
         total_items: 0
-    }
+    },
+    direction_request: false
 }
 
 export const initial_state = {
@@ -15,8 +16,9 @@ export const initial_state = {
 }
 
 export const reducer_state = ((state, action) => {
-    switch (action.key) {
+    switch (action.type) {
         case actions.SET_DATA_SOURCE:
+            console.log("reducer_state -> action", action.data_source)
             return {
                 ...state,
                 data_source: action.data_source
@@ -25,6 +27,11 @@ export const reducer_state = ((state, action) => {
             return {
                 ...state,
                 pagination: action.pagination
+            }
+        case actions.SET_DIRECTION_REQUEST:
+            return {
+                ...state,
+                direction_request: action.direction_request
             }
         default:
             return state;

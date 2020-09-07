@@ -10,15 +10,30 @@ import * as Handler from "./handler";
 const INITIAL_STATE = Immutable({
     error: {},
     direction_templates: [],
+    directions: [],
     direct_template_id: '',
-    create_direction_template_request: false
+    create_direction_template_request: false,
+    create_direction_request: false,
+    find_direction_request: false,
 });
 
 export const reducer = createReducer(INITIAL_STATE, {
-    /* #region  get warehouses */
+    /* #region  create direction template*/
     [RouteTypes.CREATE_DIRECTION_TEMPLATE_REQUEST]: Handler.createDirectionTemplateRequest,
     [RouteTypes.CREATE_DIRECTION_TEMPLATE_SUCCESS]: Handler.createDirectionTemplateSuccess,
     [RouteTypes.CREATE_DIRECTION_TEMPLATE_FAILURE]: Handler.createDirectionTemplateFailure,
+    /* #endregion */
+
+    /* #region  create direction */
+    [RouteTypes.CREATE_DIRECTION_REQUEST]: Handler.createDirectionRequest,
+    [RouteTypes.CREATE_DIRECTION_SUCCESS]: Handler.createDirectionSuccess,
+    [RouteTypes.CREATE_DIRECTION_FAILURE]: Handler.createDirectionFailure,
+    /* #endregion */
+
+    /* #region  find directions */
+    [RouteTypes.FIND_DIRECTIONS_REQUEST]: Handler.findDirectionsRequest,
+    [RouteTypes.FIND_DIRECTIONS_SUCCESS]: Handler.findDirectionsSuccess,
+    [RouteTypes.FIND_DIRECTIONS_FAILURE]: Handler.findDirectionsFailure,
     /* #endregion */
 
 });
