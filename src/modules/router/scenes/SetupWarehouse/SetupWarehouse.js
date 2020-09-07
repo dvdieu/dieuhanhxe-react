@@ -48,7 +48,7 @@ const SetupWarehouse = ({
 
     return (
         <div>
-            <Title level={4}>{`Thiết lập định tuyến tại ${warehouse.warehouse_name}`}</Title>
+            <Title level={4}>{`Thiết lập định tuyến tại ${warehouse.name}`}</Title>
             <div className={styles.setup}>
                 <Text strong>{"Thiết lập tham số định tuyến"}</Text>
                 <div className={classnames(styles.setup_content, 'flex-column')}>
