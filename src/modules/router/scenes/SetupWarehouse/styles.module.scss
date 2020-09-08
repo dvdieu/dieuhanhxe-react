@@ -16,3 +16,19 @@
     height     : 30px;
     line-height: 30px;
 }
+
+.filter {
+    &-container {
+        padding: 0px 8px 0px 0px;
+    }
+
+    &-content {
+        height       : calc(100vh - 210px);
+        margin-top   : 12px;
+        padding      : 8px;
+        border       : 1px solid $border-color;
+        border-radius: 3px;
+        background   : #fff;
+        overflow     : auto;
+    }
+}
