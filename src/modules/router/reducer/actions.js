@@ -19,6 +19,11 @@ const { Types, Creators } = createActions({
     findDirectionsFailure: ['error'],
     /* #endregion */
 
+    /* #region  get truck directions */
+    getTruckDirectionsRequest: ['params'],
+    getTruckDirectionsSuccess: ['payload'],
+    getTruckDirectionsFailure: ['error'],
+    /* #endregion */
 });
 
 export const RouteTypes = Types;

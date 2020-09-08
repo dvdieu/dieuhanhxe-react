@@ -19,10 +19,6 @@ const initial_state_filter = {
     urgency: true,
     in_day: true,
     normal: true,
-    unset: true,
-    ready: true,
-    finish: true,
-    progress: true,
 }
 
 const warehouseState = () => {
@@ -73,26 +69,6 @@ const warehouseState = () => {
                 return {
                     ...state,
                     normal: action.normal
-                }
-            case actions.SET_UNSET:
-                return {
-                    ...state,
-                    unset: action.unset
-                }
-            case actions.SET_READY:
-                return {
-                    ...state,
-                    ready: action.ready
-                }
-            case actions.SET_FINISH:
-                return {
-                    ...state,
-                    finish: action.finish
-                }
-            case actions.SET_PROGRESS:
-                return {
-                    ...state,
-                    progress: action.progress
                 }
             /* #endregion */
             default:

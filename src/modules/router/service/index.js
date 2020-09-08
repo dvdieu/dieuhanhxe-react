@@ -36,3 +36,15 @@ export const findDirections = async (params) => {
     }
 }
 /* #endregion get directions */
+
+/* #region  get directions */
+export const getTruckDirections = async (params) => {
+    try {
+        let url = `${direction_url}/direct/license-and-period`
+        const result = await CoreService.post(url, params);
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+}
+/* #endregion get directions */

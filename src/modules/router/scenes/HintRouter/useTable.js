@@ -36,33 +36,6 @@ const useTable = () => {
         },
     ]), []);
 
-    const expected_columns = useMemo(() => (
-        [
-            {
-                title: 'Danh mục dự tính',
-                dataIndex: 'expected'
-            },
-            {
-                title: 'Giá trị',
-                dataIndex: 'value'
-            },
-            {
-                title: 'Đơn vị tính',
-                dataIndex: 'unit'
-            },
-            {
-                title: 'Thao tác',
-                dataIndex: 'operation',
-                className: "antd-custom-action-table",
-                width: 50,
-                render: (text, item) => (
-                    <Button type='link'>{"Chỉnh sửa"}</Button>
-                ),
-            },
-
-        ]
-    ), []);
-
     const address_columns = useMemo(() => ([
         {
             title: 'STT',
@@ -158,7 +131,6 @@ const useTable = () => {
 
     return {
         truck_columns,
-        expected_columns,
         address_columns,
         order_columns
     }

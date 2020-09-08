@@ -48,3 +48,16 @@ export function* findDirections({ params }) {
     }
 }
 /* #endregion */
+
+/* #region  get truck directions  */
+export function* getTruckDirections({ params }) {
+    try {
+        let data = yield call(routeApi.getTruckDirections, params);
+        if (!isEmpty(data) && data.status_code === 200) {
+            yield put(routeActions.getTruckDirectionsSuccess(data.payload));
+        } else yield put(routeActions.getTruckDirectionsFailure(data));
+    } catch (error) {
+        yield put(routeActions.getTruckDirectionsFailure(error));
+    }
+}
+/* #endregion */

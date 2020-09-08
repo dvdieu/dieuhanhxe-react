@@ -75,3 +75,28 @@ export const findDirectionsFailure = (state, { error }) => {
     });
 };
 /* #endregion */
+
+/* #region  get truck directions  */
+export const getTruckDirectionsRequest = (state, { params }) => {
+    return Immutable.merge(state, {
+        get_truck_direction_request: true,
+        truck_directions: [],
+        error: {}
+    });
+};
+
+export const getTruckDirectionsSuccess = (state, { payload }) => {
+    return Immutable.merge(state, {
+        get_truck_direction_request: false,
+        truck_directions: payload,
+    });
+};
+
+export const getTruckDirectionsFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        get_truck_direction_request: false,
+        truck_directions: [],
+        error,
+    });
+};
+/* #endregion */

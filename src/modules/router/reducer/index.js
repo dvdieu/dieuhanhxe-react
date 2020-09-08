@@ -15,6 +15,8 @@ const INITIAL_STATE = Immutable({
     create_direction_template_request: false,
     create_direction_request: false,
     find_direction_request: false,
+    truck_directions: [],
+    get_truck_direction_request: false
 });
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -34,6 +36,12 @@ export const reducer = createReducer(INITIAL_STATE, {
     [RouteTypes.FIND_DIRECTIONS_REQUEST]: Handler.findDirectionsRequest,
     [RouteTypes.FIND_DIRECTIONS_SUCCESS]: Handler.findDirectionsSuccess,
     [RouteTypes.FIND_DIRECTIONS_FAILURE]: Handler.findDirectionsFailure,
+    /* #endregion */
+
+    /* #region  get truck directions */
+    [RouteTypes.GET_TRUCK_DIRECTIONS_REQUEST]: Handler.getTruckDirectionsRequest,
+    [RouteTypes.GET_TRUCK_DIRECTIONS_SUCCESS]: Handler.getTruckDirectionsSuccess,
+    [RouteTypes.GET_TRUCK_DIRECTIONS_FAILURE]: Handler.getTruckDirectionsFailure,
     /* #endregion */
 
 });

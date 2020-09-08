@@ -1,7 +1,7 @@
 import React, { memo, useReducer } from 'react';
 //atnd
 import { Typography, Checkbox, Radio, Table, Input, Row, Col, DatePicker, Button } from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
+import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 //styles
 import styles from './styles.module.scss';
 //lib
@@ -18,7 +18,6 @@ import useSearch from './useSearch';
 import useCommon from './useCommon';
 
 const { Title, Text } = Typography;
-const { Search } = Input;
 const { RangePicker } = DatePicker;
 
 const SetupWarehouse = ({
@@ -46,10 +45,6 @@ const SetupWarehouse = ({
         urgency,
         in_day,
         normal,
-        unset,
-        ready,
-        finish,
-        progress,
     } = state;
     const { total_items, page_number, page_size } = pagination;
 
@@ -62,10 +57,6 @@ const SetupWarehouse = ({
         urgency,
         in_day,
         normal,
-        unset,
-        ready,
-        finish,
-        progress,
         dispatchState
     });
     const {
@@ -75,10 +66,6 @@ const SetupWarehouse = ({
         handleChangeUrgency,
         handleChangeInDay,
         handleChangeNormal,
-        handleChangeUnset,
-        handleChangeReady,
-        handleChangeFinish,
-        handleChangeProgress
     } = useCommon({ dispatchState });
 
     const onChangeDate = (value, dateString) => {
@@ -87,7 +74,7 @@ const SetupWarehouse = ({
     }
 
     const onSubmitFilter = () => {
-        handleSearch();
+        handleSearch({ keyword, from_date, to_date, urgency, in_day, normal });
     }
 
     return (
@@ -95,12 +82,7 @@ const SetupWarehouse = ({
             <Row>
                 <Col span={4}>
                     <div className={classnames(styles['filter-container'], 'flex-column')}>
-                        <Search
-                            placeholder="Tìm kiếm đơn hàng"
-                            onSearch={value => handleChangeKeyword(value)}
-                            style={{ width: '100%' }}
-                            value={keyword}
-                        />
+                        <Input style={{ width: '100%' }} addonAfter={<SearchOutlined />} placeholder="Tìm kiếm đơn hàng" onChange={handleChangeKeyword} value={keyword} />
                         <div className={classnames(styles['filter-content'], 'flex-column', 'justify-between')}>
                             <div className='flex-column'>
                                 <div>
@@ -111,11 +93,6 @@ const SetupWarehouse = ({
                                 <Checkbox checked={urgency} onChange={handleChangeUrgency}>{"Giao khẩn cấp"}</Checkbox>
                                 <Checkbox checked={in_day} onChange={handleChangeInDay}>{"Giao trong ngày"}</Checkbox>
                                 <Checkbox checked={normal} onChange={handleChangeNormal} style={{ marginBottom: 12 }}>{"Giao bình thường"}</Checkbox>
-                                <Text strong>{"Trạng thái đơn hàng"}</Text>
-                                <Checkbox checked={ready} onChange={handleChangeReady}>{"Đã sắp lịch"}</Checkbox>
-                                <Checkbox checked={unset} onChange={handleChangeUnset}>{"Chưa sắp lịch"}</Checkbox>
-                                <Checkbox checked={finish} onChange={handleChangeFinish}>{"Đã giao"}</Checkbox>
-                                <Checkbox checked={progress} onChange={handleChangeProgress}>{"Đang giao"}</Checkbox>
                                 <Text strong>{"Thời gian"}</Text>
                                 <RangePicker
                                     defaultValue={[moment(new Date(), DATE_FORMAT), moment(new Date(), DATE_FORMAT)]}
@@ -160,7 +137,7 @@ const SetupWarehouse = ({
                                 pagination={{ current: page_number, pageSize: page_size, total: total_items }}
                                 onRow={onRow}
                                 rowSelection={rowSelection}
-                                scroll={{ y: 230 }} />
+                                scroll={{ y: 290 }} />
                         </Col>
                     </Row>
                 </Col>

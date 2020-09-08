@@ -2,11 +2,10 @@ import { useCallback } from 'react';
 import actions from './actions';
 
 const useCommon = ({ dispatchState }) => {
-    const handleChangeKeyword = useCallback(keyword => {
-    console.log("useCommon -> keyword", keyword)
+    const handleChangeKeyword = useCallback(event => {
         dispatchState({
             type: actions.SET_KEYWORD,
-            keyword
+            keyword: event.target.value
         })
     }, [dispatchState])
 
@@ -45,34 +44,6 @@ const useCommon = ({ dispatchState }) => {
         })
     }, [dispatchState])
 
-    const handleChangeUnset = useCallback(event => {
-        dispatchState({
-            type: actions.SET_UNSET,
-            unset: event.target.checked
-        })
-    }, [dispatchState])
-
-    const handleChangeReady = useCallback(event => {
-        dispatchState({
-            type: actions.SET_READY,
-            ready: event.target.checked
-        })
-    }, [dispatchState])
-
-    const handleChangeFinish = useCallback(event => {
-        dispatchState({
-            type: actions.SET_FINISH,
-            finish: event.target.checked
-        })
-    }, [dispatchState])
-
-    const handleChangeProgress = useCallback(event => {
-        dispatchState({
-            type: actions.SET_PROGRESS,
-            progress: event.target.checked
-        })
-    }, [dispatchState])
-
     return {
         handleChangeKeyword,
         handleChangeFromDate,
@@ -80,10 +51,6 @@ const useCommon = ({ dispatchState }) => {
         handleChangeUrgency,
         handleChangeInDay,
         handleChangeNormal,
-        handleChangeUnset,
-        handleChangeReady,
-        handleChangeFinish,
-        handleChangeProgress
     }
 }
 

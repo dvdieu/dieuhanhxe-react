@@ -29,19 +29,6 @@ const truck_data = [
     }
 ]
 
-const expected_data = [
-    {
-        expected: 'Tổng quãng đường',
-        value: '15.7',
-        unit: 'km',
-    },
-    {
-        expected: 'Tổng thời gian di chuyển',
-        value: '38',
-        unit: 'phút',
-    }
-]
-
 const HintRouter = ({ origin,
     direction_request,
     direction_templates,
@@ -62,7 +49,7 @@ const HintRouter = ({ origin,
         handleAddOrder,
     } = useCommon({ dispatchState });
 
-    const { truck_columns, expected_columns, order_columns } = useTable();
+    const { truck_columns, order_columns } = useTable();
 
     const handleSelectTruck = () => {
         selectTruck({
@@ -125,8 +112,6 @@ const HintRouter = ({ origin,
                             <div className={styles.no_border}>
                                 <Title className={styles.routes_title} level={4}>{"Thiết lập định tuyến"}</Title>
                                 <Table columns={truck_columns} dataSource={truck_data} pagination={false} rowKey="id" />
-                                <br />
-                                <Table columns={expected_columns} dataSource={expected_data} pagination={false} rowKey="expected" />
                                 <br />
                                 <Checkbox >{"Tránh phà"}</Checkbox>
                                 <br />

@@ -1,144 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 //lib
 import moment from 'moment';
 import 'moment/locale/vi';
 import classnames from 'classnames';
-import isEmpty from 'lodash/isEmpty';
 //components
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-
 //antd
-import { Row, Col, Avatar, Typography, Affix, Modal, message } from 'antd';
+import { Row, Col, Avatar, Typography, Affix, Modal, Spin } from 'antd';
 //style
 import styles from './styles.module.scss';
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
+//hook
+import { initial_state, reducer_state } from './scheduleState';
+import useCommom from './useCommon';
+import useCalendar from './useCalendar';
 
 const { Text } = Typography;
 
 const localizer = momentLocalizer(moment)
 
-let events_data = [
-    {
-        id: 1,
-        title: 'Tuyến 001',
-        start: new Date(new Date().setHours(new Date().getHours() - 3)),
-        end: new Date(new Date().setHours(new Date().getHours() + 3)),
-    },
-    {
-        id: 2,
-        title: 'Tuyến 002',
-        start: new Date(new Date().setHours(new Date().getHours() + 4)),
-        end: new Date(new Date().setHours(new Date().getHours() + 6)),
-    },
-    {
-        id: 3,
-        title: 'Tuyến 003',
-        start: new Date(new Date().setHours(new Date().getHours() + 4)),
-        end: new Date(new Date().setHours(new Date().getHours() + 6)),
-    },
-    {
-        id: 4,
-        title: 'Tuyến 004',
-        start: new Date(new Date().setHours(new Date().getHours() + 4)),
-        end: new Date(new Date().setHours(new Date().getHours() + 6)),
-    },
-    {
-        id: 5,
-        title: 'Tuyến 005',
-        start: new Date(new Date().setHours(new Date().getHours() + 4)),
-        end: new Date(new Date().setHours(new Date().getHours() + 6)),
-    },
-
-]
-
 const DragAndDropCalendar = withDragAndDrop(Calendar)
-
-const warning = (text) => {
-    message.warning(text);
-};
 
 const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
-    const [events, setEvents] = useState(events_data);
-    const [dragged_event, setDraggedEvent] = useState(null);
+
     const displayDragItemInCell = true;
 
-    const handleDragStart = event => {
-        setDraggedEvent(event)
-    }
-
-    const dragFromOutsideItem = () => {
-        return dragged_event
-    }
-
-    const onDropFromOutside = ({ start, end, allDay }) => {
-        const event = {
-            id: dragged_event.id,
-            title: dragged_event.title,
-            start,
-            end,
-            allDay: allDay,
-        }
-
-        setDraggedEvent(null)
-
-        this.moveEvent({ event, start, end })
-    }
-
-    const moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
-        let allDay = event.allDay
-        console.log("moveEvent -> allDay", allDay)
-
-        if (!event.allDay && droppedOnAllDaySlot) {
-            allDay = true
-        } else if (event.allDay && !droppedOnAllDaySlot) {
-            allDay = false
-        }
-
-        const nextEvents = events.map(existingEvent => {
-            return existingEvent.id === event.id
-                ? { ...existingEvent, start, end }
-                : existingEvent
-        })
-
-        handleChangeNewEvent({ ...new_event, start, end })
-        setEvents(nextEvents)
-    }
-
-    const resizeEvent = ({ event, start, end }) => {
-        const nextEvents = events.map(existingEvent => {
-            return existingEvent.id === event.id
-                ? { ...existingEvent, start, end }
-                : existingEvent
-        })
-
-        handleChangeNewEvent({ ...new_event, start, end })
-        setEvents(nextEvents)
-    }
-
-    const newEvent = (event) => {
-        if (isEmpty(new_event)) {
-            if (!truck) {
-                warning('Vui lòng chọn xe trước');
-            } else {
-                let idList = events.map(a => a.id)
-                let newId = Math.max(...idList) + 1
-                let new_event = {
-                    id: newId,
-                    title: direction_name,
-                    allDay: event.slots.length === 1,
-                    start: event.start,
-                    end: event.end,
-                }
-                handleChangeNewEvent(new_event)
-                setEvents(events.concat([new_event]))
-            }
-        } else {
-            warning('Bạn đã chọn thời gian cho tuyến này');
-        }
-    }
+    //hook
+    const [state, dispatchState] = useReducer(reducer_state, initial_state);
+    const { from_date, to_date, fetch_events, events } = state;
+    const { handleSelectTruck } = useCommom({ from_date, to_date, truck, dispatchState, handleChangeTruck, handleChangeNewEvent });
+    const {
+        handleRangeChange,
+        handleDragStart,
+        dragFromOutsideItem,
+        onDropFromOutside,
+        moveEvent,
+        resizeEvent,
+        newEvent
+    } = useCalendar({ events, new_event, truck, direction_name, dispatchState, handleChangeNewEvent })
 
     const handleOk = () => {
         setVisible(false)
@@ -169,7 +71,7 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handl
                                             styles[`driver-item-${is_selected ? 'selected' : 'unselected'}`],
                                             'flex-row')}
                                             key={key}
-                                            onClick={() => { handleChangeTruck(item) }}>
+                                            onClick={() => { handleSelectTruck(item) }}>
                                             <Avatar size={40} src={require('../../../../assets/images/drivers/taixe3.jpeg')} />
                                             <div className={classnames('flex-column', 'justify-between')} style={{ marginLeft: 8 }}>
                                                 <Text className={text_style}>{item.license_plates}</Text>
@@ -183,37 +85,41 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handl
                     </Affix>
                 </Col>
                 <Col xs={20}>
-                    <DragAndDropCalendar
-                        resizable
-                        selectable
-                        localizer={localizer}
-                        defaultDate={new Date()}
-                        defaultView='week'
-                        views={['day', 'week', 'month', 'agenda']}
-                        events={events}
-                        style={{ height: '600px' }}
-                        startAccessor='start'
-                        endAccessor='end'
-                        popup
-                        messages={{
-                            next: 'Tiếp theo',
-                            previous: 'Trở lại',
-                            today: 'Hôm nay',
-                            month: 'Tháng',
-                            week: 'Tuần',
-                            day: 'Ngày',
-                            agenda: 'Nhật ký'
-                        }}
-                        onEventResize={resizeEvent}
-                        onSelectSlot={newEvent}
-                        onEventDrop={moveEvent}
-                        dragFromOutsideItem={
-                            displayDragItemInCell ? dragFromOutsideItem : null
-                        }
-                        onDropFromOutside={onDropFromOutside}
-                        handleDragStart={handleDragStart}
-                        onSelectEvent={item => onClickItem(item)}
-                    />
+                    <Spin spinning={fetch_events} delay={500}>
+                        <DragAndDropCalendar
+                            resizable
+                            selectable
+                            localizer={localizer}
+                            defaultDate={new Date()}
+                            defaultView='week'
+                            views={['day', 'week', 'month']}
+                            // events={events}
+                            events={state?.events}
+                            style={{ height: '600px' }}
+                            startAccessor='start'
+                            endAccessor='end'
+                            popup
+                            messages={{
+                                next: 'Tiếp theo',
+                                previous: 'Trở lại',
+                                today: 'Hôm nay',
+                                month: 'Tháng',
+                                week: 'Tuần',
+                                day: 'Ngày',
+                                agenda: 'Nhật ký'
+                            }}
+                            onEventResize={resizeEvent}
+                            onSelectSlot={newEvent}
+                            onEventDrop={moveEvent}
+                            dragFromOutsideItem={
+                                displayDragItemInCell ? dragFromOutsideItem : null
+                            }
+                            onDropFromOutside={onDropFromOutside}
+                            handleDragStart={handleDragStart}
+                            onSelectEvent={item => onClickItem(item)}
+                            onRangeChange={handleRangeChange}
+                        />
+                    </Spin>
                 </Col>
             </Row>
             <Modal

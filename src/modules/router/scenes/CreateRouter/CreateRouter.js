@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 //page
 import Warehouses from '../Warehouses';
 import SetupWarehouse from '../SetupWarehouse';
@@ -11,6 +11,7 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import cloneDeep from 'lodash/cloneDeep';
 import { useHistory } from 'react-router-dom';
+import { Prompt } from 'react-router-dom';
 //antd
 import { Button, Spin } from 'antd';
 import { ArrowLeftOutlined, ArrowRightOutlined, CheckCircleOutlined } from '@ant-design/icons';
@@ -27,6 +28,7 @@ import actions from './actions';
 import routeActions from '../../reducer/actions';
 
 const CreateRouter = () => {
+    const [count, setCount] = useState(0);
     //hook
     const [state, dispatchState] = useReducer(reducer_state, initial_state);
     const [spin, setSpin] = useState(false);
@@ -83,9 +85,8 @@ const CreateRouter = () => {
     }
 
     const onSubmit = () => {
-        const params = {
-            directs: direction_templates
-        }
+        let directs = direction_templates.filter(item => item.confirm)
+        const params = { directs };
         dispatch(routeActions.createDirectionRequest(params));
         //note để tạm
         setSpin(true);
@@ -94,6 +95,11 @@ const CreateRouter = () => {
             history.push('/routes')
         }, 2000)
     }
+
+    useEffect(() => {
+        let directs = direction_templates.filter(item => item.confirm);
+        setCount(directs.length);
+    }, [direction_templates])
 
     const isDisableNext = () => {
         if (step === 0) {
@@ -134,110 +140,122 @@ const CreateRouter = () => {
     }
 
     return (
-        <Spin
-            spinning={spin}
-            tip={"Đang xử lý"}
-            delay={500}
-        >
-            <div>
-                {
-                    // danh sach kho
-                    step === 0 &&
-                    <Warehouses
-                        warehouse_id={warehouse.warehouse_id}
-                        handleChangeWarehouse={handleChangeWarehouse} />
-                }
-                {
-                    //thiết lập định tuyến
-                    step === 1 &&
-                    <SetupWarehouse
-                        warehouse={warehouse}
-                        priority_warehouse={priority_warehouse}
-                        priority_truck={priority_truck}
-                        selected_order_keys={selected_order_keys}
-                        onChangePriorityTruck={onChangePriorityTruck}
-                        onChangePriorityWarehouse={onChangePriorityWarehouse}
-                        onChangeSelectedOrder={onChangeSelectedOrder}
-                    />
-                }
-                {
-                    step === 2 &&
-                    <HintRouter
-                        origin={{
-                            latitude: warehouse.latitude,
-                            longitude: warehouse.longitude
-                        }}
-                        selected_order={selected_order}
-                        direction_request={direction_request}
-                        direction_templates={direction_templates}
-                        current_direction={current_direction}
-                        waypoints={waypoints}
-                        order_address={order_address}
-                        orders={orders}
-                        selectTruck={selectTruck}
-                        handleChangeCurrentDirection={handleChangeCurrentDirection} />
-                }
-                {
-                    step === 3 &&
-                    <Schedule
-                        trucks={trucks}
-                        find_trucks={find_trucks}
-                        direction_name={direction_name}
-                        new_event={new_event}
-                        truck={truck}
-                        handleChangeNewEvent={handleChangeNewEvent}
-                        handleChangeTruck={handleChangeTruck} />
-                }
-                <Portal id='root_footer'>
-                    <div className={classnames('flex-row', 'justify-end')} style={{ padding: '12px 0px' }}>
-                        {
-                            step > 0 &&
-                            <Button size='large' onClick={onStepBack} icon={<ArrowLeftOutlined />}>{"Trở lại"}</Button>
-                        }
-                        {
-                            step === 0 &&
-                            <Button
-                                type="primary"
-                                onClick={onStepNext}
-                                size='large'
-                                style={{ marginLeft: 12 }}
-                                disabled={isDisableNext()}>
-                                {"Tiếp theo"}
-                                <ArrowRightOutlined />
-                            </Button>
-                        }
-                        {
-                            step === 1 &&
-                            <Button
-                                type="primary"
-                                onClick={createDirectionTemplate}
-                                size='large'
-                                style={{ marginLeft: 12 }}
-                                disabled={isDisableNext()}>
-                                {"Tiếp theo"}
-                                <ArrowRightOutlined />
-                            </Button>
-                        }
-                        {
-                            step === 2 &&
-                            <Button type="primary" onClick={onSubmit} size='large' style={{ marginLeft: 12 }}>
-                                {"Xác nhận lịch trình"}
-                                <CheckCircleOutlined />
-                            </Button>
-                        }
-                        {
-                            step === 3 &&
-                            <Button type="primary"
-                                disabled={isEmpty(new_event) || isEmpty(truck)}
-                                onClick={handleAddTruckToDirect} size='large' style={{ marginLeft: 12 }}>
-                                {"Xác nhận lịch trình"}
-                                <CheckCircleOutlined />
-                            </Button>
-                        }
-                    </div>
-                </Portal>
-            </div>
-        </Spin>
+        <>
+            <Prompt
+                when={true}
+                message='Dữ liệu chưa được lưu, bạn chắc chắn muốn thoát?'
+            />
+            <Spin
+                spinning={spin}
+                tip={"Đang xử lý"}
+                delay={500}
+            >
+                <div>
+                    {
+                        // danh sach kho
+                        step === 0 &&
+                        <Warehouses
+                            warehouse_id={warehouse.warehouse_id}
+                            handleChangeWarehouse={handleChangeWarehouse} />
+                    }
+                    {
+                        //thiết lập định tuyến
+                        step === 1 &&
+                        <SetupWarehouse
+                            warehouse={warehouse}
+                            priority_warehouse={priority_warehouse}
+                            priority_truck={priority_truck}
+                            selected_order_keys={selected_order_keys}
+                            onChangePriorityTruck={onChangePriorityTruck}
+                            onChangePriorityWarehouse={onChangePriorityWarehouse}
+                            onChangeSelectedOrder={onChangeSelectedOrder}
+                        />
+                    }
+                    {
+                        step === 2 &&
+                        <HintRouter
+                            origin={{
+                                latitude: warehouse.latitude,
+                                longitude: warehouse.longitude
+                            }}
+                            selected_order={selected_order}
+                            direction_request={direction_request}
+                            direction_templates={direction_templates}
+                            current_direction={current_direction}
+                            waypoints={waypoints}
+                            order_address={order_address}
+                            orders={orders}
+                            selectTruck={selectTruck}
+                            handleChangeCurrentDirection={handleChangeCurrentDirection} />
+                    }
+                    {
+                        step === 3 &&
+                        <Schedule
+                            trucks={trucks}
+                            find_trucks={find_trucks}
+                            direction_name={direction_name}
+                            new_event={new_event}
+                            truck={truck}
+                            handleChangeNewEvent={handleChangeNewEvent}
+                            handleChangeTruck={handleChangeTruck} />
+                    }
+                    <Portal id='root_footer'>
+                        <div className={classnames('flex-row', 'justify-end')} style={{ padding: '12px 0px' }}>
+                            {
+                                step > 0 &&
+                                <Button size='large' onClick={onStepBack} icon={<ArrowLeftOutlined />}>{"Trở lại"}</Button>
+                            }
+                            {
+                                step === 0 &&
+                                <Button
+                                    type="primary"
+                                    onClick={onStepNext}
+                                    size='large'
+                                    style={{ marginLeft: 12 }}
+                                    disabled={isDisableNext()}>
+                                    {"Tiếp theo"}
+                                    <ArrowRightOutlined />
+                                </Button>
+                            }
+                            {
+                                step === 1 &&
+                                <Button
+                                    type="primary"
+                                    onClick={createDirectionTemplate}
+                                    size='large'
+                                    style={{ marginLeft: 12 }}
+                                    disabled={isDisableNext()}>
+                                    {"Tiếp theo"}
+                                    <ArrowRightOutlined />
+                                </Button>
+                            }
+                            {
+                                (step === 2) ?
+                                    count > 0 ?
+                                        <Button type="primary" onClick={onSubmit} size='large' style={{ marginLeft: 12 }}>
+                                            {`Xác nhận ${count} lịch trình`}
+                                            <CheckCircleOutlined />
+                                        </Button> :
+                                        <Button type="primary" disabled={true} size='large' style={{ marginLeft: 12 }}>
+                                            {"Xác nhận lịch trình"}
+                                            <CheckCircleOutlined />
+                                        </Button>
+                                    : <></>
+                            }
+                            {
+                                step === 3 &&
+                                <Button type="primary"
+                                    disabled={isEmpty(new_event) || isEmpty(truck)}
+                                    onClick={handleAddTruckToDirect} size='large' style={{ marginLeft: 12 }}>
+                                    {"Xác nhận lịch trình"}
+                                    <CheckCircleOutlined />
+                                </Button>
+                            }
+                        </div>
+                    </Portal>
+                </div>
+            </Spin>
+        </>
     )
 }
 

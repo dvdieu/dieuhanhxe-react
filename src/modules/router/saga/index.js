@@ -8,4 +8,5 @@ export default [
     takeLatest(RouteTypes.CREATE_DIRECTION_TEMPLATE_REQUEST, watches.createDirectionTemplate),
     takeLatest(RouteTypes.CREATE_DIRECTION_REQUEST, watches.createDirection),
     takeLatest(RouteTypes.FIND_DIRECTIONS_REQUEST, watches.findDirections),
+    takeLatest(RouteTypes.GET_TRUCK_DIRECTIONS_REQUEST, watches.getTruckDirections),
 ];
