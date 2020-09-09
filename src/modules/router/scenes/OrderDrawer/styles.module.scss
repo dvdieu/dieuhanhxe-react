@@ -1,0 +1,17 @@
+@import '../../../../assets/scss/variable-scss.scss';
+
+.filter {
+    &-container {
+        padding: 0px 8px 0px 0px;
+    }
+
+    &-content {
+        height       : calc(100vh - 300px);
+        margin-top   : 12px;
+        padding      : 8px;
+        border       : 1px solid $border-color;
+        border-radius: 3px;
+        background   : #fff;
+        overflow     : auto;
+    }
+}

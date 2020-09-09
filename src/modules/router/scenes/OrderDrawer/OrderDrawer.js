@@ -1,6 +1,7 @@
 import React, { useReducer, useCallback } from 'react';
 //atnd
-import { Drawer, Button, Row, Col, Input, Table } from 'antd';
+import { Drawer, Button, Row, Col, Input, Table, Checkbox, DatePicker, Typography } from 'antd';
+import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 //lib
 import classnames from 'classnames';
 import moment from 'moment';
@@ -9,8 +10,10 @@ import isEmpty from 'lodash/isEmpty';
 import useTable from './useTable';
 import orderState from './orderState';
 import useSearch from './useSearch';
+import styles from './styles.module.scss';
 
-const { Search } = Input;
+const { Text } = Typography;
+const { RangePicker } = DatePicker;
 
 const OrderDrawer = ({ visible, warehouse, direction_templates, current_direction, onClose, onSubmit }) => {
     //hook
@@ -40,9 +43,10 @@ const OrderDrawer = ({ visible, warehouse, direction_templates, current_directio
         <Drawer
             title="Thêm đơn hàng vào tuyến"
             afterVisibleChange={afterVisibleChange}
-            width={900}
+            width={1100}
             onClose={onClose}
-            visible={visible}
+            // visible={visible}
+            visible={true}
             bodyStyle={{ paddingBottom: 80 }}
             destroyOnClose={true}
             footer={
@@ -58,15 +62,46 @@ const OrderDrawer = ({ visible, warehouse, direction_templates, current_directio
             }>
             <div>
                 <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                        <Search />
+                    <Col span={5}>
+                        <div className={classnames(styles['filter-container'], 'flex-column')}>
+                            <Input style={{ width: '100%' }} addonAfter={<SearchOutlined />} placeholder="Tìm kiếm đơn hàng"
+                            //  onChange={handleChangeKeyword} value={keyword} 
+                            />
+                            <div className={classnames(styles['filter-content'], 'flex-column', 'justify-between')}>
+                                <div className='flex-column'>
+                                    <div>
+                                        <FilterOutlined style={{ marginRight: 8 }} />
+                                        <Text strong>{"Bộ lọc"}</Text>
+                                    </div>
+                                    <Text strong>{"Độ ưu tiên"}</Text>
+                                    <Checkbox
+                                    // checked={urgency} onChange={handleChangeUrgency}
+                                    >{"Giao khẩn cấp"}</Checkbox>
+                                    <Checkbox
+                                    // checked={in_day} onChange={handleChangeInDay}
+                                    >{"Giao trong ngày"}</Checkbox>
+                                    <Checkbox
+                                        // checked={normal} onChange={handleChangeNormal} 
+                                        style={{ marginBottom: 12 }}>{"Giao bình thường"}</Checkbox>
+                                    <Text strong>{"Thời gian"}</Text>
+                                    <RangePicker
+                                    // defaultValue={[moment(new Date(), DATE_FORMAT), moment(new Date(), DATE_FORMAT)]}
+                                    // format={DATE_FORMAT}
+                                    // onChange={onChangeDate}
+                                    // value={[from_date, to_date]}
+                                    />
+
+                                </div>
+                                <div className={classnames('flex-row', 'justify-end')} style={{ marginTop: 12 }}>
+                                    <Button style={{ marginRight: 8 }}>{"Hủy"}</Button>
+                                    <Button type='primary'
+                                    //  onClick={onSubmitFilter} 
+                                    >{"Áp dụng"}</Button>
+                                </div>
+                            </div>
+                        </div>
                     </Col>
-                    <Col span={12} className={classnames('flex-row', 'justify-end')}>
-                        {/* <Button type='primary'>{"Tạo đơn hàng"}</Button> */}
-                    </Col>
-                </Row>
-                <Row gutter={[16, 16]}>
-                    <Col span={24}>
+                    <Col span={19}>
                         <Table
                             rowKey="order_id"
                             loading={fetch_orders}

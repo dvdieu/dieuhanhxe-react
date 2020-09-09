@@ -39,7 +39,7 @@ export const initial_state = {
     ...initial_state_setup,
     ...initial_state_schedule,
     ...initial_state_hint,
-    step: 0
+    step: 2
 }
 
 export const reducer_state = ((state, action) => {
