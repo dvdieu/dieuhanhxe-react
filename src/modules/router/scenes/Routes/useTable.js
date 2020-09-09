@@ -5,6 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons';
 //lib
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import { round } from '../../../../utils/number';
 
 const { Text } = Typography;
 
@@ -57,11 +58,11 @@ const useTable = () => {
                     </div>
                     <div>
                         <Text>{"Tổng trọng lượng"}</Text>
-                        <Text style={{ marginLeft: 8 }}>{item.weight}</Text>
+                        <Text style={{ marginLeft: 8 }}>{round(item.weight)}</Text>
                     </div>
                     <div>
                         <Text>{"Tổng kích thước"}</Text>
-                        <Text style={{ marginLeft: 8 }}>{item.size}</Text>
+                        <Text style={{ marginLeft: 8 }}>{round(item.size)}</Text>
                     </div>
                 </div>
             )

@@ -78,13 +78,14 @@ export const reducer_state = ((state, action) => {
                 ...state,
                 orders: [...action.orders]
             }
-        case actions.ADD_ORDERS:
+        case actions.ADD_ORDER: {
             let orders = cloneDeep(state.orders);
             orders = [...action.orders, ...orders];
             return {
                 ...state,
                 orders
             }
+        }
         case actions.SET_ADDRESS:
             return {
                 ...state,

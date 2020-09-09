@@ -5,7 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons';
 //actions
 import actions from './actions';
 
-const { Text } = Typography;
+const { Text, Paragraph } = Typography;
 
 const useTable = ({ selected_rows, dispatchState }) => {
     const action_menu = useCallback((item) => {
@@ -21,24 +21,33 @@ const useTable = ({ selected_rows, dispatchState }) => {
     const columns = useMemo(() => ([
         {
             title: "Mã đơn hàng",
-            dataIndex: "id"
+            dataIndex: "order_id"
         },
         {
             title: "Địa chỉ",
-            dataIndex: "address"
+            dataIndex: "address",
+            render: text => (
+                <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
+                    {text}
+                </Paragraph>
+            )
         },
         {
             title: "Tổng số kiện hàng",
             dataIndex: "quantity",
-            sorter: (a, b) => a.size - b.size,
+            render: text => (
+                <div>
+                    <Text>{text}</Text>
+                </div>
+            )
         },
         {
             title: "Tổng trọng lượng",
             dataIndex: "weight",
             render: text => (
-                <Text>{`${text} Tấn`}</Text>
+                <Text>{`${text} Kg`}</Text>
             ),
-            sorter: (a, b) => a.size - b.size,
+            // sorter: (a, b) => a.size - b.size,
         },
         {
             title: "Kích thước",
@@ -46,22 +55,30 @@ const useTable = ({ selected_rows, dispatchState }) => {
             render: text => (
                 <Text>{`${text} Khối`}</Text>
             ),
-            sorter: (a, b) => a.size - b.size,
+            // sorter: (a, b) => a.size - b.size,
         },
         {
             title: "Xe vận chuyển",
-            dataIndex: "truck"
+            render: (text, record) => (
+                <div>
+                    <Text>{record?.truck?.license_plates ? record?.truck?.license_plates : 'Chưa có'}</Text>
+                </div>
+            )
         },
         {
             title: "Tuyến đường",
-            dataIndex: "route"
+            render: (text, record) => (
+                <div>
+                    <Text>{record?.direction_name ? record?.direction_name : 'Chưa có'}</Text>
+                </div>
+            )
         },
         {
             title: "",
             dataIndex: "operator",
             render: (text, item) => (
                 <div
-                    action-row-key={item.id}
+                    action-row-key={item.order_id}
                     style={{ visibility: 'hidden' }}
                 >
                     <Dropdown overlay={action_menu(item)} trigger={['click']}>
@@ -73,14 +90,14 @@ const useTable = ({ selected_rows, dispatchState }) => {
     ]), [action_menu]);
 
     const onMouseEnter = useCallback(item => {
-        const row_item = document.querySelectorAll(`div[action-row-key='${item.id}']`);
+        const row_item = document.querySelectorAll(`div[action-row-key='${item.order_id}']`);
         if (row_item) {
             row_item[0].style.visibility = 'visible'
         }
     }, [])
 
     const onMouseLeave = useCallback(item => {
-        const row_item = document.querySelectorAll(`div[action-row-key='${item.id}']`);
+        const row_item = document.querySelectorAll(`div[action-row-key='${item.order_id}']`);
         if (row_item) {
             row_item[0].style.visibility = 'hidden'
         }

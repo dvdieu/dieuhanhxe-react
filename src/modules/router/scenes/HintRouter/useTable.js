@@ -4,10 +4,12 @@ import { Button, Typography, Dropdown, Menu, Tag } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 //lib
 import i18n from '../../../../libs/i18n';
+//utils
+import { round } from '../../../../utils/number';
 
 const { Text } = Typography;
 
-const useTable = () => {
+const useTable = ({ current_direction, handleRemoveOrder }) => {
     const truck_columns = useMemo(() => ([
         {
             title: 'Loại xe',
@@ -56,18 +58,39 @@ const useTable = () => {
         }
     ]), []);
 
-    const action_menu = useCallback((item) => {
+    const info_columns = useMemo(() => ([
+        {
+            title: 'Số đơn hàng',
+            dataIndex: 'number_order',
+        },
+        {
+            title: 'Tổng trọng lượng',
+            dataIndex: 'weight',
+            render: text => (
+                <Text>{round(text)}</Text>
+            )
+        },
+        {
+            title: 'Tổng kích thước',
+            dataIndex: 'size',
+            render: text => (
+                <Text>{round(text)}</Text>
+            )
+        }
+    ]), []);
+
+    const action_menu = useCallback((order) => {
         return (
             <Menu>
                 <Menu.Item>
-                    <span>Thông tin đơn hàng</span>
+                    <span>{"Thông tin đơn hàng"}</span>
                 </Menu.Item>
-                <Menu.Item>
-                    <span>Gỡ khỏi tuyến</span>
+                <Menu.Item onClick={() => handleRemoveOrder({ order, current_direction })}>
+                    <span>{"Gỡ khỏi tuyến"}</span>
                 </Menu.Item>
             </Menu>
         );
-    }, []);
+    }, [current_direction, handleRemoveOrder]);
 
     const order_columns = useMemo(() => ([
         {
@@ -132,7 +155,8 @@ const useTable = () => {
     return {
         truck_columns,
         address_columns,
-        order_columns
+        order_columns,
+        info_columns
     }
 }
 

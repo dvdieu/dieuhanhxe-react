@@ -75,7 +75,8 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handl
                                             <Avatar size={40} src={require('../../../../assets/images/drivers/taixe3.jpeg')} />
                                             <div className={classnames('flex-column', 'justify-between')} style={{ marginLeft: 8 }}>
                                                 <Text className={text_style}>{item.license_plates}</Text>
-                                                <Text className={text_style}>{item.driver_name}</Text>
+                                                <Text className={text_style}>{`${item.weight / 1000} tấn`}</Text>
+                                                <Text className={text_style}>{`${item.size} khối`}</Text>
                                             </div>
                                         </div>
                                     )

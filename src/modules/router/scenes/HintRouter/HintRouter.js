@@ -1,4 +1,4 @@
-import React, { memo, useReducer } from 'react';
+import React, { memo, useReducer, useCallback } from 'react';
 //antd
 import { Row, Col, Typography, Button, Table, Affix, Checkbox, Skeleton } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
@@ -29,7 +29,9 @@ const truck_data = [
     }
 ]
 
-const HintRouter = ({ origin,
+const HintRouter = ({
+    warehouse,
+    origin,
     direction_request,
     direction_templates,
     current_direction,
@@ -37,19 +39,20 @@ const HintRouter = ({ origin,
     order_address,
     orders,
     selectTruck,
-    handleChangeCurrentDirection }) => {
+    handleChangeCurrentDirection,
+    handleRemoveOrder,
+    handleAddOrder }) => {
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible, order_visible, } = state;
+    const { truck_visible, order_visible, info_data } = state;
     const {
         handleCloseTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
-        handleAddOrder,
-    } = useCommon({ dispatchState });
+    } = useCommon({ current_direction, dispatchState });
 
-    const { truck_columns, order_columns } = useTable();
+    const { truck_columns, order_columns, info_columns } = useTable({ current_direction, handleRemoveOrder });
 
     const handleSelectTruck = () => {
         selectTruck({
@@ -58,6 +61,11 @@ const HintRouter = ({ origin,
             direction_name: current_direction.name
         });
     }
+
+    const onSubmitAddOrder = useCallback((draft_orders) => {
+        handleAddOrder({ draft_orders, current_direction });
+        handleCloseOrderDrawer();
+    }, [current_direction, handleAddOrder, handleCloseOrderDrawer])
 
     return (
         <div className={classnames('flex-row')}>
@@ -111,6 +119,8 @@ const HintRouter = ({ origin,
                         <Col span={12} >
                             <div className={styles.no_border}>
                                 <Title className={styles.routes_title} level={4}>{"Thiết lập định tuyến"}</Title>
+                                <Table columns={info_columns} dataSource={info_data} pagination={false} rowKey="id" />
+                                <br />
                                 <Table columns={truck_columns} dataSource={truck_data} pagination={false} rowKey="id" />
                                 <br />
                                 <Checkbox >{"Tránh phà"}</Checkbox>
@@ -164,10 +174,8 @@ const HintRouter = ({ origin,
                     {/*end Thiết lập định tuyến */}
                     {/* start Danh sách đơn hàng */}
                     <Row gutter={[16, 16]} style={{ margin: '12px 0px 24px 0px' }}>
-                        <Col span={8} className={classnames('flex-row', 'align-bottom')}>
-                            <Text>{`Số đơn hàng trong tuyến: ${orders?.length}`}</Text>
-                        </Col>
-                        <Col offset={8} span={8} className={classnames('flex-row', 'justify-end')}>
+                        <Col span={8}></Col>
+                        <Col offset={8} span={8} className={classnames('flex-column', 'align-bottom', 'justify-end')}>
                             <Button type='primary' onClick={handleOpenOrderDrawer}>{"Thêm đơn hàng khác vào tuyến"}</Button>
                         </Col>
                         <Col span={24}>
@@ -178,7 +186,13 @@ const HintRouter = ({ origin,
                 </Col>
             </Row>
             <TruckDrawer visible={truck_visible} onClose={handleCloseTruckDrawer} />
-            <OrderDrawer visible={order_visible} onClose={handleCloseOrderDrawer} onSubmit={handleAddOrder} />
+            <OrderDrawer
+                visible={order_visible}
+                warehouse={warehouse}
+                direction_templates={direction_templates}
+                current_direction={current_direction}
+                onClose={handleCloseOrderDrawer}
+                onSubmit={onSubmitAddOrder} />
         </div>
     )
 }

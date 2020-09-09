@@ -57,11 +57,12 @@ const CreateRouter = () => {
     } = state;
     const { handleChangeWarehouse } = useHandleWarehouses({ dispatchState });
     const { onChangePriorityTruck, onChangePriorityWarehouse, onChangeSelectedOrder } = useHandleSetupWarehouse({ dispatchState })
-    const { createDirectionTemplate, handleChangeCurrentDirection } = useHandleHintRouter({
+    const { createDirectionTemplate, handleChangeCurrentDirection, handleRemoveOrder, handleAddOrder } = useHandleHintRouter({
         warehouse,
         priority_warehouse,
         priority_truck,
         selected_order,
+        direction_templates,
         //
         dispatchState
     });
@@ -142,7 +143,7 @@ const CreateRouter = () => {
     return (
         <>
             <Prompt
-                when={true}
+                when={false}
                 message='Dữ liệu chưa được lưu, bạn chắc chắn muốn thoát?'
             />
             <Spin
@@ -174,6 +175,7 @@ const CreateRouter = () => {
                     {
                         step === 2 &&
                         <HintRouter
+                            warehouse={warehouse}
                             origin={{
                                 latitude: warehouse.latitude,
                                 longitude: warehouse.longitude
@@ -186,7 +188,9 @@ const CreateRouter = () => {
                             order_address={order_address}
                             orders={orders}
                             selectTruck={selectTruck}
-                            handleChangeCurrentDirection={handleChangeCurrentDirection} />
+                            handleChangeCurrentDirection={handleChangeCurrentDirection}
+                            handleRemoveOrder={handleRemoveOrder}
+                            handleAddOrder={handleAddOrder} />
                     }
                     {
                         step === 3 &&

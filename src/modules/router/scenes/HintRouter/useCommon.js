@@ -1,11 +1,8 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 //actions
 import actions from "./actions";
 
-const useCommon = ({ dispatchState }) => {
-    
-
-
+const useCommon = ({ current_direction, dispatchState }) => {
     const handleCloseTruckDrawer = useCallback(() => {
         dispatchState({
             type: actions.SET_TRUCK_VISIBLE,
@@ -34,20 +31,23 @@ const useCommon = ({ dispatchState }) => {
         })
     }, [dispatchState])
 
-    const handleAddOrder = useCallback((orders) => {
+    useEffect(() => {
         dispatchState({
-            type: actions.ADD_ORDERS,
-            orders
-        });
-        handleCloseOrderDrawer();
-    }, [dispatchState, handleCloseOrderDrawer])
+            type: actions.SET_INFO_DATA,
+            info_data: [{
+                id: 0,
+                number_order: current_direction?.orders?.length,
+                weight: current_direction?.weight,
+                size: current_direction?.size
+            }]
+        })
+    }, [current_direction, dispatchState])
 
     return {
         handleCloseTruckDrawer,
         handleOpenTruckDrawer,
         handleCloseOrderDrawer,
         handleOpenOrderDrawer,
-        handleAddOrder,
     }
 }
 

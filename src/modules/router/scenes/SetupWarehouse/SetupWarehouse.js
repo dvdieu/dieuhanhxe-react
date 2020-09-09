@@ -37,7 +37,7 @@ const SetupWarehouse = ({
     const {
         //table
         data_source,
-        pagination,
+        // pagination,
         //filter
         keyword,
         from_date,
@@ -46,7 +46,7 @@ const SetupWarehouse = ({
         in_day,
         normal,
     } = state;
-    const { total_items, page_number, page_size } = pagination;
+    // const { total_items, page_number, page_size } = pagination;
 
     const { columns, onRow, rowSelection } = useTable({ selected_order_keys, onChangeSelectedOrder });
     const { fetch_orders, handleSearch } = useSearch({
@@ -134,7 +134,8 @@ const SetupWarehouse = ({
                                 columns={columns}
                                 dataSource={data_source}
                                 loading={fetch_orders}
-                                pagination={{ current: page_number, pageSize: page_size, total: total_items }}
+                                // pagination={{ current: page_number, pageSize: page_size, total: total_items }}
+                                pagination={false}
                                 onRow={onRow}
                                 rowSelection={rowSelection}
                                 scroll={{ y: 290 }} />

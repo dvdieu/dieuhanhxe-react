@@ -1,30 +1,21 @@
 import actions from './actions';
-import cloneDeep from 'lodash/cloneDeep';
 
 const initial_state_drawer = {
     truck_visible: false,
     order_visible: false,
-    orders: [],
-}
-
-const init_state_location = {
-    address: '',
-    dodge_address: [
-        {
-            STT: 1,
-            address: '25 Trần Xuân Soạn'
-        },
-        {
-            STT: 2,
-            address: '30 Đinh Tiên Hoàng'
-        }
-    ]
 }
 
 const hintState = () => {
     const init_state = {
         ...initial_state_drawer,
-        ...init_state_location
+        info_data: [
+            {
+                id: 0,
+                number_order: 0,
+                weight: 0,
+                size: 0
+            }
+        ]
     }
 
     const reducer_state = ((state, action) => {
@@ -39,12 +30,10 @@ const hintState = () => {
                     ...state,
                     order_visible: action.order_visible
                 }
-            case actions.ADD_DODGE_ADDRESS:
-                let dodge_address = cloneDeep(state.dodge_address);
-                dodge_address = [...dodge_address, action.address];
+            case actions.SET_INFO_DATA:
                 return {
                     ...state,
-                    dodge_address
+                    info_data: action.info_data
                 }
             default:
                 return state;
