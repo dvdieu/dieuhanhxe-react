@@ -91,17 +91,15 @@ const HintRouter = ({
                                                 [styles._unselected]: !is_selected
                                             })}
                                                 onClick={() => { handleChangeCurrentDirection(item) }}>
+                                                {
+                                                    confirm && <CheckCircleOutlined />
+                                                }
                                                 <Text className={classnames({ [styles.routes_item_selected_text]: is_selected })}>{item.name}</Text>
                                                 {
-                                                    confirm ?
-                                                        <div>
-                                                            <CheckCircleOutlined />
-                                                            <Text style={{ marginLeft: 8 }}>{"Đã xác nhận"}</Text>
-                                                        </div> :
-                                                        is_selected ?
-                                                            <Button type='success' onClick={handleSelectTruck}>{"Xác nhận"}</Button>
-                                                            :
-                                                            <Button type='link'>{"Sửa"}</Button>
+                                                    is_selected ?
+                                                        <Button type='success' onClick={handleSelectTruck}>{"Chọn xe"}</Button>
+                                                        :
+                                                        <Button type='link'>{"Sửa"}</Button>
                                                 }
                                             </div>
                                         )
@@ -128,25 +126,8 @@ const HintRouter = ({
                                 <Checkbox >{"Tránh cao tốc"}</Checkbox>
                                 <br />
                                 <Checkbox >{"Tránh trạm thu phí"}</Checkbox>
-                                {/* Tuyến đường cần tránh */}
-                                {/* <div className='flex-row' style={{ marginBottom: 12 }}>
-                                    <LocationSearchInput
-                                        placeholder='Nhập tuyến đường cần tránh'
-                                        address={address}
-                                        onChange={handleChangeAddress}
-                                        onSelect={handleChangeAddress} />
-                                    <Button
-                                        type='primary'
-                                        onClick={() => handleAddDodgeAddress({
-                                            address,
-                                            STT: dodge_address.length + 1
-                                        })}>{"Thêm"}</Button>
-                                </div>
-                                <Table columns={address_columns} dataSource={dodge_address} pagination={false} rowKey="STT" /> */}
-
                             </div>
                         </Col>
-
                         {/*start Lộ trình */}
                         <Col span={12} className={styles.no_border}>
                             <div className={styles.border}>

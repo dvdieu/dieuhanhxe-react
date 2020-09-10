@@ -128,15 +128,19 @@ const CreateRouter = () => {
                 type: actions.SET_DIRECTION_TEMPLATES,
                 direction_templates: directions
             })
+            //cap nhat tuyen hien tai
+            dispatchState({
+                type: actions.SET_CURRENT_DIRECTION,
+                current_direction: {
+                    ...current_direction,
+                    truck
+                }
+            })
         }
         onStepBack();
         dispatchState({
             type: actions.SET_TRUCK,
             truck: {}
-        })
-        dispatchState({
-            type: actions.SET_NEW_EVENT,
-            new_event: {}
         })
     }
 
@@ -198,6 +202,7 @@ const CreateRouter = () => {
                             trucks={trucks}
                             find_trucks={find_trucks}
                             direction_name={direction_name}
+                            current_direction={current_direction}
                             new_event={new_event}
                             truck={truck}
                             handleChangeNewEvent={handleChangeNewEvent}

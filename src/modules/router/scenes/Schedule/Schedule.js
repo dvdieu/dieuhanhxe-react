@@ -22,7 +22,7 @@ const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
-const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
+const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
 
@@ -31,7 +31,16 @@ const Schedule = ({ trucks, find_trucks, direction_name, new_event, truck, handl
     //hook
     const [state, dispatchState] = useReducer(reducer_state, initial_state);
     const { from_date, to_date, fetch_events, events } = state;
-    const { handleSelectTruck } = useCommom({ from_date, to_date, truck, dispatchState, handleChangeTruck, handleChangeNewEvent });
+    const { handleSelectTruck } = useCommom({
+        from_date,
+        to_date,
+        truck,
+        current_direction,
+        new_event,
+        //
+        dispatchState,
+        handleChangeTruck
+    });
     const {
         handleRangeChange,
         handleDragStart,

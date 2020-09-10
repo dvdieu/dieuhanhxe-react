@@ -10,12 +10,22 @@ const useHandleSchedule = ({ priority_truck, dispatchState }) => {
     const fleet_reducer = useSelector(state => state.fleet_reducer);
     const { trucks, find_trucks } = fleet_reducer;
 
+    const handleChangeTruck = useCallback(truck => {
+        dispatchState({
+            type: actions.SET_TRUCK,
+            truck
+        })
+    }, [dispatchState])
+
     useEffect(() => {
         dispatchState({
             type: actions.SET_TRUCKS,
             trucks
         })
-    }, [trucks, dispatchState])
+        if (trucks.length > 0) {
+            handleChangeTruck(trucks[0])
+        }
+    }, [trucks, dispatchState, handleChangeTruck])
 
     useEffect(() => {
         dispatchState({
@@ -42,13 +52,6 @@ const useHandleSchedule = ({ priority_truck, dispatchState }) => {
         dispatchState({
             type: actions.SET_NEW_EVENT,
             new_event
-        })
-    }, [dispatchState])
-
-    const handleChangeTruck = useCallback(truck => {
-        dispatchState({
-            type: actions.SET_TRUCK,
-            truck
         })
     }, [dispatchState])
 

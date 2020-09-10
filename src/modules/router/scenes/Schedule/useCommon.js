@@ -4,8 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 //actions
 import actions from './actions';
 import routeActions from '../../reducer/actions';
+//lib
+import isEmpty from 'lodash/isEmpty';
 
-const useCommon = ({ from_date, to_date, truck, dispatchState, handleChangeTruck, handleChangeNewEvent }) => {
+const useCommon = ({ from_date,
+    to_date,
+    truck,
+    current_direction,
+    new_event,
+    //
+    dispatchState,
+    handleChangeTruck }) => {
     const dispatch = useDispatch();
     const route_reducer = useSelector(state => state.route_reducer);
     const { get_truck_direction_request, truck_directions } = route_reducer;
@@ -21,11 +30,14 @@ const useCommon = ({ from_date, to_date, truck, dispatchState, handleChangeTruck
                 move: false,
             }]
         });
+        if (!isEmpty(new_event)) {
+            events = [...events, new_event]
+        }
         dispatchState({
             type: actions.SET_EVENTS,
             events
         })
-    }, [truck_directions, dispatchState])
+    }, [truck_directions, truck, current_direction, dispatchState, new_event])
 
     useEffect(() => {
         dispatchState({
@@ -36,8 +48,7 @@ const useCommon = ({ from_date, to_date, truck, dispatchState, handleChangeTruck
 
     const handleSelectTruck = useCallback((item) => {
         handleChangeTruck(item);
-        handleChangeNewEvent({});
-    }, [handleChangeNewEvent, handleChangeTruck])
+    }, [handleChangeTruck])
 
     useEffect(() => {
         dispatch(routeActions.getTruckDirectionsRequest({

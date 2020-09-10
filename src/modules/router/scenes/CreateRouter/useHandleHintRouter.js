@@ -77,6 +77,25 @@ const useHandleHintRouter = ({
                 type: actions.SET_ORDER_ADDRESS,
                 order_address
             })
+            if (current_direction.confirm) {//da co xe
+                const event = {
+                    id: 'event_id',
+                    title: current_direction.name,
+                    allDay: false,
+                    start: new Date(current_direction.start_date),
+                    end: new Date(current_direction.end_date),
+                    move: true,
+                }
+                dispatchState({
+                    type: actions.SET_NEW_EVENT,
+                    new_event: event
+                })
+            } else {
+                dispatchState({
+                    type: actions.SET_NEW_EVENT,
+                    new_event: {}
+                })
+            }
         }
     }, [dispatchState])
 
