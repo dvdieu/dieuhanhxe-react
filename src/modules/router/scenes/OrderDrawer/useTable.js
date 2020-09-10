@@ -27,7 +27,7 @@ const useTable = ({ selected_rows, dispatchState }) => {
             title: "Địa chỉ",
             dataIndex: "address",
             render: text => (
-                <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
+                <Paragraph ellipsis={{ rows: 2, expandable: false, symbol: 'xem thêm' }}>
                     {text}
                 </Paragraph>
             )
@@ -47,7 +47,6 @@ const useTable = ({ selected_rows, dispatchState }) => {
             render: text => (
                 <Text>{`${text} Kg`}</Text>
             ),
-            // sorter: (a, b) => a.size - b.size,
         },
         {
             title: "Kích thước",
@@ -55,7 +54,6 @@ const useTable = ({ selected_rows, dispatchState }) => {
             render: text => (
                 <Text>{`${text} Khối`}</Text>
             ),
-            // sorter: (a, b) => a.size - b.size,
         },
         {
             title: "Xe vận chuyển",

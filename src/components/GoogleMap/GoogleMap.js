@@ -153,3 +153,130 @@ export default compose(
 // }
 
 // export default Map;
+
+//https://react-google-maps-api-docs.netlify.app/#directionsrenderer
+// import React from 'react';
+
+// import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+
+// const containerStyle = {
+//     width: '400px',
+//     height: '400px'
+// };
+
+// const center = {
+//     lat: -3.745,
+//     lng: -38.523
+// };
+
+// function MyComponent() {
+//     const getOrigin = (ref) => {
+//         // origin = ref
+//     }
+
+//     const getDestination = (ref) => {
+//         // destination = ref
+//     }
+
+//     const onClick = () => {
+//         // if (origin.value !== '' && destination.value !== '') {
+//         //     setState(
+//         //         () => ({
+//         //             origin: origin.value,
+//         //             destination: destination.value
+//         //         })
+//         //     )
+//         // }
+//     }
+
+//     const onMapClick = (...args) => {
+//         console.log('onClick args: ', args)
+//     }
+
+//     return (
+//         <LoadScript
+//             googleMapsApiKey="AIzaSyAcQjrfAudzl6Ton7GA7D-gVqOINMFE7ns"
+//         >
+//             {/* <GoogleMap
+//                 mapContainerStyle={containerStyle}
+//                 center={center}
+//                 zoom={10}
+//             >
+//                 <></>
+//             </GoogleMap> */}
+//             <GoogleMap
+//                 // required
+//                 id='direction-example'
+//                 // required
+//                 mapContainerStyle={{
+//                     height: '400px',
+//                     width: '100%'
+//                 }}
+//                 // required
+//                 zoom={2}
+//                 // required
+//                 center={{
+//                     lat: 0,
+//                     lng: -180
+//                 }}
+//                 // optional
+//                 onClick={this.onMapClick}
+//                 // optional
+//                 onLoad={map => {
+//                     console.log('DirectionsRenderer onLoad map: ', map)
+//                 }}
+//                 // optional
+//                 onUnmount={map => {
+//                     console.log('DirectionsRenderer onUnmount map: ', map)
+//                 }}
+//             >
+//                 {
+//                     (
+//                         this.state.destination !== '' &&
+//                         this.state.origin !== ''
+//                     ) && (
+//                         <DirectionsService
+//                             // required
+//                             options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+//                                 destination: this.state.destination,
+//                                 origin: this.state.origin,
+//                                 travelMode: this.state.travelMode
+//                             }}
+//                             // required
+//                             callback={this.directionsCallback}
+//                             // optional
+//                             onLoad={directionsService => {
+//                                 console.log('DirectionsService onLoad directionsService: ', directionsService)
+//                             }}
+//                             // optional
+//                             onUnmount={directionsService => {
+//                                 console.log('DirectionsService onUnmount directionsService: ', directionsService)
+//                             }}
+//                         />
+//                     )
+//                 }
+
+//                 {
+//                     this.state.response !== null && (
+//                         <DirectionsRenderer
+//                             // required
+//                             options={{ // eslint-disable-line react-perf/jsx-no-new-object-as-prop
+//                                 directions: this.state.response
+//                             }}
+//                             // optional
+//                             onLoad={directionsRenderer => {
+//                                 console.log('DirectionsRenderer onLoad directionsRenderer: ', directionsRenderer)
+//                             }}
+//                             // optional
+//                             onUnmount={directionsRenderer => {
+//                                 console.log('DirectionsRenderer onUnmount directionsRenderer: ', directionsRenderer)
+//                             }}
+//                         />
+//                     )
+//                 }
+//             </GoogleMap>
+//         </LoadScript>
+//     )
+// }
+
+// export default React.memo(MyComponent)

@@ -1,9 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 //antd
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, Typography } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 //lib
 import isEmpty from 'lodash/isEmpty';
+import i18n from '../../../../libs/i18n';
+
+const { Text } = Typography;
 
 const useTable = ({ selected_order_keys, onChangeSelectedOrder }) => {
     const action_menu = useCallback((item) => {
@@ -33,6 +36,9 @@ const useTable = ({ selected_order_keys, onChangeSelectedOrder }) => {
             {
                 title: 'Độ ưu tiên',
                 dataIndex: 'priority',
+                render: text => (
+                    <Text>{i18n.t(`PRIORITY_${text}`)}</Text>
+                )
             },
             {
                 title: 'Trọng lượng',
@@ -45,6 +51,9 @@ const useTable = ({ selected_order_keys, onChangeSelectedOrder }) => {
             {
                 title: 'Trạng thái',
                 dataIndex: 'status',
+                render: text => (
+                    <Text>{i18n.t(`STATUS_${text}`)}</Text>
+                )
             },
             {
                 title: '',
