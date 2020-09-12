@@ -19,16 +19,6 @@ import OrderDrawer from '../OrderDrawer';
 
 const { Title, Text } = Typography;
 
-const truck_data = [
-    {
-        id: 1,
-        type: 'normal',
-        weight: 1.25,
-        size: 15,
-        max_weight: 0
-    }
-]
-
 const HintRouter = ({
     warehouse,
     origin,
@@ -45,7 +35,7 @@ const HintRouter = ({
     //hook
     const { init_state, reducer_state } = hintState();
     const [state, dispatchState] = useReducer(reducer_state, init_state);
-    const { truck_visible, order_visible, info_data } = state;
+    const { truck_visible, order_visible, info_data, truck_data } = state;
     const {
         handleCloseTruckDrawer,
         handleCloseOrderDrawer,
@@ -59,7 +49,7 @@ const HintRouter = ({
             weight: current_direction.weight,
             size: current_direction.size,
             direction_name: current_direction.name
-        });
+        })
     }
 
     const onSubmitAddOrder = useCallback((draft_orders) => {
@@ -119,8 +109,13 @@ const HintRouter = ({
                                 <Title className={styles.routes_title} level={4}>{"Thiết lập định tuyến"}</Title>
                                 <Table columns={info_columns} dataSource={info_data} pagination={false} rowKey="id" />
                                 <br />
-                                <Table columns={truck_columns} dataSource={truck_data} pagination={false} rowKey="id" />
-                                <br />
+                                {
+                                    truck_data.length > 0 &&
+                                    <>
+                                        <Table columns={truck_columns} dataSource={truck_data} pagination={false} rowKey="license_plates" />
+                                        <br />
+                                    </>
+                                }
                                 <Checkbox >{"Tránh phà"}</Checkbox>
                                 <br />
                                 <Checkbox >{"Tránh cao tốc"}</Checkbox>

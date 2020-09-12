@@ -4,8 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 //actions
 import actions from './actions';
 import fleetActions from '../../../fleet/reducer/actions';
+//lib
+import isEmpty from 'lodash/isEmpty';
 
-const useHandleSchedule = ({ priority_truck, dispatchState }) => {
+const useHandleSchedule = ({
+    priority_truck,
+    current_direction,
+    dispatchState }) => {
     const dispatch = useDispatch();
     const fleet_reducer = useSelector(state => state.fleet_reducer);
     const { trucks, find_trucks } = fleet_reducer;
@@ -22,10 +27,12 @@ const useHandleSchedule = ({ priority_truck, dispatchState }) => {
             type: actions.SET_TRUCKS,
             trucks
         })
-        if (trucks.length > 0) {
+        if (!isEmpty(current_direction.truck)) {
+            handleChangeTruck(current_direction.truck)
+        } else if (trucks.length > 0) {
             handleChangeTruck(trucks[0])
         }
-    }, [trucks, dispatchState, handleChangeTruck])
+    }, [trucks, current_direction, dispatchState, handleChangeTruck])
 
     useEffect(() => {
         dispatchState({

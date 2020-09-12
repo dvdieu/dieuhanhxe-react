@@ -12,6 +12,13 @@ const { Text } = Typography;
 const useTable = ({ current_direction, handleRemoveOrder }) => {
     const truck_columns = useMemo(() => ([
         {
+            title: 'Biển số',
+            dataIndex: 'license_plates',
+            render: (text) => (
+                <Text>{i18n.t(text)}</Text>
+            )
+        },
+        {
             title: 'Loại xe',
             dataIndex: 'type',
             render: (text) => (
@@ -22,19 +29,22 @@ const useTable = ({ current_direction, handleRemoveOrder }) => {
             title: 'Tải trọng',
             dataIndex: 'weight',
             render: (text) => (
-                <Text>{text + ' Tấn'}</Text>
+                <Text>{text + ' kg'}</Text>
             )
         },
         {
             title: 'Kích thước',
             dataIndex: 'size',
             render: (text) => (
-                <Text>{text + ' Khối'}</Text>
+                <Text>{text + ' khối'}</Text>
             )
         },
         {
             title: 'Tải trọng vượt quá',
             dataIndex: 'max_weight',
+            render: (text) => (
+                <Text>{text + ' kg'}</Text>
+            )
         },
     ]), []);
 

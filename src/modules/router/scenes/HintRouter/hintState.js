@@ -15,6 +15,15 @@ const hintState = () => {
                 weight: 0,
                 size: 0
             }
+        ],
+        truck_data: [
+            // {
+            //     id: 0,
+            //     type: '',
+            //     weight: 0,
+            //     size: 0,
+            //     max_weight: 0
+            // }
         ]
     }
 
@@ -34,6 +43,11 @@ const hintState = () => {
                 return {
                     ...state,
                     info_data: action.info_data
+                }
+            case actions.SET_TRUCK_DATA:
+                return {
+                    ...state,
+                    truck_data: [...action.truck_data]
                 }
             default:
                 return state;

@@ -7,7 +7,8 @@ import classnames from 'classnames';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 //antd
-import { Row, Col, Avatar, Typography, Affix, Modal, Spin } from 'antd';
+import { Row, Col, Avatar, Typography, Affix, Modal, Spin, Button } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 //style
 import styles from './styles.module.scss';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
@@ -21,6 +22,14 @@ const { Text } = Typography;
 const localizer = momentLocalizer(moment)
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
+
+// function Event({ event }) {
+//     return (
+//         <div style={{ background: 'red' }}>
+//             <Text>{event.title}</Text>
+//         </div>
+//     )
+// }
 
 const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
     const [visible, setVisible] = useState(false);
@@ -52,7 +61,7 @@ const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_
     } = useCalendar({ events, new_event, truck, direction_name, dispatchState, handleChangeNewEvent })
 
     const handleOk = () => {
-        setVisible(false)
+        setVisible(false);
     }
 
     const handleCancel = () => {
@@ -128,6 +137,9 @@ const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_
                             handleDragStart={handleDragStart}
                             onSelectEvent={item => onClickItem(item)}
                             onRangeChange={handleRangeChange}
+                            // components={{
+                            //     event: Event,
+                            // }}
                         />
                     </Spin>
                 </Col>
@@ -135,10 +147,19 @@ const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_
             <Modal
                 title="Thông tin tuyến"
                 visible={visible}
-                onOk={handleOk}
-                okText="Đóng"
+                // onOk={handleOk}
+                // okText="Đóng"
                 onCancel={handleCancel}
-                cancelButtonProps={{ disabled: true, hidden: true }}
+                // cancelButtonProps={{ disabled: true, hidden: true }}
+                footer={
+                    <div className={classnames('flex-row', `justify-${item_selected.move ? 'between' : 'end'}`)}>
+                        {
+                            item_selected.move &&
+                            <Button type='link' icon={<DeleteOutlined />} danger>{"Xóa"}</Button>
+                        }
+                        <Button type='primary' onClick={handleCancel}>{"Đóng"}</Button>
+                    </div>
+                }
             >
                 <Text>{item_selected.title}</Text>
                 <p>Thông tin...</p>

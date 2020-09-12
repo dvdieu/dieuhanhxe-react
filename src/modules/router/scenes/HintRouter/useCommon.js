@@ -1,6 +1,9 @@
 import { useCallback, useEffect } from "react";
 //actions
 import actions from "./actions";
+//lib
+import isEmpty from 'lodash/isEmpty';
+import { round } from '../../../../utils/number';
 
 const useCommon = ({ current_direction, dispatchState }) => {
     const handleCloseTruckDrawer = useCallback(() => {
@@ -41,6 +44,22 @@ const useCommon = ({ current_direction, dispatchState }) => {
                 size: current_direction?.size
             }]
         })
+        if (!isEmpty(current_direction.truck)) {
+            const max_weight = current_direction.weight - current_direction.truck.weight;
+            console.log("useCommon -> max_weight", max_weight)
+            dispatchState({
+                type: actions.SET_TRUCK_DATA,
+                truck_data: [{
+                    ...current_direction.truck,
+                    max_weight: max_weight > 0 ? round(max_weight) : 0
+                }]
+            })
+        } else {
+            dispatchState({
+                type: actions.SET_TRUCK_DATA,
+                truck_data: []
+            })
+        }
     }, [current_direction, dispatchState])
 
     return {

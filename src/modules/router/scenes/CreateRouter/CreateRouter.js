@@ -66,7 +66,15 @@ const CreateRouter = () => {
         //
         dispatchState
     });
-    const { selectTruck, handleChangeNewEvent, handleChangeTruck } = useHandleSchedule({ priority_truck, dispatchState });
+    const {
+        selectTruck,
+        //
+        handleChangeNewEvent,
+        handleChangeTruck } = useHandleSchedule({
+            priority_truck,
+            current_direction,
+            dispatchState
+        });
 
     const dispatch = useDispatch();
     const history = useHistory();
