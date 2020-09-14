@@ -52,7 +52,7 @@ const useCommon = ({ from_date,
             type: actions.SET_EVENTS,
             events
         })
-    }, [truck_directions, truck, current_direction, dispatchState, new_event])
+    }, [truck_directions, truck, current_direction, dispatchState, direction_templates, new_event])
 
     useEffect(() => {
         dispatchState({
