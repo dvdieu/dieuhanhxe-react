@@ -103,7 +103,7 @@ const useTable = () => {
             title: '',
             dataIndex: '',
             render: (text, item) => (
-                <Button type='link' onClick={() => {  window.open(`http://taixe.flick.vn/direct/${item._id}`, "_blank")}}>{"Tạo link"}</Button>
+                <Button type='link' onClick={() => { window.open(`http://taixe.flick.vn/direct/${item._id}`, "_blank") }}>{" Lịch trình tài xế "}</Button>
             )
         },
         {
