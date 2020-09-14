@@ -8,15 +8,18 @@ import { RouteTypes } from "./actions";
 import * as Handler from "./handler";
 
 const INITIAL_STATE = Immutable({
-    error: {},
     direction_templates: [],
     directions: [],
     direct_template_id: '',
     create_direction_template_request: false,
     create_direction_request: false,
+    update_direction_request: false,
     find_direction_request: false,
     truck_directions: [],
-    get_truck_direction_request: false
+    get_truck_direction_request: false,
+    direction: {},
+    error: {},
+    direction_error: {}
 });
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -32,6 +35,12 @@ export const reducer = createReducer(INITIAL_STATE, {
     [RouteTypes.CREATE_DIRECTION_FAILURE]: Handler.createDirectionFailure,
     /* #endregion */
 
+    /* #region  update direction */
+    [RouteTypes.UPDATE_DIRECTION_REQUEST]: Handler.updateDirectionRequest,
+    [RouteTypes.UPDATE_DIRECTION_SUCCESS]: Handler.updateDirectionSuccess,
+    [RouteTypes.UPDATE_DIRECTION_FAILURE]: Handler.updateDirectionFailure,
+    /* #endregion */
+
     /* #region  find directions */
     [RouteTypes.FIND_DIRECTIONS_REQUEST]: Handler.findDirectionsRequest,
     [RouteTypes.FIND_DIRECTIONS_SUCCESS]: Handler.findDirectionsSuccess,
@@ -44,4 +53,9 @@ export const reducer = createReducer(INITIAL_STATE, {
     [RouteTypes.GET_TRUCK_DIRECTIONS_FAILURE]: Handler.getTruckDirectionsFailure,
     /* #endregion */
 
+     /* #region  get direction */
+     [RouteTypes.GET_DIRECTION_REQUEST]: Handler.getDirectionRequest,
+     [RouteTypes.GET_DIRECTION_SUCCESS]: Handler.getDirectionSuccess,
+     [RouteTypes.GET_DIRECTION_FAILURE]: Handler.getDirectionFailure,
+     /* #endregion */
 });

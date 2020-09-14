@@ -25,6 +25,18 @@ export const createDirection = async (params) => {
 }
 /* #endregion create direction */
 
+/* #region  update direction */
+export const updateDirection = async (params) => {
+    try {
+        let url = `${direction_url}/direct/${params.id}`
+        const result = await CoreService.put(url, params.body);
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+}
+/* #endregion update direction */
+
 /* #region  get directions */
 export const findDirections = async (params) => {
     try {
@@ -48,3 +60,15 @@ export const getTruckDirections = async (params) => {
     }
 }
 /* #endregion get directions */
+
+/* #region  get direction */
+export const getDirection = async (params) => {
+    try {
+        let url = `${direction_url}/direct/${params.id}`
+        const result = await CoreService.get(url, params);
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+}
+/* #endregion get direction */

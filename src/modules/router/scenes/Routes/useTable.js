@@ -1,19 +1,23 @@
 import React, { useMemo, useCallback } from 'react';
 //antd
-import { Menu, Dropdown, Typography, Tag } from 'antd';
+import { Menu, Dropdown, Typography, Tag, Button } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 //lib
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import { useHistory } from 'react-router-dom';
+//utils
 import { round } from '../../../../utils/number';
 
 const { Text } = Typography;
 
 const useTable = () => {
+    const history = useHistory();
+
     const action_menu = useCallback(item => {
         return (
             <Menu>
-                <Menu.Item onClick={() => { console.log(' : ', item.id) }}>
+                <Menu.Item onClick={() => { history.push(`/route/${item._id}`) }}>
                     <Text>Xem thông tin</Text>
                 </Menu.Item>
                 <Menu.Item>
@@ -93,6 +97,13 @@ const useTable = () => {
                 <div className={classnames('flex-column', 'align-top')}>
                     <Tag color='blue'>{"Đang chờ"}</Tag>
                 </div>
+            )
+        },
+        {
+            title: '',
+            dataIndex: '',
+            render: (text, item) => (
+                <Button type='link' onClick={() => {  window.open(`http://taixe.flick.vn/direct/${item._id}`, "_blank")}}>{"Tạo link"}</Button>
             )
         },
         {

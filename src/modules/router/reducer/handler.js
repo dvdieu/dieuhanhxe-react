@@ -50,6 +50,28 @@ export const createDirectionFailure = (state, { error }) => {
 };
 /* #endregion */
 
+/* #region  update direction  */
+export const updateDirectionRequest = (state, { params }) => {
+    return Immutable.merge(state, {
+        update_direction_request: true,
+        error: {}
+    });
+};
+
+export const updateDirectionSuccess = (state, { payload }) => {
+    return Immutable.merge(state, {
+        update_direction_request: false,
+    });
+};
+
+export const updateDirectionFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        update_direction_request: false,
+        error,
+    });
+};
+/* #endregion */
+
 /* #region  find direction  */
 export const findDirectionsRequest = (state, { params }) => {
     return Immutable.merge(state, {
@@ -97,6 +119,31 @@ export const getTruckDirectionsFailure = (state, { error }) => {
         get_truck_direction_request: false,
         truck_directions: [],
         error,
+    });
+};
+/* #endregion */
+
+/* #region  get direction  */
+export const getDirectionRequest = (state, { params }) => {
+    return Immutable.merge(state, {
+        get_direction_request: true,
+        direction: {},
+        direction_error: {}
+    });
+};
+
+export const getDirectionSuccess = (state, { payload }) => {
+    return Immutable.merge(state, {
+        get_direction_request: false,
+        direction: payload,
+    });
+};
+
+export const getDirectionFailure = (state, { error }) => {
+    return Immutable.merge(state, {
+        get_direction_request: false,
+        direction: {},
+        direction_error: error
     });
 };
 /* #endregion */

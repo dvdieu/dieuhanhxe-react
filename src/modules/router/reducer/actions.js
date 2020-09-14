@@ -13,6 +13,12 @@ const { Types, Creators } = createActions({
     createDirectionFailure: ['error'],
     /* #endregion */
 
+    /* #region  update direction */
+    updateDirectionRequest: ['params'],
+    updateDirectionSuccess: ['payload'],
+    updateDirectionFailure: ['error'],
+    /* #endregion */
+
     /* #region  find direction */
     findDirectionsRequest: ['params'],
     findDirectionsSuccess: ['payload'],
@@ -24,6 +30,13 @@ const { Types, Creators } = createActions({
     getTruckDirectionsSuccess: ['payload'],
     getTruckDirectionsFailure: ['error'],
     /* #endregion */
+
+     /* #region  get direction */
+     getDirectionRequest: ['params'],
+     getDirectionSuccess: ['payload'],
+     getDirectionFailure: ['error'],
+     /* #endregion */
+ 
 });
 
 export const RouteTypes = Types;
