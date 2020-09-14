@@ -36,6 +36,19 @@ export function* createDirection({ params }) {
 }
 /* #endregion */
 
+/* #region  update direction  */
+export function* updateDirection({ params }) {
+    try {
+        let data = yield call(routeApi.updateDirection, params);
+        if (!isEmpty(data) && data.status_code === 200) {
+            yield put(routeActions.updateDirectionSuccess(data.payload));
+        } else yield put(routeActions.updateDirectionFailure(data));
+    } catch (error) {
+        yield put(routeActions.updateDirectionFailure(error));
+    }
+}
+/* #endregion */
+
 /* #region  find directions  */
 export function* findDirections({ params }) {
     try {
@@ -58,6 +71,19 @@ export function* getTruckDirections({ params }) {
         } else yield put(routeActions.getTruckDirectionsFailure(data));
     } catch (error) {
         yield put(routeActions.getTruckDirectionsFailure(error));
+    }
+}
+/* #endregion */
+
+/* #region  get direction  */
+export function* getDirection({ params }) {
+    try {
+        let data = yield call(routeApi.getDirection, params);
+        if (!isEmpty(data) && data.status_code === 200) {
+            yield put(routeActions.getDirectionSuccess(data.payload));
+        } else yield put(routeActions.getDirectionFailure(data));
+    } catch (error) {
+        yield put(routeActions.getDirectionFailure(error));
     }
 }
 /* #endregion */

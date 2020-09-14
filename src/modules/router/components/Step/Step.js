@@ -8,12 +8,13 @@ const { Step } = Steps;
 
 
 const CustomStep = ({ order_address }) => {
+    console.log("CustomStep -> order_address", order_address)
     return (
         <Steps
             progressDot
-            current={order_address.length} direction="vertical">
+            current={order_address?.length} direction="vertical">
             {
-                order_address.map(item => {
+                order_address?.map(item => {
                     return (
                         < Step
                             key={item._id}

@@ -16,6 +16,7 @@ import Products from './modules/post/scenes/Products';
 import Posts from './modules/post/scenes/Posts';
 import SetupWarehouse from './modules/router/scenes/SetupWarehouse';
 import HintRouter from './modules/router/scenes/HintRouter';
+import DetailRoute from './modules/router/scenes/DetailRoute';
 //auth
 import SignIn from './modules/auth/scenes/SignIn';
 import SignUp from './modules/auth/scenes/SignUp';
@@ -36,6 +37,7 @@ const MyRouter = () => {
 				<PrivateRoute component={CreateRouter} path="/route/create" exact />
 				<PrivateRoute component={SetupWarehouse} path="/warehouse/setup/:id" exact />
 				<PrivateRoute component={HintRouter} path="/warehouse/hint/:id" exact />
+				<PrivateRoute component={DetailRoute} path="/route/:id" exact />
 
 				<PrivateRoute component={Drivers} path="/taixe" exact />
 				<PrivateRoute component={Fleets} path="/doixe" exact />
