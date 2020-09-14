@@ -43,9 +43,9 @@ const BasicLayout = (props) => {
 
     return (
         <Layout className="layout" style={{ minHeight: '100vh' }}>
-            <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+            <Header style={{ position: 'fixed', zIndex: 1, width: '100%', background: '#2A3F54' }}>
                 <div className="logo" />
-                <Menu theme="dark" mode="horizontal" selectedKeys={selected_keys} >
+                <Menu theme="dark" mode="horizontal" selectedKeys={selected_keys} style={{ background: '#2A3F54' }} >
                     <Menu.Item key="dashboard" icon={<PieChartOutlined />} onClick={() => onPushRoute('/dashboard')}>
                         {"Trang chủ"}
                     </Menu.Item>

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 //antd
-import { Dropdown, Menu, Typography } from 'antd';
+import { Dropdown, Menu, Typography, Tag } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 //lib
 import isEmpty from 'lodash/isEmpty';
@@ -41,6 +41,13 @@ const useTable = ({ selected_order_keys, onChangeSelectedOrder }) => {
                 )
             },
             {
+                title: 'Loại đơn hàng',
+                dataIndex: 'type',
+                render: text => (
+                    <Text>{i18n.t(`${text}_TYPE`)}</Text>
+                )
+            },
+            {
                 title: 'Trọng lượng',
                 dataIndex: 'weight',
             },
@@ -52,7 +59,7 @@ const useTable = ({ selected_order_keys, onChangeSelectedOrder }) => {
                 title: 'Trạng thái',
                 dataIndex: 'status',
                 render: text => (
-                    <Text>{i18n.t(`STATUS_${text}`)}</Text>
+                    <Tag color='blue'>{i18n.t(`STATUS_${text}`)}</Tag>
                 )
             },
             {

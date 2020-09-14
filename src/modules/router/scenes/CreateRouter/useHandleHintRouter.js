@@ -79,7 +79,8 @@ const useHandleHintRouter = ({
             })
             if (current_direction.confirm) {//da co xe
                 const event = {
-                    id: 'event_id',
+                    // id: 'event_id',
+                    id: current_direction._id,
                     title: current_direction.name,
                     allDay: false,
                     start: new Date(current_direction.start_date),

@@ -11,6 +11,7 @@ const useCommon = ({ from_date,
     to_date,
     truck,
     current_direction,
+    direction_templates,
     new_event,
     //
     dispatchState,
@@ -23,6 +24,7 @@ const useCommon = ({ from_date,
         let events = [];
         truck_directions.forEach(element => {
             events = [...events, {
+                // id: element._id,
                 id: element._id,
                 title: element.name,
                 start: new Date(element.start_date),
@@ -33,6 +35,19 @@ const useCommon = ({ from_date,
         if (!isEmpty(new_event)) {
             events = [...events, new_event]
         }
+        direction_templates.forEach(element => {
+            if (element.truck?.license_plates === truck.license_plates) {
+                if (element.start_date && element._id !== current_direction._id) {
+                    events = [...events, {
+                        id: element._id,
+                        title: element.name,
+                        start: new Date(element.start_date),
+                        end: new Date(element.end_date),
+                        move: false,
+                    }]
+                }
+            }
+        });
         dispatchState({
             type: actions.SET_EVENTS,
             events

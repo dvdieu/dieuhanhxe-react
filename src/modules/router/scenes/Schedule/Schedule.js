@@ -31,7 +31,7 @@ const DragAndDropCalendar = withDragAndDrop(Calendar)
 //     )
 // }
 
-const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
+const Schedule = ({ trucks, find_trucks, direction_name, current_direction, direction_templates, new_event, truck, handleChangeNewEvent, handleChangeTruck }) => {
     const [visible, setVisible] = useState(false);
     const [item_selected, setItemSelected] = useState({});
 
@@ -45,6 +45,7 @@ const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_
         to_date,
         truck,
         current_direction,
+        direction_templates,
         new_event,
         //
         dispatchState,
@@ -60,9 +61,9 @@ const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_
         newEvent
     } = useCalendar({ events, new_event, truck, direction_name, dispatchState, handleChangeNewEvent })
 
-    const handleOk = () => {
-        setVisible(false);
-    }
+    // const handleOk = () => {
+    //     setVisible(false);
+    // }
 
     const handleCancel = () => {
         setVisible(false)
@@ -137,9 +138,15 @@ const Schedule = ({ trucks, find_trucks, direction_name, current_direction, new_
                             handleDragStart={handleDragStart}
                             onSelectEvent={item => onClickItem(item)}
                             onRangeChange={handleRangeChange}
-                            // components={{
-                            //     event: Event,
-                            // }}
+                            eventPropGetter={event => ({
+                                style: {
+                                    background: event.move ? '#ff9900' : '#2A3F54',
+                                    border: `1px solid ${event.move ? '#ff9900' : '#2A3F54'}`
+                                }
+                            })}
+                        // components={{
+                        //     event: Event,
+                        // }}
                         />
                     </Spin>
                 </Col>

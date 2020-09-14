@@ -23,6 +23,20 @@ const useCommon = ({ dispatchState }) => {
         })
     }, [dispatchState])
 
+    const handleChangeOpening = useCallback(event => {
+        dispatchState({
+            type: actions.SET_OPENING,
+            opening: event.target.checked
+        })
+    }, [dispatchState])
+
+    const handleChangePromotion = useCallback(event => {
+        dispatchState({
+            type: actions.SET_PROMOTION,
+            promotion: event.target.checked
+        })
+    }, [dispatchState])
+
     const handleChangeUrgency = useCallback(event => {
         dispatchState({
             type: actions.SET_URGENCY,
@@ -37,10 +51,17 @@ const useCommon = ({ dispatchState }) => {
         })
     }, [dispatchState])
 
-    const handleChangeNormal = useCallback(event => {
+    const handleChangeDeliveryType = useCallback(event => {
         dispatchState({
-            type: actions.SET_NORMAL,
-            normal: event.target.checked
+            type: actions.SET_DELIVERY_TYPE,
+            delivery_type: event.target.checked
+        })
+    }, [dispatchState])
+
+    const handleChangeWarehouseType = useCallback(event => {
+        dispatchState({
+            type: actions.SET_WAREHOUSE_TYPE,
+            warehouse_type: event.target.checked
         })
     }, [dispatchState])
 
@@ -48,9 +69,12 @@ const useCommon = ({ dispatchState }) => {
         handleChangeKeyword,
         handleChangeFromDate,
         handleChangeToDate,
+        handleChangeOpening,
+        handleChangePromotion,
         handleChangeUrgency,
         handleChangeInDay,
-        handleChangeNormal,
+        handleChangeDeliveryType,
+        handleChangeWarehouseType,
     }
 }
 

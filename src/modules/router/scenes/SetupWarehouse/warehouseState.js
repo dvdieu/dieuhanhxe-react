@@ -16,9 +16,12 @@ const initial_state_filter = {
     keyword: '',
     from_date: moment().day(1),
     to_date: moment().day(8),
+    opening: true,
+    promotion: true,
     urgency: true,
     in_day: true,
-    normal: true,
+    delivery_type: true,
+    warehouse_type: true,
 }
 
 const warehouseState = () => {
@@ -55,6 +58,16 @@ const warehouseState = () => {
                     ...state,
                     to_date: action.to_date
                 }
+            case actions.SET_OPENING:
+                return {
+                    ...state,
+                    opening: action.opening
+                }
+            case actions.SET_PROMOTION:
+                return {
+                    ...state,
+                    promotion: action.promotion
+                }
             case actions.SET_URGENCY:
                 return {
                     ...state,
@@ -65,10 +78,15 @@ const warehouseState = () => {
                     ...state,
                     in_day: action.in_day
                 }
-            case actions.SET_NORMAL:
+            case actions.SET_DELIVERY_TYPE:
                 return {
                     ...state,
-                    normal: action.normal
+                    delivery_type: action.delivery_type
+                }
+            case actions.SET_WAREHOUSE_TYPE:
+                return {
+                    ...state,
+                    warehouse_type: action.warehouse_type
                 }
             /* #endregion */
             default:

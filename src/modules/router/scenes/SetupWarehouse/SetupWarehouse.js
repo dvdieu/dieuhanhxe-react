@@ -42,30 +42,27 @@ const SetupWarehouse = ({
         keyword,
         from_date,
         to_date,
+        opening,
+        promotion,
         urgency,
         in_day,
-        normal,
+        delivery_type,
+        warehouse_type,
     } = state;
     // const { total_items, page_number, page_size } = pagination;
 
     const { columns, onRow, rowSelection } = useTable({ selected_order_keys, onChangeSelectedOrder });
-    const { fetch_orders, handleSearch } = useSearch({
-        warehouse,
-        keyword,
-        from_date,
-        to_date,
-        urgency,
-        in_day,
-        normal,
-        dispatchState
-    });
+    const { fetch_orders, handleSearch } = useSearch({ warehouse, dispatchState });
     const {
         handleChangeKeyword,
         handleChangeFromDate,
         handleChangeToDate,
+        handleChangeOpening,
+        handleChangePromotion,
         handleChangeUrgency,
         handleChangeInDay,
-        handleChangeNormal,
+        handleChangeDeliveryType,
+        handleChangeWarehouseType,
     } = useCommon({ dispatchState });
 
     const onChangeDate = (value, dateString) => {
@@ -74,7 +71,7 @@ const SetupWarehouse = ({
     }
 
     const onSubmitFilter = () => {
-        handleSearch({ keyword, from_date, to_date, urgency, in_day, normal });
+        handleSearch({ keyword, from_date, to_date, opening, promotion, urgency, in_day, delivery_type, warehouse_type});
     }
 
     return (
@@ -90,9 +87,13 @@ const SetupWarehouse = ({
                                     <Text strong>{"Bộ lọc"}</Text>
                                 </div>
                                 <Text strong>{"Độ ưu tiên"}</Text>
+                                <Checkbox checked={opening} onChange={handleChangeOpening}>{"Đơn hàng khai trương"}</Checkbox>
+                                <Checkbox checked={promotion} onChange={handleChangePromotion}>{"Đơn khuyến mại"}</Checkbox>
                                 <Checkbox checked={urgency} onChange={handleChangeUrgency}>{"Giao khẩn cấp"}</Checkbox>
-                                <Checkbox checked={in_day} onChange={handleChangeInDay}>{"Giao trong ngày"}</Checkbox>
-                                <Checkbox checked={normal} onChange={handleChangeNormal} style={{ marginBottom: 12 }}>{"Giao bình thường"}</Checkbox>
+                                <Checkbox checked={in_day} onChange={handleChangeInDay} style={{ marginBottom: 12 }}>{"Giao trong ngày"}</Checkbox>
+                                <Text strong>{"Loại đơn hàng"}</Text>
+                                <Checkbox checked={delivery_type} onChange={handleChangeDeliveryType}>{"Giao tận nơi"}</Checkbox>
+                                <Checkbox checked={warehouse_type} onChange={handleChangeWarehouseType}>{"Đến kho lấy"}</Checkbox>
                                 <Text strong>{"Thời gian"}</Text>
                                 <RangePicker
                                     defaultValue={[moment(new Date(), DATE_FORMAT), moment(new Date(), DATE_FORMAT)]}

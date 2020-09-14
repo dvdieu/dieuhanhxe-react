@@ -9,9 +9,7 @@ import { PAGE, SIZE } from '../../../../config/table';
 //lib
 import moment from 'moment';
 
-const useSearch = ({
-    warehouse,
-    dispatchState }) => {
+const useSearch = ({ warehouse, dispatchState }) => {
     const dispatch = useDispatch();
     const order_reducer = useSelector(state => state.order_reducer);
     const { orders, fetch_orders, pagination } = order_reducer;
@@ -31,15 +29,19 @@ const useSearch = ({
     }, [pagination, dispatchState])
 
     /*eslint-disable react-hooks/exhaustive-deps */
-    const handleSearch = useCallback(({ keyword, from_date, to_date, urgency, in_day, normal }) => {
+    const handleSearch = useCallback(({ keyword, from_date, to_date, opening, promotion, urgency, in_day, delivery_type, warehouse_type }) => {
         let priority = [];
+        if (opening) priority.push('OPENING');
+        if (promotion) priority.push('PROMOTION');
         if (urgency) priority.push('URGENCY');
         if (in_day) priority.push('IN_DAY');
-        if (normal) priority.push('NORMAL');
         let status = [];
         if (priority.length > 0) {
             status = ['UNSET']
         }
+        let type = [];
+        if (delivery_type) type.push('DELIVERY');
+        if (warehouse_type) type.push('WAREHOUSE');
         dispatch(orderActions.findOrdersRequest({
             page: PAGE,
             size: SIZE,
@@ -49,15 +51,17 @@ const useSearch = ({
             to_date: (new Date(to_date)).getTime(),
             priority,
             status,
+            type,
         }))
     }, [dispatch])
 
     useEffect(() => {
         handleSearch({
             keyword: '',
-            from_date: moment().day(1),
+            from_date: moment().day(-8),
             to_date: moment().day(8),
-            urgency: true, in_day: true, normal: true
+            urgency: true, in_day: true, normal: true,
+            delivery_type: true, warehouse_type: true
         });
     }, [handleSearch])
 

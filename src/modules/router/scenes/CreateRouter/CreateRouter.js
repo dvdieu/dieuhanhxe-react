@@ -211,6 +211,7 @@ const CreateRouter = () => {
                             find_trucks={find_trucks}
                             direction_name={direction_name}
                             current_direction={current_direction}
+                            direction_templates={direction_templates}
                             new_event={new_event}
                             truck={truck}
                             handleChangeNewEvent={handleChangeNewEvent}

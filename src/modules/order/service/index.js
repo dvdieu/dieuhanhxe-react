@@ -11,6 +11,7 @@ export const findOrders = async (params) => {
         to_date: params.to_date,
         priority: params.priority,
         status: params.status,
+        type: params.type
     }
     try {
         let url = `${order_url}/order/find?page=${page}&size=${size}`
