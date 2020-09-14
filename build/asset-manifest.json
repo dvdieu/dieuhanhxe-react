@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.3b9b98e0.chunk.css",
-    "main.js": "/static/js/main.2129bfad.chunk.js",
-    "main.js.map": "/static/js/main.2129bfad.chunk.js.map",
+    "main.css": "/static/css/main.71216e6a.chunk.css",
+    "main.js": "/static/js/main.0de21837.chunk.js",
+    "main.js.map": "/static/js/main.0de21837.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.2a5a7654.js",
     "runtime-main.js.map": "/static/js/runtime-main.2a5a7654.js.map",
-    "static/css/2.e9b0153b.chunk.css": "/static/css/2.e9b0153b.chunk.css",
-    "static/js/2.cd4ed3bb.chunk.js": "/static/js/2.cd4ed3bb.chunk.js",
-    "static/js/2.cd4ed3bb.chunk.js.map": "/static/js/2.cd4ed3bb.chunk.js.map",
+    "static/css/2.b4ba98b0.chunk.css": "/static/css/2.b4ba98b0.chunk.css",
+    "static/js/2.0324249d.chunk.js": "/static/js/2.0324249d.chunk.js",
+    "static/js/2.0324249d.chunk.js.map": "/static/js/2.0324249d.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.1402f83b835826a5e7188070d3ce83f2.js": "/precache-manifest.1402f83b835826a5e7188070d3ce83f2.js",
+    "precache-manifest.1a806a3da5103734d3cac46eb3b1c54b.js": "/precache-manifest.1a806a3da5103734d3cac46eb3b1c54b.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.e9b0153b.chunk.css.map": "/static/css/2.e9b0153b.chunk.css.map",
-    "static/css/main.3b9b98e0.chunk.css.map": "/static/css/main.3b9b98e0.chunk.css.map",
-    "static/js/2.cd4ed3bb.chunk.js.LICENSE.txt": "/static/js/2.cd4ed3bb.chunk.js.LICENSE.txt",
+    "static/css/2.b4ba98b0.chunk.css.map": "/static/css/2.b4ba98b0.chunk.css.map",
+    "static/css/main.71216e6a.chunk.css.map": "/static/css/main.71216e6a.chunk.css.map",
+    "static/js/2.0324249d.chunk.js.LICENSE.txt": "/static/js/2.0324249d.chunk.js.LICENSE.txt",
     "static/media/1.jpg": "/static/media/1.efdc89a5.jpg",
     "static/media/2.jpg": "/static/media/2.dccc9b08.jpg",
     "static/media/3.jpg": "/static/media/3.f4ede5eb.jpg",
@@ -23,13 +23,14 @@
     "static/media/taixe2.jpeg": "/static/media/taixe2.13e080bb.jpeg",
     "static/media/taixe3.jpeg": "/static/media/taixe3.7958750f.jpeg",
     "static/media/taixe4.jpeg": "/static/media/taixe4.030fc348.jpeg",
-    "static/media/taixe5.jpeg": "/static/media/taixe5.09a1d63d.jpeg"
+    "static/media/taixe5.jpeg": "/static/media/taixe5.09a1d63d.jpeg",
+    "static/media/xe.jpg": "/static/media/xe.0af4bd99.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.2a5a7654.js",
-    "static/css/2.e9b0153b.chunk.css",
-    "static/js/2.cd4ed3bb.chunk.js",
-    "static/css/main.3b9b98e0.chunk.css",
-    "static/js/main.2129bfad.chunk.js"
+    "static/css/2.b4ba98b0.chunk.css",
+    "static/js/2.0324249d.chunk.js",
+    "static/css/main.71216e6a.chunk.css",
+    "static/js/main.0de21837.chunk.js"
   ]
 }
